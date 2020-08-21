@@ -1,5 +1,5 @@
 {
-  "name": "dev",
+  "name": "dont-touch-menu",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -27,5 +27,11 @@
     "gulp-pug": "^4.0.1",
     "gulp-sass": "^4.1.0",
     "gulp-uglify": "^3.0.2"
-  }
+  },
+  "browserslist": [
+    "defaults",
+    "not IE 11",
+    "not IE_Mob 11",
+    "maintained node versions"
+  ]
 }

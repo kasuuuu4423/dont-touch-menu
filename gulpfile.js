@@ -9,56 +9,48 @@ const plumber = require('gulp-plumber');
 const del = require('del');
 
 const paths = {
-  src: 'src',
-  dist: 'dist'
-};
+  'root': './dist/',
+  'pug': './src/pug/**/*.pug',
+  'html': './dist/',
+  'scss': './src/scss/**/*.scss',
+  'css': './dist/css/',
+}
 
-//Pug
-gulp.task('html', function() {
-  return gulp.src([
-      paths.src + '/pug/*.pug',
-      '!' + paths.src + '/pug/_*.pug'
-    ])
-    .pipe(plumber({
-      errorHandler: notify.onError("Error: <%= error.message %>")
-    }))
-    .pipe(pug({ pretty: true }))
-    .pipe(gulp.dest(paths.dist))
-});
+//gulpコマンドの省略
+const { watch, series, task, src, dest, parallel } = require('gulp');
 
 //Sass
-gulp.task('css', function() {
-  return gulp.src([
-      paths.src + '/**/*.scss',
-      '!' + paths.src + '/**/_*.scss'
-    ])
-    .pipe(plumber({
-      errorHandler: notify.onError("Error: <%= error.message %>")
-    }))
+task('sass', function() {
+  return (
+    src(paths.scss)
+    .pipe(plumber({ errorHandler: notify.onError("Error: <%= error.message %>") }))
     .pipe(sass({
-      outputStyle: 'expanded'
+      outputStyle: 'expanded' // Minifyするなら'compressed'
     }))
-    .pipe(autoprefixer({
-      overrideBrowserslist: 'last 2 versions'
-    }))
-    .pipe(gulp.dest(paths.dist + '/css'))
+    .pipe(dest(paths.css))
+  );
 });
 
-//JavaScript
-gulp.task('js', function() {
-  return gulp.src(
-      paths.src + '/javascripts/**/*'
-    )
-    .pipe(uglify())
-    .pipe(gulp.dest(paths.dist + '/javascripts'))
+//Pug
+task('pug', function() {
+  return (
+    src([paths.pug, '!./src/pug/**/_*.pug'])
+    .pipe(plumber({ errorHandler: notify.onError("Error: <%= error.message %>") }))
+    .pipe(pug({
+      pretty: true,
+    }))
+    .pipe(dest(paths.html))
+  );
 });
 
-//Browser Sync
-gulp.task('browser-sync', function(done) {
-  browsersync({
-    server: { //ローカルサーバー起動
-      baseDir: paths.dist
-    }
+// browser-sync
+task('browser-sync', () => {
+  return browserSync.init({
+    server: {
+      baseDir: paths.root
+    },
+    port: 8080,
+    reloadOnRestart: true
   });
   done();
 });
@@ -73,20 +65,16 @@ gulp.task('watch', function() {
   gulp.watch(paths.src + '/javascripts/**/*').on('change', gulp.series('js', reload));
 });
 
-//Clean
-gulp.task('clean', function(done) {
-  del.sync(paths.dist + '/**', '！' + paths.dist);
+//watch
+task('watch', (done) => {
+  watch([paths.scss], series('sass', 'reload'));
+  watch([paths.pug], series('pug', 'reload'));
   done();
 });
 
-//Default
+
 gulp.task('default',
   gulp.series(
-    'clean',
-    gulp.parallel(
-      'html',
-      'css',
-      'js',
-      'watch',
-      'browser-sync'
-    )));
+    'watch',
+    'browser-sync',
+  ));
