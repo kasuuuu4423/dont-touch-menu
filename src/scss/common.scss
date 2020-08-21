@@ -1,4 +1,7 @@
-div{
-    background: #282828;
-    color: white;
+@import "variables";
+
+body{
+	background: #ffffff;
+	font-family: 'Noto Sans JP', sans-serif;
+	font-size: $font-def;
 }

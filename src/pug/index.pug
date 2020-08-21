@@ -8,10 +8,42 @@ block append head
 	title #{titles['home']}
 
 block content
-	main
+	header
 		.container-fluid
 			.row
-				h1
+				h1.col-12
 					figure.logo: img(src="./img/logo.jpg", alt="Don't Touch Menu")
+				section.seat_status.col-12
+					h2.col-12 現在の席状況
+					.status.col-12
+						span 3/12
+						span  席
+	main
+		section.rule.container
+			.row
+				h2.col-12 お店のルール
+				ul.col-12
+					li.h3: h3.col-12 ＜カフェご利用のお客様へお願い＞
+					li 
+						ul
+							li 入り口に設置している消毒液で手指の消毒をお願いします。
+							li 3密回避のため1組 2名様までのご案内とさせていただきます。
+					li.h3: h3.col-12 ＜店内の衛生管理について＞
+					li
+						ul
+							li スタッフはマスクを着用いたします。
+							li 店内のお客様が触れる箇所は，定期的に消毒いたします。
+		section.reserve.container
+			.row
+				p.col-12 ご来店人数を選択してください
+				form(action="post").row.col-12
+					- for(var i = 1; i <= 4; i++)
+							input(type="radio", name="num", value=i, id=`r_${i}`) 
+							label(for=`r_${i}`).col-6
+								- if(i == 4)
+									span #{i}名様以上
+								- else
+									span #{i}名様
+					input(type="submit", value="利用規約に同意して進む").submit
 
 block script
