@@ -1,88 +1,92 @@
-const gulp    = require('gulp');
-const notify  = require("gulp-notify");
-const plumber = require("gulp-plumber");
-const sass    = require('gulp-sass');
-const pug     = require('gulp-pug');
+const gulp = require('gulp');
+const pug = require('gulp-pug');
+const sass = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
-const uglify  = require('gulp-uglify');
-const browserSync = require('browser-sync');
+const uglify = require('gulp-uglify');
+const browsersync = require('browser-sync');
+const notify = require('gulp-notify');
+const plumber = require('gulp-plumber');
+const del = require('del');
 
-//setting : paths
 const paths = {
-  'root'    : './dist/',
-  'pug'     : './src/pug/**/*.pug',
-  'html'    : './dist/**/*.html',
-  'cssSrc'  : './src/scss/**/*.scss',
-  'cssDist'   : './dist/css/',
-  'jsSrc' : './src/js/**/*.js',
-  'jsDist': './dist/js/'
-}
-
-//gulpコマンドの省略
-const { watch, series, task, src, dest, parallel } = require('gulp');
-
-//Sass
-task('sass', function () {
-  return (
-    src(paths.cssSrc)
-      .pipe(plumber({ errorHandler: notify.onError("Error: <%= error.message %>") }))
-      .pipe(sass({
-        outputStyle: 'expanded'// Minifyするなら'compressed'
-      }))
-      .pipe(autoprefixer({
-        browsers: ['ie >= 11'],
-        cascade: false,
-        grid: true
-        }))
-      .pipe(dest(paths.cssDist))
-  );
-});
+  src: 'src',
+  dist: 'dist'
+};
 
 //Pug
-task('pug', function () {
-  return (
-    src([paths.pug, '!./src/pug/**/_*.pug'])
-      .pipe(plumber({ errorHandler: notify.onError("Error: <%= error.message %>") }))
-      .pipe(pug({
-        pretty: true,
-        basedir: "./src/pug"
-      }))
-      .pipe(dest(paths.html))
-  );
+gulp.task('html', function() {
+  return gulp.src([
+      paths.src + '/pug/*.pug',
+      '!' + paths.src + '/pug/_*.pug'
+    ])
+    .pipe(plumber({
+      errorHandler: notify.onError("Error: <%= error.message %>")
+    }))
+    .pipe(pug({ pretty: true }))
+    .pipe(gulp.dest(paths.dist))
 });
 
-//JS Compress
-task('js', function () {
-  return (
-    src(paths.jsSrc)
-      .pipe(plumber())
-      .pipe(uglify())
-      .pipe(dest(paths.jsDist))
-  );
+//Sass
+gulp.task('css', function() {
+  return gulp.src([
+      paths.src + '/**/*.scss',
+      '!' + paths.src + '/**/_*.scss'
+    ])
+    .pipe(plumber({
+      errorHandler: notify.onError("Error: <%= error.message %>")
+    }))
+    .pipe(sass({
+      outputStyle: 'expanded'
+    }))
+    .pipe(autoprefixer({
+      overrideBrowserslist: 'last 2 versions'
+    }))
+    .pipe(gulp.dest(paths.dist + '/css'))
 });
 
-// browser-sync
-task('browser-sync', () => {
-  return browserSync.init({
-      server: {
-          baseDir: paths.root
-      },
-      port: 8080,
-      reloadOnRestart: true
+//JavaScript
+gulp.task('js', function() {
+  return gulp.src(
+      paths.src + '/javascripts/**/*'
+    )
+    .pipe(uglify())
+    .pipe(gulp.dest(paths.dist + '/javascripts'))
+});
+
+//Browser Sync
+gulp.task('browser-sync', function(done) {
+  browsersync({
+    server: { //ローカルサーバー起動
+      baseDir: paths.dist
+    }
   });
-});
-
-// browser-sync reload
-task('reload', (done) => {
-  browserSync.reload();
   done();
 });
 
-//watch
-task('watch', (done) => {
-  watch([paths.cssSrc], series('sass', 'reload'));
-  watch([paths.jsSrc], series('js', 'reload'));
-  watch([paths.pug], series('pug', 'reload'));
+//Watch
+gulp.task('watch', function() {
+  const reload = () => {
+    browsersync.reload(); //リロード
+  };
+  gulp.watch(paths.src + '/**/*').on('change', gulp.series('css', reload));
+  gulp.watch(paths.src + '/**/*').on('change', gulp.series('html', reload));
+  gulp.watch(paths.src + '/javascripts/**/*').on('change', gulp.series('js', reload));
+});
+
+//Clean
+gulp.task('clean', function(done) {
+  del.sync(paths.dist + '/**', '！' + paths.dist);
   done();
 });
-task('default', parallel('watch', 'browser-sync'));
+
+//Default
+gulp.task('default',
+  gulp.series(
+    'clean',
+    gulp.parallel(
+      'html',
+      'css',
+      'js',
+      'watch',
+      'browser-sync'
+    )));
