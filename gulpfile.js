@@ -11,11 +11,9 @@ const browserSync = require('browser-sync');
 const paths = {
   'root'    : './dist/',
   'pug'     : './src/pug/**/*.pug',
-  'html'    : './dist/**/*.html',
-  'cssSrc'  : './src/scss/**/*.scss',
-  'cssDist'   : './dist/css/',
-  'jsSrc' : './src/js/**/*.js',
-  'jsDist': './dist/js/'
+  'html'    : './dist/',
+  'scss'  : './src/scss/**/*.scss',
+  'css'   : './dist/css/',
 }
 
 //gulpコマンドの省略
@@ -24,17 +22,12 @@ const { watch, series, task, src, dest, parallel } = require('gulp');
 //Sass
 task('sass', function () {
   return (
-    src(paths.cssSrc)
+    src(paths.scss)
       .pipe(plumber({ errorHandler: notify.onError("Error: <%= error.message %>") }))
       .pipe(sass({
         outputStyle: 'expanded'// Minifyするなら'compressed'
       }))
-      .pipe(autoprefixer({
-        browsers: ['ie >= 11'],
-        cascade: false,
-        grid: true
-        }))
-      .pipe(dest(paths.cssDist))
+      .pipe(dest(paths.css))
   );
 });
 
@@ -45,19 +38,8 @@ task('pug', function () {
       .pipe(plumber({ errorHandler: notify.onError("Error: <%= error.message %>") }))
       .pipe(pug({
         pretty: true,
-        basedir: "./src/pug"
       }))
       .pipe(dest(paths.html))
-  );
-});
-
-//JS Compress
-task('js', function () {
-  return (
-    src(paths.jsSrc)
-      .pipe(plumber())
-      .pipe(uglify())
-      .pipe(dest(paths.jsDist))
   );
 });
 
@@ -80,9 +62,14 @@ task('reload', (done) => {
 
 //watch
 task('watch', (done) => {
-  watch([paths.cssSrc], series('sass', 'reload'));
-  watch([paths.jsSrc], series('js', 'reload'));
+  watch([paths.scss], series('sass', 'reload'));
   watch([paths.pug], series('pug', 'reload'));
   done();
 });
-task('default', parallel('watch', 'browser-sync'));
+
+
+gulp.task('default',
+  gulp.series(
+      'watch',
+      'browser-sync',
+));
