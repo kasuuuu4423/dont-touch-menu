@@ -8,6 +8,10 @@ block append head
 	title #{titles['home']}
 
 block content
-	main content
+	main
+		.container-fluid
+			.row
+				h1
+					figure.logo: img(src="./img/logo.jpg", alt="Don't Touch Menu")
 
 block script
