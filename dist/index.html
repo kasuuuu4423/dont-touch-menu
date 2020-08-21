@@ -1,10 +1,72 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
+  <head><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/home.css">
+    <link rel="stylesheet" href="./css/common.css">
     <link rel="stylesheet" href="undefinedcss/home/style.css">
     <title>Don't Touch Menu</title>
   </head>
   <body>
-    <main>content</main>
+    <header>
+      <div class="container-fluid">
+        <div class="row">
+          <h1 class="col-12">
+            <figure class="logo"><img src="./img/logo.jpg" alt="Don't Touch Menu"></figure>
+          </h1>
+          <section class="seat_status col-12">
+            <h2 class="col-12">現在の席状況</h2>
+            <div class="status col-12"><span>3/12</span><span> 席</span></div>
+          </section>
+        </div>
+      </div>
+    </header>
+    <main>
+      <section class="rule container">
+        <div class="row">
+          <h2 class="col-12">お店のルール</h2>
+          <ul class="col-12">
+            <li class="h3">
+              <h3 class="col-12">＜カフェご利用のお客様へお願い＞</h3>
+            </li>
+            <li> 
+              <ul>
+                <li>入り口に設置している消毒液で手指の消毒をお願いします。</li>
+                <li>3密回避のため1組 2名様までのご案内とさせていただきます。</li>
+              </ul>
+            </li>
+            <li class="h3">
+              <h3 class="col-12">＜店内の衛生管理について＞</h3>
+            </li>
+            <li>
+              <ul>
+                <li>スタッフはマスクを着用いたします。</li>
+                <li>店内のお客様が触れる箇所は，定期的に消毒いたします。</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </section>
+      <section class="reserve container">
+        <div class="row">
+          <p class="col-12">ご来店人数を選択してください</p>
+          <form class="row col-12" action="post">
+            <input type="radio" name="num" value="1" id="r_1">
+            <label class="col-6" for="r_1"><span>1名様</span>
+            </label>
+            <input type="radio" name="num" value="2" id="r_2">
+            <label class="col-6" for="r_2"><span>2名様</span>
+            </label>
+            <input type="radio" name="num" value="3" id="r_3">
+            <label class="col-6" for="r_3"><span>3名様</span>
+            </label>
+            <input type="radio" name="num" value="4" id="r_4">
+            <label class="col-6" for="r_4"><span>4名様以上</span>
+            </label>
+            <input class="submit" type="submit" value="利用規約に同意して進む">
+          </form>
+        </div>
+      </section>
+    </main>
   </body>
 </html>

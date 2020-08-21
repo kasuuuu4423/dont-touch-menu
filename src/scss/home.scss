@@ -1,0 +1,122 @@
+@import "variables";
+
+
+header{
+	padding-bottom: $margin-def;
+	.container-fluid{
+		.row{
+			h1{
+				figure.logo{
+					text-align: center;
+					img{
+						width: 100%;
+					}
+				}
+			}
+			section.seat_status{
+				h2{
+					font-size: $font-h2;
+					text-align: center;
+				}
+				.status{
+					text-align: center;
+					span:first-child{
+						font-size: 3.5rem;
+					}
+					span:nth-child(2){
+						font-size: $font-h2;
+					}
+				}
+			}
+		}
+	}
+}
+
+main{
+	section.rule{
+		background: #f3f3f3;
+		padding-top: $margin-def;
+		padding-bottom: $margin-def;
+		.row{
+			h2{
+				font-size: $font-h2;
+				text-align: center;
+				margin-bottom: $font-def;
+			}
+			ul{
+				li{
+					margin-bottom: $font-def;
+				}
+				li:not(.h3){
+					display: block;
+					ul{
+						li{
+							display: block;
+							position: relative;
+							&::before{
+								content: "";
+								display: block;
+								position: absolute;
+								transform: translate(-1rem, 0.6rem);
+								background-image: url(../img/tri.png);
+								background-size: contain;
+								background-repeat: no-repeat;
+								width: 1rem;
+								height: 1rem;
+							}
+						}
+					}
+				}
+				li.h3{
+					display: block;
+					h3{
+						font-size: $font-def;
+					}
+				}
+			}
+		}
+	}
+	section.reserve{
+		padding-top: $margin-def;
+		padding-bottom: $margin-def;
+		.row{
+			p{
+				margin-bottom: $font-def * 2;
+			}
+			form{
+				input[type=radio]{
+					display: none;
+				}
+				input[type=radio]:checked + label::before{
+					background: #4e4e4e;
+				}
+				label{
+					font-size: $font-h2;
+					margin-bottom: $font-def * 2;
+					display: inline-block;
+					&::before{
+						content: "";
+						transform: translateY(-0.15rem);
+						display: inline-block;
+						margin-right: 10px;
+						border: solid #adadad 6px;
+						width: $font-h2;
+						height: $font-h2;
+						border-radius: $font-h2 / 2;
+						transition: .1s;
+						vertical-align: middle;
+					}
+				}
+				input.submit{
+					margin: auto;
+					background: #13e482;
+					color: #ffffff;
+					border: none;
+					font-size: $font-h2;
+					padding: 5px 30px;
+					border-radius: $font-h2 / 3;
+				}
+			}
+		}
+	}
+}
