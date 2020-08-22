@@ -36,7 +36,7 @@ main section.rule {
 main section.rule .row h2 {
   font-size: 1.5rem;
   text-align: center;
-  margin-bottom: 1.3rem;
+  margin-bottom: 50px;
 }
 
 main section.rule .row ul li {
@@ -45,6 +45,10 @@ main section.rule .row ul li {
 
 main section.rule .row ul li:not(.h3) {
   display: block;
+}
+
+main section.rule .row ul li:not(.h3) ul {
+  padding-left: 1rem;
 }
 
 main section.rule .row ul li:not(.h3) ul li {
@@ -62,6 +66,7 @@ main section.rule .row ul li:not(.h3) ul li::before {
   background-repeat: no-repeat;
   width: 1rem;
   height: 1rem;
+  mix-blend-mode: multiply;
 }
 
 main section.rule .row ul li.h3 {
@@ -114,6 +119,7 @@ main section.reserve .row form input.submit {
   color: #ffffff;
   border: none;
   font-size: 1.5rem;
-  padding: 5px 30px;
+  padding: 10px 0;
+  width: 100%;
   border-radius: 0.5rem;
 }

@@ -3,3 +3,8 @@ body {
   font-family: 'Noto Sans JP', sans-serif;
   font-size: 1.3rem;
 }
+
+body .container, body .container-fluid {
+  padding-left: 50px;
+  padding-right: 50px;
+}
