@@ -70,10 +70,19 @@ main{
 				.like{
 					width: 70px;
 					text-align: right;
-					img{
+					svg{
 						width: 20px;
 						vertical-align: text-top;
 						transform: translateY(3px);
+						fill-opacity: 0;
+						stroke: #000;
+						stroke-width: 2px;
+					}
+					&.active{
+						svg{
+							fill: #e92f39;
+							fill-opacity: 1;
+						}
 					}
 				}
 			}
