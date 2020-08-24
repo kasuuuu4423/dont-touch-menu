@@ -71,10 +71,18 @@ main section.cat section.menu .menu_name .like {
   text-align: right;
 }
 
-main section.cat section.menu .menu_name .like img {
+main section.cat section.menu .menu_name .like svg {
   width: 20px;
   vertical-align: text-top;
   transform: translateY(3px);
+  fill-opacity: 0;
+  stroke: #000;
+  stroke-width: 2px;
+}
+
+main section.cat section.menu .menu_name .like.active svg {
+  fill: #e92f39;
+  fill-opacity: 1;
 }
 
 main section.cat section.menu .menu_price {
