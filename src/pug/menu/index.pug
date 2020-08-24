@@ -3,11 +3,101 @@ extends ../_layout
 block config
 
 block append head
-	link(rel="stylesheet" href=rootPath+"css/home/style.css")
 	include ../_config
+	link(rel="stylesheet" href=ROOT_PATH+"css/menu.css")
 	title #{titles['menu']}
 
 block content
-	main content
+	header.container
+		.row
+			figure.logo.col-5
+				img(src=ROOT_PATH + "img/logo.jpg", alt="")
+			div.col-7
+				h1 Menu.
+	main.container
+		section.cat.row
+			h2.cat_name.col-12: span CAKE
+			section.menu.lg.col-12
+				figure.menu_img
+					img(src=ROOT_PATH + "img/food.png", alt="")
+				.menu_name
+					h3 キウイとベリーのサマーカッサータ
+					.like
+						img(src=ROOT_PATH + "img/heart.svg", alt="")
+				.menu_price ¥480
+				.menu_description
+					p 甘酸っぱいキウイと<br>ブルーベリーを合わせて<br>爽やかで夏らしいカッサータが<br> できました。
+					p ココナッツサブレの<br> しっとりとした食感がアクセントに。
+					p リコッタチーズと<br> クリームが奏でる濃厚さと<br> シャリシャリのフルーツが<br> 夏らしさを感じます。
+					p 水彩画のようにきれいな<br> お皿の上の夏のカッサータを<br> お楽しみください。
+			.bar.col-12
+			section.menu.mid.col-6
+				figure.menu_img
+					img(src=ROOT_PATH + "img/food2.png", alt="")
+				.menu_name
+					h3 マフィン
+					.like
+						img(src=ROOT_PATH + "img/heart.svg", alt="")
+				.menu_price ¥480
+			.bar.col-12
+			section.menu.lg.col-12
+				figure.menu_img
+					img(src=ROOT_PATH + "img/food2.png", alt="")
+				.menu_name
+					h3 キウイとベリーのサマーカッサータ
+					.like
+						img(src=ROOT_PATH + "img/heart.svg", alt="")
+				.menu_price ¥480
+				.menu_description
+					p 甘酸っぱいキウイと<br>ブルーベリーを合わせて<br>爽やかで夏らしいカッサータが<br> できました。
+					p ココナッツサブレの<br> しっとりとした食感がアクセントに。
+					p リコッタチーズと<br> クリームが奏でる濃厚さと<br> シャリシャリのフルーツが<br> 夏らしさを感じます。
+					p 水彩画のようにきれいな<br> お皿の上の夏のカッサータを<br> お楽しみください。
+		section.cat.row
+			h2.cat_name.col-12: span COFFEE
+			section.menu.mid.col-6
+				figure.menu_img
+					img(src=ROOT_PATH + "img/food2.png", alt="")
+				.menu_name
+					h3 マフィン
+					.like
+						img(src=ROOT_PATH + "img/heart.svg", alt="")
+				.menu_price ¥480
+			section.menu.mid.col-6
+				figure.menu_img
+					img(src=ROOT_PATH + "img/food2.png", alt="")
+				.menu_name
+					h3 マフィン
+					.like
+						img(src=ROOT_PATH + "img/heart.svg", alt="")
+				.menu_price ¥480
+			.bar.col-12
+		section.cat.row
+			h2.cat_name.col-12: span CAKE
+			section.menu.sml.col-12
+				.menu_name
+					h3 ハンドドリップコーヒー
+					.like
+						img(src=ROOT_PATH + "img/heart.svg", alt="")
+				.menu_price ¥480
+			.bar.col-12
+			section.menu.mid.col-6
+				figure.menu_img
+					img(src=ROOT_PATH + "img/food2.png", alt="")
+				.menu_name
+					h3 マフィン
+					.like
+						img(src=ROOT_PATH + "img/heart.svg", alt="")
+				.menu_price ¥480
+			.bar.col-12
+			- for(var i = 0; i < 3; i++)
+				section.menu.sml.col-12
+					.menu_name
+						h3 ハンドドリップコーヒー
+						.like
+							img(src=ROOT_PATH + "img/heart.svg", alt="")
+					.menu_price ¥480
+				.bar.col-12
+
 
 block script

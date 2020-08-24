@@ -1,0 +1,139 @@
+@import "variables";
+
+header{
+	padding-top: $margin-def;
+	padding-bottom: $margin-def;
+	.row{
+		figure.logo{
+			img{
+				width: 100%;
+			}
+		}
+		div{
+			h1{
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%,-50%);
+			}
+		}
+	}
+}
+
+main{
+	.bar{
+		&::before{
+			content: "";
+			display: block;
+			border: dashed 1px;
+		}
+	}
+	section.cat{
+		margin-right: -25px;
+		margin-left: -25px;
+		padding-top: $margin-half;
+		padding-bottom: $margin-half;
+		&:nth-child(odd){
+			background: $grey;
+		}
+		.col-6, .col-12{
+			padding-right: 30px;
+			padding-left: 30px;
+		}
+		h2.cat_name{
+			span{
+				padding: 0px 13px;
+				border: solid 1px;
+				font-size: $font-def;
+				letter-spacing: 0.2rem;
+				font-weight: 300;
+			}
+		}
+		section.menu{
+			padding-top: $margin-half;
+			padding-bottom: $margin-half;
+			figure.menu_img{
+				img{
+					width: 100%;
+				}
+			}
+			.menu_name{
+				display: flex;
+				margin-bottom: $margin-half - 10px;
+				justify-content: space-between;
+				h3{
+					font-size: $font-def;
+					font-weight: 400;
+					width: 70%;
+					margin: 0;
+				}
+				.like{
+					width: 70px;
+					text-align: right;
+					img{
+						width: 20px;
+						vertical-align: text-top;
+						transform: translateY(3px);
+					}
+				}
+			}
+			.menu_price{
+				margin-bottom: $margin-half + 10px;
+			}
+			.menu_description{
+				font-size: $font-sml;
+				p{
+					margin-bottom: $margin-half;
+				}
+			}
+			&.sml, &.lg{
+				// position: relative;
+				// border-top: dashed 1px;
+			}
+			&.mid{
+				.menu_name{
+					flex-wrap: wrap;
+					margin: 0;
+					h3{
+						width: 100%;
+						margin-bottom: $margin-half - 10px;
+						font-size: $font-sml;
+					}
+					.like{
+						width: 100%;
+						vertical-align: baseline;
+					}
+				}
+				.menu_price{
+					margin: 0;
+					margin-top: -32px;
+				}
+			}
+			&.sml{
+				.menu_name{
+					flex-wrap: wrap;
+					margin: 0;
+					h3{
+						width: 100%;
+						margin-bottom: $margin-half - 10px;
+						font-size: $font-sml;
+					}
+					.like{
+						text-align: left;
+						width: 100%;
+					}
+				}
+				.menu_price{
+					margin: 0;
+					margin-top: -32px;
+					text-align: right;
+				}
+			}
+		}
+		.wrap_mid{
+			display: flex;
+			position: relative;
+			border-top: dashed 1px;
+		}
+	}
+}
