@@ -3,16 +3,16 @@ extends ./_layout
 block config
 
 block append head
-	link(rel="stylesheet" href=rootPath+"css/home/style.css")
 	include ./_config
-	title #{titles['home']}
+	link(rel="stylesheet", href=ROOT_PATH+"css/home.css")
+	title #{title}
 
 block content
 	header
 		.container-fluid
 			.row
 				h1.col-12
-					figure.logo: img(src="./img/logo.jpg", alt="Don't Touch Menu")
+					figure.logo: img(src=ROOT_PATH + "img/logo.jpg", alt="Don't Touch Menu")
 				section.seat_status.col-12
 					h2.col-12 現在の席状況
 					.status.col-12
