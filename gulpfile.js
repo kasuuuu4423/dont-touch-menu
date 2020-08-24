@@ -6,7 +6,6 @@ const uglify = require('gulp-uglify');
 const browsersync = require('browser-sync');
 const notify = require('gulp-notify');
 const plumber = require('gulp-plumber');
-const del = require('del');
 
 const paths = {
   'root': './dist/',
@@ -44,8 +43,8 @@ task('pug', function() {
 });
 
 // browser-sync
-task('browser-sync', () => {
-  return browserSync.init({
+task('browser-sync', (done) => {
+  return browsersync.init({
     server: {
       baseDir: paths.root
     },
@@ -55,15 +54,11 @@ task('browser-sync', () => {
   done();
 });
 
-//Watch
-gulp.task('watch', function() {
-  const reload = () => {
-    browsersync.reload(); //リロード
-  };
-  gulp.watch(paths.src + '/**/*').on('change', gulp.series('css', reload));
-  gulp.watch(paths.src + '/**/*').on('change', gulp.series('html', reload));
-  gulp.watch(paths.src + '/javascripts/**/*').on('change', gulp.series('js', reload));
+task('reload', (done) => {
+  browsersync.reload();
+  done();
 });
+
 
 //watch
 task('watch', (done) => {
@@ -77,4 +72,5 @@ gulp.task('default',
   gulp.series(
     'watch',
     'browser-sync',
-  ));
+  )
+);
