@@ -1,10 +1,12 @@
 body {
   background: #ffffff;
   font-family: 'Noto Sans JP', sans-serif;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
+  font-weight: 400;
+  overflow-x: hidden;
 }
 
 body .container, body .container-fluid {
-  padding-left: 50px;
-  padding-right: 50px;
+  padding-left: 25px;
+  padding-right: 25px;
 }
