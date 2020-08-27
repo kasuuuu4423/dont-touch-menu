@@ -4,8 +4,10 @@ body{
 	background: #ffffff;
 	font-family: 'Noto Sans JP', sans-serif;
 	font-size: $font-def;
+	font-weight: 400;
+	overflow-x: hidden;
 	.container, .container-fluid{
-		padding-left: 50px;
-		padding-right: 50px;
+		padding-left: 25px;
+		padding-right: 25px;
 	}
 }

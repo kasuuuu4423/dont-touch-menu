@@ -40,7 +40,7 @@ main section.rule .row h2 {
 }
 
 main section.rule .row ul li {
-  margin-bottom: 1.3rem;
+  margin-bottom: 1.2rem;
 }
 
 main section.rule .row ul li:not(.h3) {
@@ -74,7 +74,7 @@ main section.rule .row ul li.h3 {
 }
 
 main section.rule .row ul li.h3 h3 {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
 }
 
 main section.reserve {
@@ -83,7 +83,7 @@ main section.reserve {
 }
 
 main section.reserve .row p {
-  margin-bottom: 2.6rem;
+  margin-bottom: 2.4rem;
 }
 
 main section.reserve .row form input[type=radio] {
@@ -96,7 +96,7 @@ main section.reserve .row form input[type=radio]:checked + label::before {
 
 main section.reserve .row form label {
   font-size: 1.5rem;
-  margin-bottom: 2.6rem;
+  margin-bottom: 2.4rem;
   display: inline-block;
 }
 

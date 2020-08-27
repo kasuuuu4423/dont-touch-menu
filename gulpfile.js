@@ -10,13 +10,20 @@ const plumber = require('gulp-plumber');
 const paths = {
   'root': './dist/',
   'pug': './src/pug/**/*.pug',
+  'js': './src/js/**/*.js',
   'html': './dist/',
   'scss': './src/scss/**/*.scss',
   'css': './dist/css/',
+  'dist-js': './dist/js/',
 }
 
 //gulpコマンドの省略
 const { watch, series, task, src, dest, parallel } = require('gulp');
+
+task('copy-js', (done) =>{
+  src(paths['js']).pipe(dest(paths['dist-js']));
+  done();
+});
 
 //Sass
 task('sass', function() {
@@ -64,6 +71,7 @@ task('reload', (done) => {
 task('watch', (done) => {
   watch([paths.scss], series('sass', 'reload'));
   watch([paths.pug], series('pug', 'reload'));
+  watch([paths.js], series('copy-js', 'reload'));
   done();
 });
 

@@ -3,11 +3,121 @@ extends ../_layout
 block config
 
 block append head
-	link(rel="stylesheet" href=rootPath+"css/home/style.css")
 	include ../_config
+	link(rel="stylesheet" href=ROOT_PATH+"css/menu.css")
 	title #{titles['menu']}
 
 block content
-	main content
+	header.container
+		.row
+			figure.logo.col-5
+				img(src=ROOT_PATH + "img/logo.jpg", alt="")
+			div.col-7
+				h1 Menu.
+	main.container
+		section.cat.row
+			h2.cat_name.col-12: span CAKE
+			section.menu.lg.col-12
+				figure.menu_img
+					img(src=ROOT_PATH + "img/food.png", alt="")
+				.menu_name
+					h3 キウイとベリーのサマーカッサータ
+					.like
+						
+						<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"viewBox="0 0 123 106" style="enable-background:new 0 0 123 106;" xml:space="preserve">
+							<path class="st0" d="M61.6,103.2C47.8,91.5,10.4,52.6,10.4,52.6c-11.9-11.9-9-31.2,3.3-42.3c11.9-10.7,39-11.8,47.9,8.6c8.1-20.4,39.1-19.3,50.8-8c10.8,10.4,9.6,33.2,1.2,41.7C89.4,76.8,80.6,85.2,61.6,103.2z"/>
+						</svg>
+				.menu_price ¥480
+				.menu_description
+					p 甘酸っぱいキウイと<br>ブルーベリーを合わせて<br>爽やかで夏らしいカッサータが<br> できました。
+					p ココナッツサブレの<br> しっとりとした食感がアクセントに。
+					p リコッタチーズと<br> クリームが奏でる濃厚さと<br> シャリシャリのフルーツが<br> 夏らしさを感じます。
+					p 水彩画のようにきれいな<br> お皿の上の夏のカッサータを<br> お楽しみください。
+			.bar.col-12
+			section.menu.mid.col-6
+				figure.menu_img
+					img(src=ROOT_PATH + "img/food2.png", alt="")
+				.menu_name
+					h3 マフィン
+					.like
+						<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"viewBox="0 0 123 106" style="enable-background:new 0 0 123 106;" xml:space="preserve">
+							<path class="st0" d="M61.6,103.2C47.8,91.5,10.4,52.6,10.4,52.6c-11.9-11.9-9-31.2,3.3-42.3c11.9-10.7,39-11.8,47.9,8.6c8.1-20.4,39.1-19.3,50.8-8c10.8,10.4,9.6,33.2,1.2,41.7C89.4,76.8,80.6,85.2,61.6,103.2z"/>
+						</svg>
+				.menu_price ¥480
+			.bar.col-12
+			section.menu.lg.col-12
+				figure.menu_img
+					img(src=ROOT_PATH + "img/food2.png", alt="")
+				.menu_name
+					h3 キウイとベリーのサマーカッサータ
+					.like
+						
+						<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"viewBox="0 0 123 106" style="enable-background:new 0 0 123 106;" xml:space="preserve">
+							<path class="st0" d="M61.6,103.2C47.8,91.5,10.4,52.6,10.4,52.6c-11.9-11.9-9-31.2,3.3-42.3c11.9-10.7,39-11.8,47.9,8.6c8.1-20.4,39.1-19.3,50.8-8c10.8,10.4,9.6,33.2,1.2,41.7C89.4,76.8,80.6,85.2,61.6,103.2z"/>
+						</svg>
+				.menu_price ¥480
+				.menu_description
+					p 甘酸っぱいキウイと<br>ブルーベリーを合わせて<br>爽やかで夏らしいカッサータが<br> できました。
+					p ココナッツサブレの<br> しっとりとした食感がアクセントに。
+					p リコッタチーズと<br> クリームが奏でる濃厚さと<br> シャリシャリのフルーツが<br> 夏らしさを感じます。
+					p 水彩画のようにきれいな<br> お皿の上の夏のカッサータを<br> お楽しみください。
+		section.cat.row
+			h2.cat_name.col-12: span COFFEE
+			section.menu.mid.col-6
+				figure.menu_img
+					img(src=ROOT_PATH + "img/food2.png", alt="")
+				.menu_name
+					h3 マフィン
+					.like
+						
+						<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"viewBox="0 0 123 106" style="enable-background:new 0 0 123 106;" xml:space="preserve">
+							<path class="st0" d="M61.6,103.2C47.8,91.5,10.4,52.6,10.4,52.6c-11.9-11.9-9-31.2,3.3-42.3c11.9-10.7,39-11.8,47.9,8.6c8.1-20.4,39.1-19.3,50.8-8c10.8,10.4,9.6,33.2,1.2,41.7C89.4,76.8,80.6,85.2,61.6,103.2z"/>
+						</svg>
+				.menu_price ¥480
+			section.menu.mid.col-6
+				figure.menu_img
+					img(src=ROOT_PATH + "img/food2.png", alt="")
+				.menu_name
+					h3 マフィン
+					.like
+						
+						<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"viewBox="0 0 123 106" style="enable-background:new 0 0 123 106;" xml:space="preserve">
+							<path class="st0" d="M61.6,103.2C47.8,91.5,10.4,52.6,10.4,52.6c-11.9-11.9-9-31.2,3.3-42.3c11.9-10.7,39-11.8,47.9,8.6c8.1-20.4,39.1-19.3,50.8-8c10.8,10.4,9.6,33.2,1.2,41.7C89.4,76.8,80.6,85.2,61.6,103.2z"/>
+						</svg>
+				.menu_price ¥480
+			.bar.col-12
+		section.cat.row
+			h2.cat_name.col-12: span CAKE
+			section.menu.sml.col-12
+				.menu_name
+					h3 ハンドドリップコーヒー
+					.like
+						<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"viewBox="0 0 123 106" style="enable-background:new 0 0 123 106;" xml:space="preserve">
+							<path class="st0" d="M61.6,103.2C47.8,91.5,10.4,52.6,10.4,52.6c-11.9-11.9-9-31.2,3.3-42.3c11.9-10.7,39-11.8,47.9,8.6c8.1-20.4,39.1-19.3,50.8-8c10.8,10.4,9.6,33.2,1.2,41.7C89.4,76.8,80.6,85.2,61.6,103.2z"/>
+						</svg>
+				.menu_price ¥480
+			.bar.col-12
+			section.menu.mid.col-6
+				figure.menu_img
+					img(src=ROOT_PATH + "img/food2.png", alt="")
+				.menu_name
+					h3 マフィン
+					.like
+						<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"viewBox="0 0 123 106" style="enable-background:new 0 0 123 106;" xml:space="preserve">
+							<path class="st0" d="M61.6,103.2C47.8,91.5,10.4,52.6,10.4,52.6c-11.9-11.9-9-31.2,3.3-42.3c11.9-10.7,39-11.8,47.9,8.6c8.1-20.4,39.1-19.3,50.8-8c10.8,10.4,9.6,33.2,1.2,41.7C89.4,76.8,80.6,85.2,61.6,103.2z"/>
+						</svg>
+				.menu_price ¥480
+			.bar.col-12
+			- for(var i = 0; i < 3; i++)
+				section.menu.sml.col-12
+					.menu_name
+						h3 ハンドドリップコーヒー
+						.like
+							<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"viewBox="0 0 123 106" style="enable-background:new 0 0 123 106;" xml:space="preserve">
+								<path class="st0" d="M61.6,103.2C47.8,91.5,10.4,52.6,10.4,52.6c-11.9-11.9-9-31.2,3.3-42.3c11.9-10.7,39-11.8,47.9,8.6c8.1-20.4,39.1-19.3,50.8-8c10.8,10.4,9.6,33.2,1.2,41.7C89.4,76.8,80.6,85.2,61.6,103.2z"/>
+							</svg>
+					.menu_price ¥480
+				.bar.col-12
 
 block script
+	include ../include/_script
