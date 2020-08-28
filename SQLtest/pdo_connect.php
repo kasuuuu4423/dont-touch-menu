@@ -1,8 +1,8 @@
 <?php
 
-$dsn = 'mysql:dbname=dont_touch_menu;host=localhost';
-$user = 'root';
-$password = '';
+$dsn = 'mysql:dbname=artful_menu;host=mysql6b.xserver.jp';
+$user = 'artful_menu';
+$password = 'kejsiae2';
 
 try {
     $dbh = new PDO($dsn, $user, $password);
@@ -13,8 +13,3 @@ try {
 }
 
 ?>
-
-<body>
-<button>test
-</button>
-</body>
