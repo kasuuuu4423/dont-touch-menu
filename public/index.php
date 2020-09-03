@@ -25,6 +25,16 @@ $open = $store_info["open"];
 $close = $store_info["close"];
 $last = $store_info["last_order"];
 $exception = $store_info["exception"];
+
+$rules = $pdo->select("rule", $id);
+$cats = $pdo->select("rule_category", $id);
+$sort_rules = array();
+foreach($rules as $rule){
+  if(!is_array($sort_rules[$rule['rule_category_id']])){
+    $sort_rules[$rule['rule_category_id']] = array();
+  }
+  array_push($sort_rules[$rule['rule_category_id']], $rule['content']);
+}
 ?>
 
 <!DOCTYPE html>
@@ -72,25 +82,26 @@ $exception = $store_info["exception"];
         <div class="row">
           <h2 class="col-12">お店のルール</h2>
           <ul class="col-12">
-            <li class="h3">
-              <h3>＜カフェご利用のお客様へお願い＞</h3>
-            </li>
-            <li> 
-              <ul>
-                <li>入り口に設置している消毒液で手指の消毒をお願いします。</li>
-                <li>3密回避のため1組 2名様までのご案内とさせていただきます。</li>
-              </ul>
-            </li>
-            <li class="h3">
-              <h3>＜店内の衛生管理について＞</h3>
-            </li>
-            <li>
-              <ul>
-                <li>スタッフはマスクを着用いたします。</li>
-                <li>店内のお客様が触れる箇所は，定期的に消毒いたします。</li>
-              </ul>
-            </li>
-          </ul>
+            <?php foreach($cats as $cat): ?>
+              <li class="h3">
+                <h3><<?php echo $cat['name']; ?>></h3>
+              </li>
+              <li> 
+                <ul>
+                  <?php
+                  if(is_array($sort_rules[$cat["id"]])):
+                    foreach($sort_rules[$cat["id"]] as $rule):
+                  ?>
+                    <li><?php echo $rule; ?></li>
+                  <?php
+                    endforeach;
+                  else:
+                  ?>
+                  <li><?php echo $sort_rules[$cat["id"]]; ?></li>
+                  <?php endif; ?>
+                </ul>
+              </li>
+            <?php endforeach; ?>
         </div>
       </section>
       <section class="reserve container">
