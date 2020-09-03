@@ -11,3 +11,12 @@ body{
 		padding-right: 25px;
 	}
 }
+
+//leave
+main.leave{
+	form{
+		input{
+			@include button(#ee4b6e);
+		}
+	}
+}
