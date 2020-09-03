@@ -10,3 +10,14 @@ body .container, body .container-fluid {
   padding-left: 25px;
   padding-right: 25px;
 }
+
+main.leave form input {
+  margin: auto;
+  background: #ee4b6e;
+  color: #ffffff;
+  border: none;
+  font-size: 1.5rem;
+  padding: 10px 0;
+  width: 100%;
+  border-radius: 0.5rem;
+}

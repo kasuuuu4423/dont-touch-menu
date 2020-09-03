@@ -10,6 +10,29 @@ header .container-fluid .row h1 figure.logo img {
   width: 100%;
 }
 
+header .container-fluid .row section.time {
+  margin-bottom: 50px;
+}
+
+header .container-fluid .row section.time dl {
+  display: flex;
+  justify-content: space-around;
+}
+
+header .container-fluid .row section.time dl dt {
+  width: 50%;
+}
+
+header .container-fluid .row section.time dl dd {
+  width: 30%;
+  text-align: right;
+}
+
+header .container-fluid .row section.time .exception {
+  text-align: center;
+  font-weight: 500;
+}
+
 header .container-fluid .row section.seat_status h2 {
   font-size: 1.5rem;
   text-align: center;
