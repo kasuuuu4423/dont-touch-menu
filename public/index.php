@@ -1,34 +1,31 @@
 <?php
-$id;
-if(isset($_GET["id"])){
-	$id = $_GET["id"];
-}
-try{
-	$dsn = 'mysql:host=mysql6b.xserver.jp;dbname=artful_menu;charset=utf8';
-	$user = 'artful_menu';
-	$password = 'kejsiae2';
+require '../control/config.php';
+require '../control/pdo/lib_pdo.php';
 
-	$db = new PDO($dsn,$user,$password);
+$pdo = new Lib_pdo();
 
-	$stmt_store = $db->prepare("SELECT * FROM store WHERE id = :id");
-	$stmt_store->bindparam(':id', $id ,PDO::PARAM_INT);
-	$stmt_store->execute();
-	$result=$stmt_store->fetchAll(PDO::FETCH_ASSOC);
+if(isset($_GET['reserve'])){
+  $guest_num = $_GET['num'];
+  $guest_id = $_GET['id'];
+  $pdo->insert_guest($guest_num, $guest_id);
+}
+elseif(isset($_GET["id"])){
+  $id = $_GET["id"];
+}
+else{
+  echo '店舗が選択されていません。';
+  exit();
+}
 
-	$name = $result[0]["name"];
-	$seats = $result[0]["seats"];
-	$img_path = $result[0]["img_path"];
-	$open = $result[0]["open"];
-	$close = $result[0]["close"];
-	$last = $result[0]["last_order"];
-	$exception = $result[0]["exception"];
-}
-catch(Exception $e){
-  echo $e;
-}
+$store_info = $pdo->select("store", $id)[0];
+$name = $store_info["name"];
+$seats = $store_info["seats"];
+$img_path = $store_info["img_path"];
+$open = $store_info["open"];
+$close = $store_info["close"];
+$last = $store_info["last_order"];
+$exception = $store_info["exception"];
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -37,8 +34,8 @@ catch(Exception $e){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://artful.jp/staging-menu/front/css/common.css">
-    <link rel="stylesheet" href="https://artful.jp/staging-menu/front/css/home.css">
+    <link rel="stylesheet" href="<?php echo $public_path; ?>/css/common.css">
+    <link rel="stylesheet" href="<?php echo $public_path; ?>/css/home.css">
     <title><?php echo $name.  " | Don't touch menu"; ?></title>
   </head>
   <body>
@@ -46,12 +43,23 @@ catch(Exception $e){
       <div class="container-fluid">
         <div class="row">
           <h1 class="col-12">
-            <figure class="logo"><img src="<?php echo $img_path; ?>" alt="<?php echo $name; ?>"></figure>
+            <figure class="logo"><img src="<?php if($img_path != NULL) echo $img_path; else echo "<?php echo $control_path; ?>/img/dtm.jpg"; ?>" alt="<?php echo $name; ?>"></figure>
 					</h1>
-					<div><?php echo $open; ?></div>
-					<div><?php echo $close; ?></div>
-					<div><?php echo $last; ?></div>
-					<div><?php echo $exception; ?></div>
+          <section class="time col-12">
+            <dl class="open_time">
+              <dt>OPEN</dt>
+              <dd><?php echo $open; ?></dd>
+            </dl>
+            <dl class="close_time">
+              <dt>CLOSE</dt>
+              <dd><?php echo $close; ?></dd>
+            </dl>
+            <dl class="last">
+              <dt>ラストオーダー</dt>
+              <dd><?php echo $last; ?></dd>
+            </dl>
+            <div class="exception"><?php if($exception != NULL) echo $exception; ?></div>
+          </section>
           <section class="seat_status col-12">
             <h2 class="col-12">現在の席状況</h2>
             <div class="status col-12"><span>3/<?php echo $seats; ?></span><span> 席</span></div>
@@ -88,7 +96,7 @@ catch(Exception $e){
       <section class="reserve container">
         <div class="row">
           <p class="col-12">ご来店人数を選択してください</p>
-          <form class="col-12" method="post" action="https://artful.jp/staging-menu/control/pdo/pdo_guest_insert.php?id=<?php echo $id ?>">
+          <form class="col-12" method="get">
             <div class="row">
               <input type="radio" name="num" value="1" id="r_1">
               <label class="col-6" for="r_1"><span>1名様</span>
@@ -102,6 +110,7 @@ catch(Exception $e){
               <input type="radio" name="num" value="4" id="r_4">
               <label class="col-6" for="r_4"><span>4名様以上</span>
               </label>
+              <input type="hidden" name="id" value="<?php echo $id; ?>">
               <input class="submit" type="submit" name="reserve" value="利用規約に同意して進む">
             </div>
           </form>
@@ -110,5 +119,3 @@ catch(Exception $e){
     </main>
   </body>
 </html>
-
-<?php
