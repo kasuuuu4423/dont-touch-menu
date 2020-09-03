@@ -13,9 +13,15 @@ else{
 $pdo = new Lib_pdo();
 $menus = $pdo->select("menu", $id);
 $cats = $pdo->select("menu_category", $id);
-$cat_menus = array();
+$sort_menus = array();
+foreach($cats as $cat){
+  array_push($sort_menus, array());
+}
 foreach($menus as $menu){
-  $cat_menus[$menu['menu_category_id']] = $menu;
+  if(!is_array($sort_menus[$menu['menu_category_id']])){
+    $sort_menus[$menu['menu_category_id']] = array();
+  }
+  array_push($sort_menus[$menu['menu_category_id']], $menu);
 }
 ?>
 
@@ -40,56 +46,46 @@ foreach($menus as $menu){
       </div>
     </header>
     <main class="container">
-      <div class="bar col-12"></div>
         <?php
         foreach($cats as $cat):
           echo "<section class='cat row'><h2 class='cat_name col-12'><span>". $cat["name"] ."</span></h2>";
-          // foreach($cat_menus[$cat["id"]] as $cat_menu):
-          $cat_menu = $cat_menus[$cat["id"]];
-          if($cat_menu["img_path"] == NULL):
+          foreach($sort_menus[$cat["id"]] as $cat_menu):
+            //$cat_menu = $sort_menus[$cat["id"]];
+            if($cat_menu["img_path"] == NULL){
+              $menu_size = "sml";
+              $menu_col = "col-12";
+            }
+            elseif($cat_menu["description"] == NULL){
+              $menu_size = "mid";
+              $menu_col = "col-6";
+            }
+            else{
+              $menu_size = "lg";
+              $menu_col = "col-12";
+            }
         ?>
-          <section class="menu sml col-12">
-            <div class="menu_name">
-              <h3><?php echo $cat_menu["name"]; ?></h3>
-              <div id="<?php echo $cat_menu["id"]; ?>" class="like">
-                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"viewBox="0 0 123 106" style="enable-background:new 0 0 123 106;" xml:space="preserve">
-                  <path class="st0" d="M61.6,103.2C47.8,91.5,10.4,52.6,10.4,52.6c-11.9-11.9-9-31.2,3.3-42.3c11.9-10.7,39-11.8,47.9,8.6c8.1-20.4,39.1-19.3,50.8-8c10.8,10.4,9.6,33.2,1.2,41.7C89.4,76.8,80.6,85.2,61.6,103.2z"/>
-                </svg>
-              </div>
+        <section class="menu <?php echo $menu_size . " " . $menu_col; ?>">
+          <?php if($menu_size == "lg" || $menu_size == "mid"): ?>
+            <figure class="menu_img"><img src="<?php echo $img_folder_path.$cat_menu["img_path"] ?>" alt=""></figure>
+          <?php endif; ?>
+          <div class="menu_name">
+            <h3><?php echo $cat_menu["name"]; ?></h3>
+            <div id="<?php echo $cat_menu["id"]; ?>" class="like">
+              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"viewBox="0 0 123 106" style="enable-background:new 0 0 123 106;" xml:space="preserve">
+                <path class="st0" d="M61.6,103.2C47.8,91.5,10.4,52.6,10.4,52.6c-11.9-11.9-9-31.2,3.3-42.3c11.9-10.7,39-11.8,47.9,8.6c8.1-20.4,39.1-19.3,50.8-8c10.8,10.4,9.6,33.2,1.2,41.7C89.4,76.8,80.6,85.2,61.6,103.2z"/>
+              </svg>
             </div>
-            <div class="menu_price"><?php echo $cat_menu["price"]; ?></div>
-          </section>
-        <?php elseif($cat_menu["description"] == NULL): ?>
-          <section class="menu mid col-6">
-            <figure class="menu_img"><img src="<?php echo $cat_menu["img_path"] ?>" alt=""></figure>
-            <div class="menu_name">
-              <h3><?php echo $cat_menu["name"]; ?></h3>
-              <div id="<?php echo $cat_menu["id"]; ?>" class="like">
-                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"viewBox="0 0 123 106" style="enable-background:new 0 0 123 106;" xml:space="preserve">
-                  <path class="st0" d="M61.6,103.2C47.8,91.5,10.4,52.6,10.4,52.6c-11.9-11.9-9-31.2,3.3-42.3c11.9-10.7,39-11.8,47.9,8.6c8.1-20.4,39.1-19.3,50.8-8c10.8,10.4,9.6,33.2,1.2,41.7C89.4,76.8,80.6,85.2,61.6,103.2z"/>
-                </svg>
-              </div>
-            </div>
-            <div class="menu_price"><?php echo $cat_menu["price"]; ?></div>
-          </section>
-        <?php else: ?>
-          <section class="menu lg col-12">
-            <figure class="menu_img"><img src="<?php echo $cat_menu["img_path"] ?>" alt=""></figure>
-            <div class="menu_name">
-              <h3><?php echo $cat_menu["name"]; ?></h3>
-              <div id="<?php echo $cat_menu["id"]; ?>" class="like">
-                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"viewBox="0 0 123 106" style="enable-background:new 0 0 123 106;" xml:space="preserve">
-                  <path class="st0" d="M61.6,103.2C47.8,91.5,10.4,52.6,10.4,52.6c-11.9-11.9-9-31.2,3.3-42.3c11.9-10.7,39-11.8,47.9,8.6c8.1-20.4,39.1-19.3,50.8-8c10.8,10.4,9.6,33.2,1.2,41.7C89.4,76.8,80.6,85.2,61.6,103.2z"/>
-                </svg>
-              </div>
-            </div>
-            <div class="menu_price"><?php echo $cat_menu["price"]; ?></div>
+          </div>
+          <div class="menu_price"><?php echo $cat_menu["price"]; ?></div>
+          <?php if($menu_size == "lg"): ?>
             <div class="menu_description">
               <p><?php echo $cat_menu["description"]; ?></p>
             </div>
-          </section>
+          <?php endif; ?>
+        </section>
+        <div class="bar col-12"></div>
         <?php
-          endif;
+          endforeach;
           echo "</section>";
         endforeach;
         ?>
