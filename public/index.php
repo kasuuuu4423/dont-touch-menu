@@ -29,11 +29,20 @@ $exception = $store_info["exception"];
 $rules = $pdo->select("rule", $id);
 $cats = $pdo->select("rule_category", $id);
 $sort_rules = array();
+
 foreach($rules as $rule){
   if(!is_array($sort_rules[$rule['rule_category_id']])){
     $sort_rules[$rule['rule_category_id']] = array();
   }
   array_push($sort_rules[$rule['rule_category_id']], $rule['content']);
+}
+
+$guest_sum = 0;
+$guests = $pdo->select("guest", $id);
+foreach($guests as $guest){
+  if($guest['leave_datetime'] == NULL){
+    $guest_sum += $guest['num'];
+  }
 }
 ?>
 
@@ -71,8 +80,8 @@ foreach($rules as $rule){
             <div class="exception"><?php if($exception != NULL) echo $exception; ?></div>
           </section>
           <section class="seat_status col-12">
-            <h2 class="col-12">現在の席状況</h2>
-            <div class="status col-12"><span>3/<?php echo $seats; ?></span><span> 席</span></div>
+            <h2 class="col-12">現在の残席数</h2>
+            <div class="status col-12"><span><?php $tmp_num = $seats - $guest_sum; echo $tmp_num; ?>/<?php echo $seats; ?></span><span> 席</span></div>
           </section>
         </div>
       </div>
