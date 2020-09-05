@@ -46,6 +46,7 @@ if(isset($_POST["login"])){
   if (password_verify($_POST["password"], $row_login["password"])) {
     //session_idを新しく生成し、置き換える
     session_regenerate_id(true);
+    $_SESSION["ID"] = $row_login["id"];
     $_SESSION["USERID"] = $row_login["userid"];
     echo "ログインしました";
     //管理画面へリダイレクト

@@ -22,7 +22,6 @@ if (ini_get("session.use_cookies")) {
     );
 }
 //セッションクリア
-@session_destroy();
-
+unset($_SESSION["USERID"]);
 echo $output;
 echo "<a href='../login/index.php'>ログインはこちら</a>";

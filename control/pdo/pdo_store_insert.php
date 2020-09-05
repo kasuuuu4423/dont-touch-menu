@@ -53,7 +53,7 @@ if(isset($_POST['signup'])) {
       $stmt_store_insert->bindparam(':close', $_POST["store_close"], PDO::PARAM_STR);
       $stmt_store_insert->bindparam(':last_order', $_POST["store_last_order"], PDO::PARAM_STR);
       $stmt_store_insert->bindparam(':exception', $_POST["store_exception"], PDO::PARAM_STR);
-      $stmt_store_insert->execute($params_store_insert);
+      $stmt_store_insert->execute();
     }
     catch(Exception $e){
       echo $e;
