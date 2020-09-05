@@ -127,10 +127,37 @@ class Lib_pdo{
             echo $e;
         }
     }
+    public function insert_rule($rule_content, $rule_cat_id, $store_id){
+        try{
+            $null = NULL;
+            $stmt = $this->db->prepare('INSERT INTO rule (id, content, store_id, rule_category_id, created_at, update_at) VALUES (:id, :content, :store_id, :rule_category_id, now(), now())');
+            $stmt->bindparam(':id', $null, PDO::PARAM_INT);
+            $stmt->bindparam(':content', $rule_content, PDO::PARAM_STR);
+            $stmt->bindparam(':store_id', $store_id, PDO::PARAM_INT);
+            $stmt->bindparam(':rule_category_id', $rule_cat_id, PDO::PARAM_INT);
+            $stmt->execute();
+        }
+        catch(Exception $e){
+            echo $e;
+        }
+    }
     public function insert_menu_category($menu_cat_name, $store_id){
         try{
             $null = NULL;
             $stmt = $this->db->prepare('INSERT INTO menu_category (id, name, store_id, created_at, update_at) VALUES (:id, :name, :store_id, now(), now())');
+            $stmt->bindparam(':id', $null, PDO::PARAM_INT);
+            $stmt->bindparam(':name', $menu_cat_name, PDO::PARAM_STR);
+            $stmt->bindparam(':store_id', $store_id, PDO::PARAM_INT);
+            $stmt->execute();
+        }
+        catch(Exception $e){
+            echo $e;
+        }
+    }
+    public function insert_rule_category($menu_cat_name, $store_id){
+        try{
+            $null = NULL;
+            $stmt = $this->db->prepare('INSERT INTO rule_category (id, name, store_id, created_at, update_at) VALUES (:id, :name, :store_id, now(), now())');
             $stmt->bindparam(':id', $null, PDO::PARAM_INT);
             $stmt->bindparam(':name', $menu_cat_name, PDO::PARAM_STR);
             $stmt->bindparam(':store_id', $store_id, PDO::PARAM_INT);
