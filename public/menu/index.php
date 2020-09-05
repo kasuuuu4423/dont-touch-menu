@@ -76,7 +76,7 @@ foreach($menus as $menu){
               </svg>
             </div>
           </div>
-          <div class="menu_price"><?php echo $cat_menu["price"]; ?></div>
+          <div class="menu_price">¥<?php echo $cat_menu["price"]; ?></div>
           <?php if($menu_size == "lg"): ?>
             <div class="menu_description">
               <p><?php echo $cat_menu["description"]; ?></p>
