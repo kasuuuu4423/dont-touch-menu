@@ -55,13 +55,13 @@ elseif(isset($_GET["id"])){
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <script>
     window.onload = () => {
-        console.log($.cookie("id"));
         let button = document.getElementById("submit_btn");
         let form = document.getElementById("form");
         button.addEventListener('click', () => {
             let id = $.cookie("id");
             let input = document.createElement('input');
             $.cookie("id", "",{path:"/",expires:-1});
+            $.cookie("like", "",{path:"/",expires:-1});
             input.setAttribute('type', 'hidden');
             input.setAttribute('name', 'guest_id');
             input.setAttribute('value', id);

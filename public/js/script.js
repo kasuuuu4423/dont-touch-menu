@@ -6,29 +6,60 @@ $(() => {
 		arg[kv[0]]=kv[1];
 	}
 	$.cookie("id", arg['user'], {path:"/"});
+
+	let l_cookie = $.cookie("like");
+	if(l_cookie != undefined){
+		let l_cookie_sp = l_cookie.split(',');
+		l_cookie_sp.pop();
+		for(let i = 0; i < l_cookie_sp.length; i++){
+			let like = document.getElementById(l_cookie_sp[i]);
+			like.classList.add('active');
+		}
+	}
+
+	//like付け消し処理
 	let like = document.getElementsByClassName('like');
 	for(let i = 0; i < like.length; i++){
 		like[i].addEventListener('click', () => {
+			let l_cookie = $.cookie("like");
 			like[i].classList.toggle('active');
-			let name = like[i].name;
-			let likes = $.cookie("likes");
-			let likes_sp = likes.split(';');
-			let flag = false;
-			for(let i = 0; i < likes_sp.length; i++){
-				if(likes_sp[i] == name){
-					flag = true;
-					break;
+			let l_id = like[i].id;	
+			if(like[i].classList.contains('active')){
+				if(l_cookie == undefined || l_cookie == ""){
+					$.cookie("like", l_id + ",", {expires: 0.5, path:"/"});
+				}
+				else{
+					let l_cookie_sp = l_cookie.split(',');
+					l_cookie_sp.pop();
+					l_cookie_sp.push(l_id);
+					l_cookie = l_cookie_sp.join(',');
+					$.cookie("like", l_cookie + ",", {expires: 0.5, path:"/"});
 				}
 			}
-			if(flag){
-				likes_sp.splice(i, 1);
-			}
 			else{
-				likes_sp.push(name);
+				try{
+					let l_cookie_sp = l_cookie.split(',');
+					l_cookie_sp.pop();
+					for(let ci = 0; ci < l_cookie_sp.length; ci++){
+						if(l_cookie_sp[ci] == l_id){
+							l_cookie_sp.splice(ci, 1);
+							break;
+						}
+					}
+					l_cookie = l_cookie_sp.join(',');
+				}
+				catch(e){
+					$.cookie("like", "", {expires: 0, path:"/"});
+				}
+				if(l_cookie != ""){
+					$.cookie("like", l_cookie + ",", {expires: 0.5, path:"/"});
+				}
+				else{
+					$.cookie("like", "", {expires: 0.5, path:"/"});
+				}
 			}
-			likes = likes_sp.join(';');
-			$.cookie("likes", likes, {path:"/"});
+			//$.cookie("likes", likes, {path:"/"});
+			console.log(document.cookie);
 		});
 	}
 });
-
