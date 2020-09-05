@@ -52,6 +52,30 @@ class Lib_pdo{
             echo $e;
         }
     }
+    public function select_rule_cat_id($rule_cat_id){
+        try{
+            $stmt = $this->db->prepare("SELECT * FROM rule_category WHERE id = :id");
+            $stmt->bindparam(':id', $rule_cat_id ,PDO::PARAM_INT);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }
+        catch(Exception $e){
+            echo $e;
+        }
+    }
+    public function select_rule_id($rule_id){
+        try{
+            $stmt = $this->db->prepare("SELECT * FROM rule WHERE id = :id");
+            $stmt->bindparam(':id', $rule_id ,PDO::PARAM_INT);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }
+        catch(Exception $e){
+            echo $e;
+        }
+    }
     public function select_guest_byDate($enter_date_time, $store_id){
         try{
             $stmt = $this->db->prepare('SELECT * FROM guest WHERE DATE(enter_datetime) = :enter_datetime AND store_id = :store_id');
@@ -203,6 +227,28 @@ class Lib_pdo{
             $stmt = $this->db->prepare('UPDATE menu_category SET name = :name WHERE id = :id');
             $stmt->bindparam(':id', $menu_cat_id, PDO::PARAM_INT);
             $stmt->bindparam(':name', $menu_cat_name, PDO::PARAM_STR);
+            $stmt->execute();
+        }
+        catch(Exception $e){
+            echo $e;
+        }
+    }
+    public function update_rule_cat($rule_cat_id, $rule_cat_name){
+        try{
+            $stmt = $this->db->prepare('UPDATE rule_category SET name = :name WHERE id = :id');
+            $stmt->bindparam(':id', $rule_cat_id, PDO::PARAM_INT);
+            $stmt->bindparam(':name', $rule_cat_name, PDO::PARAM_STR);
+            $stmt->execute();
+        }
+        catch(Exception $e){
+            echo $e;
+        }
+    }
+    public function update_rule($rule_id, $rule_content){
+        try{
+            $stmt = $this->db->prepare('UPDATE rule SET content = :content WHERE id = :id');
+            $stmt->bindparam(':id', $rule_id, PDO::PARAM_INT);
+            $stmt->bindparam(':content', $rule_content, PDO::PARAM_STR);
             $stmt->execute();
         }
         catch(Exception $e){

@@ -1,18 +1,16 @@
 <?php
-
+require '../pdo/lib_pdo.php';
 session_start();
+$pdo = new Lib_pdo();
+
 if (isset($_SESSION["USERID"])) {
   echo "ようこそ".($_SESSION["USERID"])."さん<br>";
   echo "<div><a href='../logout/index.php'></div>ログアウトはこちら</a>";
   if(isset($_GET['cat_id'])){
-  require "../pdo/pdo_connect.php";
-  $sql_rule_cat = 'SELECT * FROM rule_category WHERE id = '.$_GET['cat_id'].'';
-  $stmt_rule_cat = $dbh -> query($sql_rule_cat);
-  $params_rule_cat = $stmt_rule_cat -> fetch(PDO::FETCH_ASSOC);
+  $rule_cat = $pdo->select_rule_cat_id($_GET['cat_id'])[0];
 
-  $rule_cat_id = $params_rule_cat['id'];
-  $rule_cat_name = $params_rule_cat['name'];
-
+  $rule_cat_id = $rule_cat['id'];
+  $rule_cat_name = $rule_cat['name'];
 ?>
 
 <form action="update.php" method="post">
@@ -25,13 +23,10 @@ if (isset($_SESSION["USERID"])) {
 <?php
   }
   if(isset($_GET['rule_id'])){
-    require "../pdo/pdo_connect.php";
-    $sql_rule = 'SELECT * FROM rule WHERE id = '.$_GET['rule_id'].'';
-    $stmt_rule = $dbh -> query($sql_rule);
-    $params_rule = $stmt_rule -> fetch(PDO::FETCH_ASSOC);
+    $rule = $pdo->select_rule_id($_GET['rule_id'])[0];
   
-    $rule_id = $params_rule['id'];
-    $rule_content = $params_rule['content'];
+    $rule_id = $rule['id'];
+    $rule_content = $rule['content'];
   ?>
   
   <form action="update.php" method="post">
@@ -49,24 +44,12 @@ if (isset($_SESSION["USERID"])) {
 <?php
 
 if(isset($_POST['confirm_cat'])){
-  require "../pdo/pdo_connect.php";
-  $sql_rule_cat_update = 'UPDATE rule_category SET name = :name WHERE id = :id';
-  $stmt_rule_cat_update = $dbh->prepare($sql_rule_cat_update);
-  $stmt_rule_cat_update->bindparam(':id', $_POST['rule_cat_id'], PDO::PARAM_INT);
-  $stmt_rule_cat_update->bindparam(':name', $_POST['rule_cat_name'], PDO::PARAM_STR);
-  $stmt_rule_cat_update->execute();
-
+  $pdo->update_rule_cat($_POST['rule_cat_id'], $_POST['rule_cat_name']);
   echo "情報を更新しました。";
 }
 
 if(isset($_POST['confirm_rule'])){
-  require "../pdo/pdo_connect.php";
-  $sql_rule_update = 'UPDATE rule SET content = :content WHERE id = :id';
-  $stmt_rule_update = $dbh->prepare($sql_rule_update);
-  $stmt_rule_update->bindparam(':id', $_POST['rule_id'], PDO::PARAM_INT);
-  $stmt_rule_update->bindparam(':content', $_POST['rule_content'], PDO::PARAM_STR);
-  $stmt_rule_update->execute();
-
+  $pdo->update_rule($_POST['rule_id'], $_POST['rule_content']);
   echo "情報を更新しました。";
 }
 ?>
