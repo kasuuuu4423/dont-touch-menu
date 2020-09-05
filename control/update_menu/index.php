@@ -1,9 +1,9 @@
 <?php
 require '../pdo/lib_pdo.php';
 session_start();
+$pdo = new Lib_pdo();
 
 if (isset($_SESSION["USERID"])) {
-  $pdo = new Lib_pdo();
   echo "ようこそ".($_SESSION["USERID"])."さん<br>";
   echo "<div><a href='../logout/index.php'>ログアウトはこちら</a></div>";
   echo "<h1>お店のメニューを追加、変更</h1>";
