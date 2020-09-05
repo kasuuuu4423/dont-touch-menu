@@ -37,16 +37,12 @@ if ($_GET['target'] == 'cat') :
 endif; 
 
 if(isset($_POST['insert_cat'])){
-  require "../pdo/pdo_connect.php";
-  $null = NULL;
   $pdo->insert_menu_category($_POST['menu_cat_name'], $_SESSION['ID']);
   echo 'メニューカテゴリーの追加が完了しました';
   echo '<p><a href="index.php">メニュー変更画面へ戻る</a></p>';
   echo '<p><a href="../index.php">管理画面TOPへ</a></p>';
 }
 elseif(isset($_POST['insert_menu'])){
-  require "../pdo/pdo_connect.php";
-  $null = NULL;
   $pdo->insert_menu($_POST['menu_name'], $_POST['menu_price'], $_POST['menu_desc'], $_FILES['menu_img'], $_POST['menu_enabled'], $_SESSION['ID'], $_POST['menu_cat_id']);
   echo 'メニューの追加が完了しました';
   echo '<p><a href="index.php">メニュー変更画面へ戻る</a></p>';
