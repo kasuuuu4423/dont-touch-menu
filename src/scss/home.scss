@@ -13,6 +13,24 @@ header{
 					}
 				}
 			}
+			section.time{
+				margin-bottom: $margin-def;
+				dl{
+					display: flex;
+					justify-content: space-around;
+					dt{
+						width: 50%;
+					}
+					dd{
+						width:30%;
+						text-align: right;
+					}
+				}
+				.exception{
+					text-align: center;
+					font-weight: 500;
+				}
+			}
 			section.seat_status{
 				h2{
 					font-size: $font-h2;
@@ -110,14 +128,7 @@ main{
 					}
 				}
 				input.submit{
-					margin: auto;
-					background: #13e482;
-					color: #ffffff;
-					border: none;
-					font-size: $font-h2;
-					padding: 10px 0;
-					width: 100%;
-					border-radius: $font-h2 / 3;
+					@include button(#13e482);
 				}
 			}
 		}
