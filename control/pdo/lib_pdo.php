@@ -58,6 +58,8 @@ class Lib_pdo{
             $stmt->bindparam(':enter_datetime', DATE($enter_date_time), PDO::PARAM_STR);
             $stmt->bindparam(':store_id', $store_id, PDO::PARAM_INT);
             $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
         }
         catch(Exception $e){
             echo $e;
