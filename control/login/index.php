@@ -13,7 +13,7 @@ require '../header.php';
   </div>
   <button type="submit" name="login">ログイン</button>
 </form>
-<a href="../signup/index.php">サインアップはこちら</a>
+<a href="<?php echo $signup_path ?>">サインアップはこちら</a>
 
 <?php
 if(isset($_POST["login"])){
@@ -44,7 +44,7 @@ if(isset($_POST["login"])){
     $_SESSION["USERID"] = $row_login["userid"];
     echo "ログインしました";
     //管理画面へリダイレクト
-    header("Location: ../index.php");
+    header("Location: $control_path");
     exit();
   } else {
     echo "ユーザーID又はパスワードが間違っています。";

@@ -1,6 +1,7 @@
 <?php
 
-session_start();
+require '../header.php';
+
 //変数宣言
 $output = "";
 if (isset($_SESSION["USERID"])) {
@@ -24,4 +25,4 @@ if (ini_get("session.use_cookies")) {
 //セッションクリア
 unset($_SESSION["USERID"]);
 echo $output;
-echo "<a href='../login/index.php'>ログインはこちら</a>";
+echo "<a href=".$login_path.">ログインはこちら</a>";
