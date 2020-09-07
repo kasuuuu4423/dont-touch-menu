@@ -9,22 +9,44 @@ if(isset($_SESSION['USERID'])){
   $seats = $store_info["seats"];
   $today = date("Y-m-d");
   $guests = array_reverse($pdo->select_guest_byDate($today, $_SESSION['ID']));
+
+  $guest_sum = 0;
+  foreach($guests as $guest){
+    $guest_enter_date = substr($guest['enter_datetime'], 0, 10);
+    if(($guest['leave_datetime'] == NULL) and ($today == $guest_enter_date)){
+      $guest_sum += $guest['num'];
+    }
+  }
+
+  if(isset($_SESSION['seats_inCtrl_msg'])){
+    echo $_SESSION['seats_inCtrl_msg'];
+    unset($_SESSION['seats_inCtrl_msg']);
+  }
+  else if(isset($_SESSION['leave_inCtrl_msg'])){
+    echo $_SESSION['leave_inCtrl_msg'];
+    unset($_SESSION['leave_inCtrl_msg']);
+  }
+
+  if(isset($_POST['update_seats'])){
+    $pdo = new Lib_pdo();
+    $pdo->update_store_seats($_POST['store_seats'], $_SESSION['ID']);
+    $_SESSION['seats_inCtrl_msg'] = '情報を更新しました。';
+    header("Location:$control_path");
+  }
+  if(isset($_GET['guest_id'])){
+    $pdo->leave_guest($_GET['guest_id']);
+    $_SESSION['leave_inCtrl_msg'] = 'お客様が退店しました。';
+    header("Location:$control_path");
+  }
   ?>
-  <h1>管理画面</h1>
-  <ul>
-    <li><a href="<?php echo $update_store_path ?>">基本情報</a></li>
-    <li><a href="<?php echo $update_menu_path ?>">メニュー変更</a></li>
-    <li><a href="<?php echo $update_rule_path ?>">ルール変更</a></li>
-    <li><a href="/history/">来店履歴</a></li>
-  </ul>
   <main class="ctrl_top">
     <section class="status container">
       <div class="row">
         <div class="col-12 bar"></div>
         <h2 class="col-12 text-center">現在の店内状況</h2>
-        <div class="col-12 text-center seats">19/<?php echo $seats ?> 席</div>
+        <div class="col-12 text-center seats"><?php echo $guest_sum; ?>/<?php echo $seats ?><span>席</span></div>
         <form class="col-12 text-center" action="index.php" method="post">
-          <span>席数</span>
+          <span>最大席数</span>
           <input type="text" name="store_seats" value="<?php if (!empty($seats)) echo(htmlspecialchars($seats, ENT_QUOTES, 'UTF-8'));?>">
           <input type="submit" name="update_seats" value="変更">
         </form>
@@ -46,15 +68,15 @@ if(isset($_SESSION['USERID'])){
             foreach($guests as $index=>$guest){
               $enter_time = str_replace(array(" ", "-", ":"), "", $guest['enter_datetime']);
               $enter_times[$index] = array(
-                'month' => str_replace("0", "", substr($enter_time, 4, 2)),
-                'day' => str_replace("0", "", substr($enter_time, 6, 2)),
-                'hour' => str_replace("0", "", substr($enter_time, 8, 2)),
-                'min' => str_replace("0", "", substr($enter_time, 10, 2)),
+                'month' => str_replace("0", "", substr($enter_time, 4, 1).substr($enter_time, 5, 1)),
+                'day' => str_replace("0", "", substr($enter_time, 6, 1).substr($enter_time, 7, 1)),
+                'hour' => str_replace("0", "", substr($enter_time, 8, 1).substr($enter_time, 9, 1)),
+                'min' => substr($enter_time, 10, 2),
               );
               $leave_time = str_replace(array(" ", "-", ":"), "", $guest['leave_datetime']);
               $leave_times[$index] = array(
-                'hour' => str_replace("0", "", substr($leave_time, 8, 2)),
-                'min' => str_replace("0", "", substr($leave_time, 10, 2)),
+                'hour' => str_replace("0", "", substr($leave_time, 8, 1)).substr($leave_time, 9, 1),
+                'min' => substr($leave_time, 10, 2),
               );
             ?>
             <div class="col-12 tbl_row">
@@ -71,7 +93,8 @@ if(isset($_SESSION['USERID'])){
                 <div class="col-5 tbl_leave">
                   <?php
                   if(empty($guest['leave_datetime'])){
-                    echo '<a class="ctrl_leave_btn" href="leave.php">ご退店</a>';
+                    echo '<input type="hidden" name="guest_id" value="'.$guest['id'].'">';
+                    echo '<a class="ctrl_leave_btn" href="'.$control_path.'?guest_id='.$guest['id'].'">ご退店</a>';
                   }
                   else{
                     echo '<span class="tbl_leave_date">'.$leave_times[$index]['hour'].':'.$leave_times[$index]['min'].'</span>';
@@ -94,14 +117,4 @@ if(isset($_SESSION['USERID'])){
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
   </body>
   <?php
-  if(isset($_SESSION['update_seats_msg'])){
-    echo $_SESSION['update_seats_msg'];
-    unset($_SESSION['update_seats_msg']);
-  }
-  if(isset($_POST['update_seats'])){
-    $pdo = new Lib_pdo();
-    $pdo->update_store_seats($_POST['store_seats'], $_SESSION['ID']);
-    $_SESSION['update_seats_msg'] = '情報を更新しました。';
-    header("Location:$control_path");
-  }
 }
