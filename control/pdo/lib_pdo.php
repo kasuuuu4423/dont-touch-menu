@@ -89,6 +89,30 @@ class Lib_pdo{
             echo $e;
         }
     }
+    public function select_date_toHistory($store_id){
+        try{
+            $stmt = $this->db->prepare("SELECT DISTINCT DATE_FORMAT(guest.enter_datetime,'%Y-%m-%d') AS 'date' FROM guest WHERE store_id = :store_id");
+            $stmt->bindparam(':store_id', $store_id, PDO::PARAM_INT);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }
+        catch(Exception $e){
+            echo $e;
+        }
+    }
+    public function select_store_id($user_id){
+        try{
+            $stmt = $this->db->prepare("SELECT * FROM store WHERE userid = :userid");
+            $stmt->bindValue(':userid', $user_id, PDO::PARAM_STR);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }
+        catch(Exception $e){
+            echo $e;
+        }
+    }
     public function insert_guest($guest_num, $store_id){
         try{
             $null = NULL;
@@ -117,7 +141,7 @@ class Lib_pdo{
             echo $e;
         }
     }
-    private function upload_menu_img($menu_img){
+    private function upload_img($menu_img){
         try{
         //requireできないからベタ打ち 画像絶対パス
         $img_folder_path = "../img/";
@@ -134,7 +158,7 @@ class Lib_pdo{
     }
     public function insert_menu($menu_name, $menu_price, $menu_desc, $menu_img, $menu_enabled, $store_id, $menu_cat_id){
         try{
-            $menu_img_path = $this->upload_menu_img($menu_img);
+            $menu_img_path = $this->upload_img($menu_img);
             $null = NULL;
             $stmt = $this->db->prepare("INSERT INTO menu (id, name, price, description, img_path, enabled, store_id, menu_category_id, created_at, update_at) VALUES (:id, :name, :price, :description, :img_path, :enabled, :store_id, :menu_category_id, now(), now())");
             $stmt->bindparam(':id', $null, PDO::PARAM_INT);
@@ -191,6 +215,25 @@ class Lib_pdo{
             echo $e;
         }
     }
+    public function insert_store($store_name, $user_id, $user_pw, $store_seats, $store_img, $store_opentime, $store_closetime, $store_lastorder, $store_exception){
+        try{
+            $store_img_path = $this->upload_img($store_img);
+            $null = NULL;
+            $stmt = $this->db->prepare('INSERT INTO store (id, name, userid, password, seats,  open, close, last_order,  created_at, update_at) VALUES (:id, :name, :userid, :password, :seats,  :open, :close, :last_order,  now(), now())');
+            $stmt->bindparam(':id', $null, PDO::PARAM_INT);
+            $stmt->bindparam(':name', $store_name, PDO::PARAM_STR);
+            $stmt->bindparam(':userid', $user_id, PDO::PARAM_STR);
+            $stmt->bindparam(':password', $user_pw, PDO::PARAM_STR);
+            $stmt->bindparam(':seats', $store_seats, PDO::PARAM_INT);
+            $stmt->bindparam(':open', $store_opentime, PDO::PARAM_STR);
+            $stmt->bindparam(':close', $store_closetime, PDO::PARAM_STR);
+            $stmt->bindparam(':last_order', $store_lastorder, PDO::PARAM_STR);
+            $stmt->execute();
+        }
+        catch(Exception $e){
+            echo $e;
+        }
+    }
     public function update_store_seats($store_seats, $store_id){
         try{
             $stmt = $this->db->prepare('UPDATE store SET seats = :seats, update_at = now() WHERE id = :id');
@@ -208,7 +251,7 @@ class Lib_pdo{
             $tmp_img_path = $tmp_menu['img_path'];
             unlink($tmp_img_path);
 
-            $menu_img_path = $this->upload_menu_img($menu_img);
+            $menu_img_path = $this->upload_img($menu_img);
             $stmt = $this->db->prepare('UPDATE menu SET name = :name, price = :price, description = :description, img_path = :img_path, enabled = :enabled WHERE id = :id');
             $stmt->bindparam(':id', $menu_id, PDO::PARAM_INT);
             $stmt->bindparam(':name', $menu_name, PDO::PARAM_STR);
