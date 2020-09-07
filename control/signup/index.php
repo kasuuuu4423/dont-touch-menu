@@ -49,42 +49,50 @@ if(isset($_POST['signup'])) {
 <main class="container pb-5">
   <div class="row">
     <h2>サインアップ</h2>
-    <form class="text-center" method="post" enctype="multipart/form-data">
+    <form class="col-12 text-center" method="post" enctype="multipart/form-data">
       <div class="mb-4">
         <h3 class="h4">店名</h3>
-        <input type="text" name="store_name" required></input><br>
+        <input class="w-100 input-group-text" type="text" name="store_name" required></input><br>
       </div>
       <div class="mb-4">
         <h3 class="h4">ユーザーID[ログイン時に必要です]</h3>
-        <input type="text" name="userid" required></input><br>
+        <input class="w-100 input-group-text" type="text" name="userid" required></input><br>
       </div>
       <div class="mb-4">
         <h3 class="h4">パスワード[ログイン時に必要です]（半角英数字をそれぞれ1文字以上含んだ8文字以上で設定してください）</h3>
-        <input type="text" name="password" required></input><br>
+        <input class="w-100 input-group-text" type="text" name="password" required></input><br>
       </div>
       <div class="mb-4">
         <h3 class="h4">最大席数</h3>
-        <input type="text" name="store_seats" required></input><br>
+        <input class="w-100 input-group-text" type="text" name="store_seats" required></input><br>
       </div>
       <div class="mb-4">
         <h3 class="h4">ロゴ</h3>
-        <input type="file" name="store_img"></input><br>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+          </div>
+          <div class="custom-file">
+            <input type="file" name="store_img" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+          </div>
+        </div>
       </div>
       <div class="mb-4">
         <h3 class="h4">開店時間（hh:mm:ss）</h3>
-        <input type="text" name="store_open" required></input><br>
+        <input class="w-100 input-group-text" type="text" name="store_open" required></input><br>
       </div>
       <div class="mb-4">
         <h3 class="h4">閉店時間（hh:mm:ss）</h3>
-        <input type="text" name="store_close" required></input><br>
+        <input class="w-100 input-group-text" type="text" name="store_close" required></input><br>
       </div>
       <div class="mb-4">
         <h3 class="h4">ラストオーダー（hh:mm:ss）</h3>
-        <input type="text" name="store_last_order" required></input><br>
+        <input class="w-100 input-group-text" type="text" name="store_last_order" required></input><br>
       </div>
       <div class="mb-4">
         <h3 class="h4">その他営業時間に関する説明</h3>
-        <input type="text" name="store_exception"></input><br><br>
+        <input class="w-100 input-group-text" type="text" name="store_exception"></input><br><br>
       </div>
       <button class="btn btn-success" type="submit" name="signup">サインアップ</button>
     </form>
