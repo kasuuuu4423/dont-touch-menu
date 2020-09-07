@@ -30,6 +30,8 @@ $rules = $pdo->select("rule", $id);
 $cats = $pdo->select("rule_category", $id);
 $sort_rules = array();
 
+$img_path = str_replace('../img/', $img_folder_path, $img_path);
+
 foreach($rules as $rule){
   if(!is_array($sort_rules[$rule['rule_category_id']])){
     $sort_rules[$rule['rule_category_id']] = array();
@@ -62,7 +64,7 @@ foreach($guests as $guest){
       <div class="container-fluid">
         <div class="row">
           <h1 class="col-12">
-            <figure class="logo"><img src="<?php if($img_path != NULL) echo $img_path; else echo "<?php echo $control_path; ?>/img/dtm.jpg"; ?>" alt="<?php echo $name; ?>"></figure>
+            <figure class="logo"><img src="<?php if($img_path){echo $img_path;}else{echo $img_folder_path."dtm.jpg";} ?>" alt="<?php echo $name; ?>"></figure>
 					</h1>
           <section class="time col-12">
             <dl class="open_time">
