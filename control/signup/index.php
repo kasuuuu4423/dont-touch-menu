@@ -1,12 +1,6 @@
 <?php 
 
-session_start();
-//ログイン済みの場合
-if (isset($_SESSION["USERID"])) {
-  //管理画面へリダイレクト
-  header("Location: ../index.php");
-  exit();
-}
+require '../header.php';
 
 ?>
 
