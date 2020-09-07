@@ -19,23 +19,23 @@ if(isset($_SESSION['USERID'])){
   }
 
   if(isset($_SESSION['seats_inCtrl_msg'])){
-    echo $_SESSION['seats_inCtrl_msg'];
+    echo '<div class="col-12 update_msg"><span>'.$_SESSION['seats_inCtrl_msg'].'</span></div>';
     unset($_SESSION['seats_inCtrl_msg']);
   }
   else if(isset($_SESSION['leave_inCtrl_msg'])){
-    echo $_SESSION['leave_inCtrl_msg'];
+    echo '<div class="col-12 update_msg"><span>'.$_SESSION['leave_inCtrl_msg'].'</span></div>';
     unset($_SESSION['leave_inCtrl_msg']);
   }
 
   if(isset($_POST['update_seats'])){
     $pdo = new Lib_pdo();
     $pdo->update_store_seats($_POST['store_seats'], $_SESSION['ID']);
-    $_SESSION['seats_inCtrl_msg'] = '情報を更新しました。';
+    $_SESSION['seats_inCtrl_msg'] = '最大席数を更新しました';
     header("Location:$control_path");
   }
-  if(isset($_GET['guest_id'])){
+  else if(isset($_GET['guest_id'])){
     $pdo->leave_guest($_GET['guest_id']);
-    $_SESSION['leave_inCtrl_msg'] = 'お客様が退店しました。';
+    $_SESSION['leave_inCtrl_msg'] = 'お客様が退店しました';
     header("Location:$control_path");
   }
   ?>
@@ -43,7 +43,7 @@ if(isset($_SESSION['USERID'])){
     <section class="status container">
       <div class="row">
         <div class="col-12 bar"></div>
-        <h2 class="col-12 text-center">現在の店内状況</h2>
+        <h2 class="col-12">現在の店内状況</h2>
         <div class="col-12 text-center seats"><?php echo $guest_sum; ?>/<?php echo $seats ?><span>席</span></div>
         <form class="col-12 text-center" action="index.php" method="post">
           <span>最大席数</span>
@@ -55,7 +55,7 @@ if(isset($_SESSION['USERID'])){
     <section class="history container">
       <div class="row">
         <div class="col-12 bar"></div>
-        <h2 class="col-12 text-center">履歴</h2>
+        <h2 class="col-12">履歴</h2>
         <div class="col-12 tbl">
           <div class="row">
             <div class="col-12 tbl_row">
