@@ -246,6 +246,30 @@ class Lib_pdo{
             echo $e;
         }
     }
+    public function update_store($store_id, $store_name, $store_seats, $store_img, $store_open, $store_close, $store_lastorder, $store_exception){
+        try{
+            if($store_img != NULL){
+                $sql = 'UPDATE store SET name = :name, seats = :seats, img_path = :img_path, open = :open, close = :close, last_order = :last_order, exception = :exception WHERE id = :id';
+                $store_img_path = $this->upload_img($store_img);
+            }
+            else{
+                $sql = 'UPDATE store SET name = :name, seats = :seats, open = :open, close = :close, last_order = :last_order, exception = :exception WHERE id = :id';
+            }
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindparam(':id', $store_id, PDO::PARAM_INT);
+            $stmt->bindparam(':name', $store_name, PDO::PARAM_STR);
+            $stmt->bindparam(':seats', $store_seats, PDO::PARAM_INT);
+            if($store_img != NULL) $stmt->bindparam(':img_path', $store_img_path, PDO::PARAM_STR);
+            $stmt->bindparam(':open', $store_open, PDO::PARAM_STR);
+            $stmt->bindparam(':close', $store_close, PDO::PARAM_STR);
+            $stmt->bindparam(':last_order', $store_lastorder, PDO::PARAM_STR);
+            $stmt->bindparam(':exception', $store_exception, PDO::PARAM_STR);
+            $stmt->execute();
+        }
+        catch(Exception $e){
+            echo $e;
+        }
+    }
     public function update_menu($menu_id, $menu_name, $menu_price, $menu_desc, $menu_img, $menu_enabled){
         try{
             $tmp_menu = $this->select_menu_id($menu_id)[0];
