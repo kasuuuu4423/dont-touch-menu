@@ -56,6 +56,11 @@ block content
 										span #{i}名様以上
 									- else
 										span #{i}名様
+						//label(for="s") 4名様以上の場合
+						select(class="form-control col-12", name="num_select", id="s")
+							option(value="") - 4名様以上の場合選択してください
+							- for(var i = 4; i <= 8; i++)
+								option(value="#{i}") #{i}名様
 						input(type="submit", value="利用規約に同意して進む").submit
 
 block script

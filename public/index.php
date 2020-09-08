@@ -7,6 +7,9 @@ $pdo = new Lib_pdo();
 if(isset($_GET['reserve'])){
   $guest_num = $_GET['num'];
   $guest_id = $_GET['id'];
+  if($_GET['num'] == 4 && isset($_GET['num_select'])){
+    $guest_num = $_GET['num_select'];
+  }
   $pdo->insert_guest($guest_num, $guest_id);
 }
 elseif(isset($_GET["id"])){
@@ -60,7 +63,7 @@ foreach($guests as $guest){
     <title><?php echo $name.  " | Don't touch menu"; ?></title>
   </head>
   <body>
-    <header>
+    <header class="pt-5">
       <div class="container-fluid">
         <div class="row">
           <h1 class="col-12">
@@ -132,6 +135,15 @@ foreach($guests as $guest){
               <input type="radio" name="num" value="4" id="r_4">
               <label class="col-6" for="r_4"><span>4名様以上</span>
               </label>
+              <!-- gulpで書き直してscssなどをやってくれ -->
+              <select class="form-control mb-5 col-12" name="num_select" id="s">
+                <option value="">- 4名様以上の場合選択してください</option>
+                <option value="4">4名様</option>
+                <option value="5">5名様</option>
+                <option value="6">6名様</option>
+                <option value="7">7名様</option>
+                <option value="8">8名様</option>
+              </select>
               <input type="hidden" name="id" value="<?php echo $id; ?>">
               <input class="submit" type="submit" name="reserve" value="利用規約に同意して進む">
             </div>
