@@ -19,7 +19,7 @@ if (isset($_SESSION["USERID"])) {
       <input type="text" name="menu_cat_name" value="<?php if (!empty($menu_cat_name)) echo(htmlspecialchars($menu_cat_name, ENT_QUOTES, 'UTF-8'));?>">
       <input type="submit" name="confirm_cat" value="編集を確定">
     </form>
-    <a href="delete.php">このカテゴリーを削除する</a>
+    <a href="./delete.php?menu_cat_id=<?php echo $menu_cat_id; ?>">このカテゴリーを削除する</a>
     <?php
   }
   if(isset($_GET['menu_id'])){
@@ -39,14 +39,14 @@ if (isset($_SESSION["USERID"])) {
       <input type="text" name="menu_price" value="<?php if (!empty($menu_price)) echo(htmlspecialchars($menu_price, ENT_QUOTES, 'UTF-8'));?>">
       <h2>説明</h2>
       <input type="text" name="menu_desc" value="<?php if (!empty($menu_desc)) echo(htmlspecialchars($menu_desc, ENT_QUOTES, 'UTF-8'));?>">
-      <h2>画像パス</h2>
-      <img src="<?php if (!empty($menu_img)) echo $menu_img;?>">
+      <h2>画像 </h2>
+      <?php if (!empty($menu_img)) echo '<img src="'. $menu_img .'">';?>
       <input type="file" name="menu_img">
       <h2>販売状況</h2>
       <input type="text" name="menu_enabled" value="<?php if (!empty($menu_enabled)) echo(htmlspecialchars($menu_enabled, ENT_QUOTES, 'UTF-8'));?>">
       <input type="submit" name="confirm_menu" value="編集を確定">
     </form>
-    <a href="delete.php">このメニューを削除する</a>
+    <a href="delete.php?menu_id=<?php echo $_GET['menu_id']; ?>">このメニューを削除する</a>
   <?php 
   }
 }
