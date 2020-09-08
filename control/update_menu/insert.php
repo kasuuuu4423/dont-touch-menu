@@ -35,15 +35,13 @@ endif;
 
 if(isset($_POST['insert_cat'])){
   $pdo->insert_menu_category($_POST['menu_cat_name'], $_SESSION['ID']);
-  echo 'メニューカテゴリーの追加が完了しました';
-  echo '<p><a href="index.php">メニュー変更画面へ戻る</a></p>';
-  echo '<p><a href="../index.php">管理画面TOPへ</a></p>';
+  $_SESSION['menu_msg'] = 'カテゴリーを追加しました。';
+  header('Location: ./');
 }
 elseif(isset($_POST['insert_menu'])){
   $pdo->insert_menu($_POST['menu_name'], $_POST['menu_price'], $_POST['menu_desc'], $_FILES['menu_img'], $_POST['menu_enabled'], $_SESSION['ID'], $_POST['menu_cat_id']);
-  echo 'メニューの追加が完了しました';
-  echo '<p><a href="index.php">メニュー変更画面へ戻る</a></p>';
-  echo '<p><a href="../index.php">管理画面TOPへ</a></p>';
+  $_SESSION['menu_msg'] = 'メニューを追加しました。';
+  header('Location: ./');
 }
 
 require '../footer.php';

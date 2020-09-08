@@ -4,6 +4,10 @@ require '../header.php';
 require '../pdo/lib_pdo.php';
 
 if (isset($_SESSION["USERID"])):
+  if(isset($_SESSION['menu_msg'])){
+    echo '<div class="mt-3 w-100 text-center update_msg"><span>'.$_SESSION['menu_msg'].'</span></div>';
+    unset($_SESSION['menu_msg']);
+  }
   ?>
   <main>
     <section class="update_index container">
@@ -27,8 +31,7 @@ if (isset($_SESSION["USERID"])):
 
       if(!isset($row_menu_cat)):
       ?>
-        <div class="col-12 text-center">メニューカテゴリーがありません</div>
-        <div><a href="insert.php?id=<?php echo $_SESSION['ID']; ?>&target=cat">メニューカテゴリーを追加</a></div>
+        <div class="col-12 text-center no_cat">カテゴリーがありません</div>
       <?php
       else:
         ?>
@@ -89,11 +92,11 @@ if (isset($_SESSION["USERID"])):
             <?php
           endforeach;
           ?>
-          <div class="col-12 text-center new_cat"><a class="btn btn-blue" href="insert.php?target=cat">新しいカテゴリーを追加</a></div>
         </div>
         <?php
-      endif;
-      ?>
+        endif;
+        ?>
+      <div class="col-12 text-center new_cat"><a class="btn btn-blue" href="insert.php?target=cat">新しいカテゴリーを追加</a></div>
       </div>
     </section>
   </main>
