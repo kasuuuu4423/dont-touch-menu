@@ -6,6 +6,7 @@ $pdo = new Lib_pdo();
 if(isset($_POST['menu_delete'])){
     $id = $_POST['menu_id'];
     $pdo->delete("menu", $id);
+    $_SESSION['menu_msg'] = 'メニューを削除しました';
     header('Location: ./');
 }
 elseif(isset($_POST['menu_category_delete'])){
@@ -15,6 +16,7 @@ elseif(isset($_POST['menu_category_delete'])){
         $pdo->delete("menu", $menu['id']);
     }
     $pdo->delete("menu_category", $id);
+    $_SESSION['menu_msg'] = 'カテゴリーを削除しました';
     header('Location: ./');
 }
 
