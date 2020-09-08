@@ -3,10 +3,7 @@ require  '../pdo/lib_pdo.php';
 session_start();
 $pdo = new Lib_pdo();
 
-if(isset($_SESSION["USERID"])){
-  echo "ようこそ".($_SESSION["USERID"])."さん<br>";
-  echo "<div><a href='../logout/index.php'></div>ログアウトはこちら</a>";
-}
+require '../header.php';
 ?>
 <?php if($_GET['target'] == 'cat'): ?>
 <h2>ルールカテゴリーの追加</h2>
@@ -29,7 +26,7 @@ if(isset($_SESSION["USERID"])){
 
 <?php 
 if(isset($_POST['insert_cat'])){
-  $pdo->insert_menu_category($_POST['rule_cat_name'], $_SESSION['ID']);
+  $pdo->insert_rule_category($_POST['rule_cat_name'], $_SESSION['ID']);
   echo '<p><a href="index.php">ルール変更画面へ戻る</a></p>';
   echo '<p><a href="../index.php">管理画面TOPへ</a></p>';
 }

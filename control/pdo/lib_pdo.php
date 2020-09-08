@@ -40,6 +40,18 @@ class Lib_pdo{
             echo $e;
         }
     }
+    public function select_ByCatid($table, $cat_id){
+        try{
+            $stmt = $this->db->prepare("SELECT * FROM ". $table ." WHERE ". $table ."_category_id = :cat_id");
+            $stmt->bindparam(':cat_id', $cat_id ,PDO::PARAM_INT);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }
+        catch(Exception $e){
+            echo $e;
+        }
+    }
     public function select_menu_id($menu_id){
         try{
             $stmt = $this->db->prepare("SELECT * FROM menu WHERE id = :id");
@@ -158,7 +170,9 @@ class Lib_pdo{
     }
     public function insert_menu($menu_name, $menu_price, $menu_desc, $menu_img, $menu_enabled, $store_id, $menu_cat_id){
         try{
-            $menu_img_path = $this->upload_img($menu_img);
+            if($menu_img['error'] != 4){
+                $menu_img_path = $this->upload_img($menu_img);
+            }
             $null = NULL;
             $stmt = $this->db->prepare("INSERT INTO menu (id, name, price, description, img_path, enabled, store_id, menu_category_id, created_at, update_at) VALUES (:id, :name, :price, :description, :img_path, :enabled, :store_id, :menu_category_id, now(), now())");
             $stmt->bindparam(':id', $null, PDO::PARAM_INT);
@@ -217,7 +231,9 @@ class Lib_pdo{
     }
     public function insert_store($store_name, $user_id, $user_pw, $store_seats, $store_img, $store_opentime, $store_closetime, $store_lastorder, $store_exception){
         try{
-            $store_img_path = $this->upload_img($store_img);
+            if($store_img['error'] != 4){
+                $store_img_path = $this->upload_img($store_img);
+            }
             $null = NULL;
             $stmt = $this->db->prepare('INSERT INTO store (id, name, userid, password, seats, img_path,  open, close, last_order,  created_at, update_at) VALUES (:id, :name, :userid, :password, :seats, :img_path,  :open, :close, :last_order,  now(), now())');
             $stmt->bindparam(':id', $null, PDO::PARAM_INT);
@@ -248,7 +264,7 @@ class Lib_pdo{
     }
     public function update_store($store_id, $store_name, $store_seats, $store_img, $store_open, $store_close, $store_lastorder, $store_exception){
         try{
-            if($store_img != NULL){
+            if($store_img['error'] != 4){
                 $sql = 'UPDATE store SET name = :name, seats = :seats, img_path = :img_path, open = :open, close = :close, last_order = :last_order, exception = :exception WHERE id = :id';
                 $store_img_path = $this->upload_img($store_img);
             }
@@ -259,7 +275,7 @@ class Lib_pdo{
             $stmt->bindparam(':id', $store_id, PDO::PARAM_INT);
             $stmt->bindparam(':name', $store_name, PDO::PARAM_STR);
             $stmt->bindparam(':seats', $store_seats, PDO::PARAM_INT);
-            if($store_img != NULL) $stmt->bindparam(':img_path', $store_img_path, PDO::PARAM_STR);
+            if($store_img['error'] != 4) $stmt->bindparam(':img_path', $store_img_path, PDO::PARAM_STR);
             $stmt->bindparam(':open', $store_open, PDO::PARAM_STR);
             $stmt->bindparam(':close', $store_close, PDO::PARAM_STR);
             $stmt->bindparam(':last_order', $store_lastorder, PDO::PARAM_STR);
@@ -272,11 +288,12 @@ class Lib_pdo{
     }
     public function update_menu($menu_id, $menu_name, $menu_price, $menu_desc, $menu_img, $menu_enabled){
         try{
-            $tmp_menu = $this->select_menu_id($menu_id)[0];
-            $tmp_img_path = $tmp_menu['img_path'];
-            unlink($tmp_img_path);
-
-            $menu_img_path = $this->upload_img($menu_img);
+            if($menu_img['error'] != 4){
+                $tmp_menu = $this->select_menu_id($menu_id)[0];
+                $tmp_img_path = $tmp_menu['img_path'];
+                unlink($tmp_img_path);
+                $menu_img_path = $this->upload_img($menu_img);
+            }
             $stmt = $this->db->prepare('UPDATE menu SET name = :name, price = :price, description = :description, img_path = :img_path, enabled = :enabled WHERE id = :id');
             $stmt->bindparam(':id', $menu_id, PDO::PARAM_INT);
             $stmt->bindparam(':name', $menu_name, PDO::PARAM_STR);
@@ -317,6 +334,16 @@ class Lib_pdo{
             $stmt = $this->db->prepare('UPDATE rule SET content = :content WHERE id = :id');
             $stmt->bindparam(':id', $rule_id, PDO::PARAM_INT);
             $stmt->bindparam(':content', $rule_content, PDO::PARAM_STR);
+            $stmt->execute();
+        }
+        catch(Exception $e){
+            echo $e;
+        }
+    }
+    public function delete($table, $id){
+        try{
+            $stmt = $this->db->prepare('DELETE FROM '. $table .' WHERE  id = :id');
+            $stmt->bindparam(':id', $id, PDO::PARAM_INT);
             $stmt->execute();
         }
         catch(Exception $e){
