@@ -1,25 +1,22 @@
 <?php
 
-session_start();
-//ログイン済みの場合
-if (isset($_SESSION["USERID"])) {
-  //管理画面へリダイレクト
-  header("Location: ../index.php");
-  exit();
-}
+require '../header.php';
 
 ?>
 
-<h1>ログイン</h1>
-<form action="index.php" method="post">
-  <h2>ユーザーID</h2>
-  <input type="text" name="userid" required></input><br>
-  <h2>パスワード</h2>
-  <input type="text" name="password" required></input><br>
+<main class="container">
+  <div class="row">
+    <h1 class="col-12 mb-4">ログイン</h1>
+    <form class="col-12 text-center" action="index.php" method="post">
+      <h3 class="text-left h4">ユーザーID</h3>
+      <input class="w-100 input-group-text" type="text" name="userid" required></input><br>
+      <h3 class="text-left h4">パスワード</h3>
+      <input class="w-100 input-group-text" type="text" name="password" required></input><br>
+      <button class="btn btn-blue mb-4" type="submit" name="login">ログイン</button><br>
+      <a class="btn btn-green" href="<?php echo $signup_path ?>">サインアップはこちら</a>
+    </form>
   </div>
-  <button type="submit" name="login">ログイン</button>
-</form>
-<a href="../signup/index.php">サインアップはこちら</a>
+</main>
 
 <?php
 if(isset($_POST["login"])){
@@ -50,7 +47,7 @@ if(isset($_POST["login"])){
     $_SESSION["USERID"] = $row_login["userid"];
     echo "ログインしました";
     //管理画面へリダイレクト
-    header("Location: ../index.php");
+    header("Location: $control_path");
     exit();
   } else {
     echo "ユーザーID又はパスワードが間違っています。";
