@@ -64,7 +64,7 @@ if (isset($_SESSION["USERID"])) {
 <?php 
   elseif(isset($_POST['confirm'])):
     $pdo->update_store($_POST['store_id'], $_POST['store_name'], $_POST['store_seats'], $_FILES['store_img'], $_POST['store_open'], $_POST['store_close'], $_POST['store_last_order'], $_POST['store_exception']);
-    echo "情報を更新しました。";
+    header('Location: ./');
   endif;
 }
 ?>
