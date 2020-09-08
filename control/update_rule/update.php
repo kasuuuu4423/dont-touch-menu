@@ -19,7 +19,7 @@ if (isset($_SESSION["USERID"])) {
   <input type="text" name="rule_cat_name" value="<?php if (!empty($rule_cat_name)) echo(htmlspecialchars($rule_cat_name, ENT_QUOTES, 'UTF-8'));?>">
   <input type="submit" name="confirm_cat" value="編集を確定">
 </form>
-<a href="delete.php">このカテゴリーを削除する</a>
+<a href="delete.php?rule_cat_id=<?php echo $rule_cat_id; ?>">このカテゴリーを削除する</a>
 <?php
   }
   if(isset($_GET['rule_id'])){
@@ -35,7 +35,7 @@ if (isset($_SESSION["USERID"])) {
     <input type="text" name="rule_content" value="<?php if (!empty($rule_content)) echo(htmlspecialchars($rule_content, ENT_QUOTES, 'UTF-8'));?>">
     <input type="submit" name="confirm_rule" value="編集を確定">
   </form>
-  <a href="delete.php">このルールを削除する</a>
+  <a href="delete.php?rule_id=<?php echo $_GET['rule_id']; ?>">このルールを削除する</a>
   <?php 
   }
 }
