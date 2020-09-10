@@ -47,8 +47,8 @@ if(isset($_SESSION['USERID'])){
         <div class="col-12 text-center seats"><?php echo $guest_sum; ?>/<?php echo $seats ?><span>席</span></div>
         <form class="col-12 text-center" action="index.php" method="post">
           <span>最大席数</span>
-          <input type="text" name="store_seats" value="<?php if (!empty($seats)) echo(htmlspecialchars($seats, ENT_QUOTES, 'UTF-8'));?>">
-          <input type="submit" name="update_seats" value="変更">
+          <input class="store_seats" type="text" name="store_seats" value="<?php if (!empty($seats)) echo(htmlspecialchars($seats, ENT_QUOTES, 'UTF-8'));?>">
+          <input class="update_seats" type="submit" name="update_seats" value="変更">
         </form>
       </div>
     </section>
@@ -56,6 +56,11 @@ if(isset($_SESSION['USERID'])){
       <div class="row">
         <div class="col-12 bar"></div>
         <h2 class="col-12">履歴</h2>
+        <?php
+          if(empty($guests)):
+        ?>
+        <div class="col-12 text-center no_history">本日の履歴はありません</div>
+          <?php else: ?>
         <div class="col-12 tbl tbl_history">
           <div class="row">
             <div class="col-12 tbl_row">
@@ -109,6 +114,7 @@ if(isset($_SESSION['USERID'])){
             ?>
           </div>
         </div>
+          <?php endif; ?>
       </div>
     </section>
   </main>
