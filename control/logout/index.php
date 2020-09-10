@@ -2,8 +2,6 @@
 
 require '../header.php';
 
-//変数宣言
-$output = "";
 if (isset($_SESSION["USERID"])) {
   //ログイン済みの場合
   $output = "ログアウトしました";
@@ -14,7 +12,7 @@ else {
 }
 //セッション変数のクリア
 $_SESSION = array();
-//セッションクッキーも削除
+//セッションクッキー削除
 if (ini_get("session.use_cookies")) {
     $params = session_get_cookie_params();
     setcookie(session_name(), '', time() - 42000,
@@ -24,5 +22,11 @@ if (ini_get("session.use_cookies")) {
 }
 //セッションクリア
 unset($_SESSION["USERID"]);
-echo $output;
-echo "<a href=".$login_path.">ログインはこちら</a>";
+?>
+<main class="container">
+  <div class="row">
+    <h1 class="col-12 text-center">ログアウト</h1>
+    <div class="col-12 text-center mt-3"><?php echo $output; ?></div>
+    <div class="col-12 text-center mt-2"><a href="<?php echo $login_path; ?>">ログインはこちら</a><div>
+  </div>
+<main>
