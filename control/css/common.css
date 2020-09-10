@@ -41,12 +41,12 @@ h2 {
   text-align: center !important;
 }
 
-.btn:hover{
+.btn:hover {
   color: #ffffff;
   text-decoration-line: underline;
 }
 
-.btn-red{
+.btn-red {
   margin: auto;
   background: #d33142;
   color: #ffffff;
@@ -55,7 +55,7 @@ h2 {
   border-radius: 0.25rem;
 }
 
-.btn-green{
+.btn-green {
   margin: auto;
   background: #3dbd44;
   color: #ffffff;
@@ -64,11 +64,129 @@ h2 {
   border-radius: 0.25rem;
 }
 
-.btn-blue{
+.btn-blue {
   margin: auto;
   background: #3177d3;
   color: #ffffff;
   border: none;
   padding: 5px 10px;
   border-radius: 0.25rem;
+}
+
+.tbl {
+  margin-top: 5px;
+}
+
+.tbl .row .tbl_row .row {
+  padding: 10px 0;
+  align-items: center;
+}
+
+.tbl .row .tbl_row:nth-child(1) {
+  font-weight: bold;
+}
+
+.tbl .row .tbl_row:nth-child(2n+1) {
+  background-clip: content-box;
+  background-color: #eae8e5;
+}
+
+.tbl_history .tbl_num {
+  text-align: center;
+}
+
+.tbl_history .tbl_enter {
+  text-align: center;
+}
+
+.tbl_history .tbl_enter .tbl_enter_date {
+  margin-right: 3px;
+}
+
+.tbl_history .tbl_leave_date {
+  margin-right: 5px;
+}
+
+.update_index .tbl_item:first-of-type {
+  margin-top: 30px;
+}
+
+.update_index .tbl_item:nth-of-type(n+2) {
+  margin-top: 75px;
+}
+
+.update_index .tbl_item .menu_cat {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+}
+
+.update_index .tbl_item .tbl_update_index .tbl_row .menu {
+  text-align: center;
+  font-weight: normal;
+}
+
+.update_index .tbl_item .tbl_update_index .tbl_row .edit {
+  text-align: center;
+}
+
+.update_index .tbl_item .no_menu {
+  text-align: center;
+  font-weight: bold;
+}
+
+.update_index .tbl_item .btns {
+  margin-top: 15px;
+}
+
+.update_index .new_cat {
+  margin-top: 50px;
+  margin-bottom: 75px;
+}
+
+.update_index .new_cat a {
+  font-weight: bold;
+}
+
+.update_index .no_cat {
+  margin-top: 50px;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.update_update .form_update .btns {
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.update_update .form_update .btns div:first-of-type {
+  margin-right: 20px;
+}
+
+.update_update .form_update .btns .delete_btn {
+  margin-top: 5px;
+}
+
+.update_update .form_update .field .field_text {
+  padding-left: 30px;
+}
+
+.update_update .form_update .value input {
+  width: 100%;
+}
+
+input[type*="text"] {
+  display: flex;
+  align-items: center;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  text-align: left;
+  white-space: nowrap;
+  background-color: #ffffff;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+  margin: auto;
 }
