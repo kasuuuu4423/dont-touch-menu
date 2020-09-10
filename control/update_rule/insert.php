@@ -1,41 +1,74 @@
 <?php
-require  '../pdo/lib_pdo.php';
-session_start();
+
+require '../pdo/lib_pdo.php';
+require '../header.php';
+
 $pdo = new Lib_pdo();
 
-if(isset($_SESSION["USERID"])){
-  echo "ようこそ".($_SESSION["USERID"])."さん<br>";
-  echo "<div><a href='../logout/index.php'></div>ログアウトはこちら</a>";
-}
-?>
-<?php if($_GET['target'] == 'cat'): ?>
-<h2>ルールカテゴリーの追加</h2>
-<form action="insert.php" method="post">
-  <h2>カテゴリー名</h2>
-  <input type="text" name="rule_cat_name">
-  <input type="submit" name="insert_cat" value="ルールカテゴリーを追加">
-</form>
-<?php endif; ?>
+if (isset($_SESSION["USERID"])):
+  ?>
+  <main>
+    <section class="update_insert container">
+      <div class="row">
+        <div class="col-12 bar"></div>
+        <?php if ($_GET['target'] == 'cat'): ?>
+        <h2 class="col-12">ルールカテゴリーの追加</h2>
+        <form class="col-12 tbl form_update" action="insert.php" method="post">
+          <div class="row">
+            <div class="col-10 offset-1 tbl_row field">
+              <div class="row">
+                <div class="col-12 field_text">カテゴリー名</div>
+              </div>
+            </div>
+            <div class="col-10 offset-1 tbl_row value">
+              <div class="row">
+                <div class="col-12"><input type="text" name="rule_cat_name"></div>
+              </div>
+            </div>
+          </div>
+          <div class="row btns">
+            <div><a class="btn btn-blue" href="<?php echo $update_rule_path; ?>">戻る</a></div>
+            <div><input class="btn btn-green" type="submit" name="insert_cat" value="ルールカテゴリーを追加"></div>
+          </div>
+        </form>
+        <?php elseif($_GET['target'] == 'rule'):?>
+        <h2 class="col-12">ルールの追加</h2>
+        <form class="col-12 tbl form_update" action="insert.php" method="post" enctype="multipart/form-data">
+          <div class="row">
+            <div class="col-10 offset-1 tbl_row field">
+              <div class="row">
+                <div class="col-12 field_text">ルール名</div>
+              </div>
+            </div>
+            <div class="col-10 offset-1 tbl_row value">
+              <div class="row">
+                <div class="col-12"><input type="text" name="rule_content"></div>
+              </div>
+            </div>
+          </div>
+          <div class="row btns">
+            <div><a class="btn btn-blue" href="<?php echo $update_rule_path; ?>">戻る</a></div>
+            <div><input class="btn btn-blue" type="submit" name="insert_rule" value="ルールを追加"></div>
+          </div>
+          <input type="hidden" name="rule_cat_id" value="<?php echo $_GET['cat_id']?>">
+        </form>
+        <?php endif;
 
-<?php if($_GET['target'] == 'rule'): ?>
-<h2>ルールの追加</h2>
-<form action="insert.php" method="post">
-  <h2>内容</h2>
-  <input type="text" name="rule_content">
-  <input type="hidden" name="rule_cat_id" value="<?php echo $_GET['cat_id']?>">
-  <input type="submit" name="insert_rule" value="ルールを追加">
-</form>
-<?php endif; ?>
+        if(isset($_POST['insert_cat'])){
+          $pdo->insert_rule_category($_POST['rule_cat_name'], $_SESSION['ID']);
+          $_SESSION['rule_msg'] = 'カテゴリーを追加しました';
+          header('Location: ./');
+        }
+        elseif(isset($_POST['insert_rule'])){
+          $pdo->insert_rule($_POST['rule_content'], $_POST['rule_cat_id'], $_SESSION['ID']);
+          $_SESSION['rule_msg'] = 'ルールを追加しました';
+          header('Location: ./');
+        }
+        ?>
+      </div>
+    </section>
+  </main>
+<?php
+endif;
 
-<?php 
-if(isset($_POST['insert_cat'])){
-  $pdo->insert_menu_category($_POST['rule_cat_name'], $_SESSION['ID']);
-  echo '<p><a href="index.php">ルール変更画面へ戻る</a></p>';
-  echo '<p><a href="../index.php">管理画面TOPへ</a></p>';
-}
-if(isset($_POST['insert_rule'])){
-  $pdo->insert_rule($_POST['rule_content'], $_POST['rule_cat_id'], $_SESSION['ID']);
-  echo 'ルールの追加が完了しました';
-  echo '<p><a href="index.php">ルール変更画面へ戻る</a></p>';
-  echo '<p><a href="../index.php">管理画面TOPへ</a></p>';
-}
+require '../footer.php';

@@ -1,59 +1,105 @@
 <?php
+
+require '../header.php';
 require '../pdo/lib_pdo.php';
-session_start();
-$pdo = new Lib_pdo();
 
-if (isset($_SESSION["USERID"])) {
-  echo "ようこそ".($_SESSION["USERID"])."さん<br>";
-  echo "<div><a href='../logout/index.php'>ログアウトはこちら</a></div>";
-  echo "<h1>お店のメニューを追加、変更</h1>";
-
-  $id = $_SESSION['ID'];
-  $menu_cat = $pdo->select("menu_category", $id);
-  foreach($menu_cat as $index => $row){
-    $row_menu_cat[$index]['id'] = $row['id'];
-    $row_menu_cat[$index]['name'] = $row['name'];
+if (isset($_SESSION["USERID"])):
+  if(isset($_SESSION['menu_msg'])){
+    echo '<div class="update_msg"><span>'.$_SESSION['menu_msg'].'</span></div>';
+    unset($_SESSION['menu_msg']);
   }
-  $menu = $pdo->select("menu", $id);
-  foreach($menu as $index => $row){
-    $row_menu[$index]['id'] = $row['id'];
-    $row_menu[$index]['name'] = $row['name'];
-    $row_menu[$index]['menu_category_id'] = $row['menu_category_id'];
-  }
-  
-  if(!isset($row_menu_cat)){
-    //存在していなかった場合
-    echo '<div>メニューカテゴリーがありません</div>';
-    echo "<div><a href=insert.php?id=".$_SESSION['ID']."&target=cat>メニューカテゴリーを追加</a></div>";
-    }
-  else{
-    foreach($row_menu_cat as $value_cat){
-      echo '<h2>'.$value_cat['name'].'</h2>';
-      echo "<a href=update.php?cat_id=".$value_cat['id'].">カテゴリー名を編集</a>";
-      if(is_array($row_menu)){
-        $flag = false;
-        foreach($row_menu as $value_menu){
-          if($value_menu['menu_category_id'] == $value_cat['id']){
-            echo '<div>';
-            echo $value_menu['name'];
-            echo "<a href=update.php?menu_id=".$value_menu['id'].">メニューを編集</a>";
-            echo '</div>';
-            $flag = true;
-          }
-        }
-        if(!$flag){
-          echo '<div>メニューがありません</div>';
-        }
+  ?>
+  <main>
+    <section class="update_index container">
+      <div class="row">
+        <div class="col-12 bar"></div>
+          <h2 class="col-12">メニュー変更</h2>
+      <?php
+      $pdo = new Lib_pdo();
+      $id = $_SESSION['ID'];
+      $menu_cat = $pdo->select("menu_category", $id);
+      foreach($menu_cat as $index => $row){
+        $row_menu_cat[$index]['id'] = $row['id'];
+        $row_menu_cat[$index]['name'] = $row['name'];
       }
-      echo "<div><a href=insert.php?cat_id=".$value_cat['id']."&target=menu>メニューを追加</a></div>";
-    }
-    echo "<div><a href=insert.php?target=cat>メニューカテゴリーを追加</a></div>";
-  }
-}
+      $menu = $pdo->select("menu", $id);
+      foreach($menu as $index => $row){
+        $row_menu[$index]['id'] = $row['id'];
+        $row_menu[$index]['name'] = $row['name'];
+        $row_menu[$index]['menu_category_id'] = $row['menu_category_id'];
+      }
 
+      if(!isset($row_menu_cat)):
+      ?>
+        <div class="col-12 text-center no_cat">カテゴリーがありません</div>
+      <?php
+      else:
+        ?>
+        <div class="tbls">
+          <?php
+          foreach($row_menu_cat as $value_cat):
+            ?>
+            <div class="col-12 tbl_item">
+              <div class="row">
+                <div class="col-12 cat_name">カテゴリー：<?php echo $value_cat['name']; ?></div>
+                <?php
+                $flag = false;
+                if(is_array($row_menu)):
+                  ?>
+                  <div class="col-12 tbl tbl_update_index">
+                    <div class="row">
+                      <?php
+                      foreach($row_menu as $value_menu):
+                        if($value_menu['menu_category_id'] == $value_cat['id']):
+                          ?>
+                          <div class="col-12 tbl_row">
+                            <div class="row">
+                              <div class="col-6 item_name"><?php echo $value_menu['name']; ?></div>
+                              <div class="col-6 edit"><a class="btn btn-green" href="update.php?menu_id=<?php echo $value_menu['id']; ?>">編集</a></div>
+                            </div>
+                          </div>
+                          <?php
+                          $flag = true;
+                        endif;
+                      endforeach;
+                      ?>
+                    </div>
+                  </div>
+                  <?php
+                endif;
+                if(!$flag):
+                  ?>
+                  <div class="col-12 tbl tbl_update_index">
+                    <div class="row">
+                      <div class="col-12 tbl_row no_items">
+                        <div class="row">
+                          <div class="col-12">メニューがありません</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <?php
+                endif;
+                ?>
+                <div class="col-12">
+                  <div class="row btns">
+                    <div><a class="btn btn-blue" href="insert.php?cat_id=<?php echo $value_cat['id']; ?>&target=menu">メニューを追加</a></div>
+                    <div><a class="btn btn-green" href="update.php?cat_id=<?php echo $value_cat['id']; ?>">カテゴリーを編集</a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <?php
+          endforeach;
+          ?>
+        </div>
+        <?php
+        endif;
+        ?>
+      <div class="col-12 text-center new_cat"><a class="btn btn-blue" href="insert.php?target=cat">新しいカテゴリーを追加</a></div>
+      </div>
+    </section>
+  </main>
+<?php
+endif;
 ?>
-
-
-<p>
-  <a href="../index.php">管理画面TOPへ</a>
-</p>
