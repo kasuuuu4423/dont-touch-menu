@@ -5,7 +5,7 @@ require '../pdo/lib_pdo.php';
 
 if (isset($_SESSION["USERID"])):
   if(isset($_SESSION['menu_msg'])){
-    echo '<div class="mt-3 w-100 text-center update_msg"><span>'.$_SESSION['menu_msg'].'</span></div>';
+    echo '<div class="update_msg"><span>'.$_SESSION['menu_msg'].'</span></div>';
     unset($_SESSION['menu_msg']);
   }
   ?>
@@ -41,7 +41,7 @@ if (isset($_SESSION["USERID"])):
             ?>
             <div class="col-12 tbl_item">
               <div class="row">
-                <div class="col-12 menu_cat">カテゴリー：<?php echo $value_cat['name']; ?></div>
+                <div class="col-12 cat_name">カテゴリー：<?php echo $value_cat['name']; ?></div>
                 <?php
                 $flag = false;
                 if(is_array($row_menu)):
@@ -54,7 +54,7 @@ if (isset($_SESSION["USERID"])):
                           ?>
                           <div class="col-12 tbl_row">
                             <div class="row">
-                              <div class="col-6 menu"><?php echo $value_menu['name']; ?></div>
+                              <div class="col-6 item_name"><?php echo $value_menu['name']; ?></div>
                               <div class="col-6 edit"><a class="btn btn-green" href="update.php?menu_id=<?php echo $value_menu['id']; ?>">編集</a></div>
                             </div>
                           </div>
@@ -71,7 +71,7 @@ if (isset($_SESSION["USERID"])):
                   ?>
                   <div class="col-12 tbl tbl_update_index">
                     <div class="row">
-                      <div class="col-12 tbl_row no_menu">
+                      <div class="col-12 tbl_row no_items">
                         <div class="row">
                           <div class="col-12">メニューがありません</div>
                         </div>
@@ -81,10 +81,10 @@ if (isset($_SESSION["USERID"])):
                   <?php
                 endif;
                 ?>
-                <div class="col-12 btns">
-                  <div class="row">
-                    <div class="col-6 text-right"><a class="btn btn-blue" href="insert.php?cat_id=<?php echo $value_cat['id']; ?>&target=menu">メニューを追加</a></div>
-                    <div class="col-6 text-left"><a class="btn btn-green" href="update.php?cat_id=<?php echo $value_cat['id']; ?>">カテゴリーを編集</a></div>
+                <div class="col-12">
+                  <div class="row btns">
+                    <div><a class="btn btn-blue" href="insert.php?cat_id=<?php echo $value_cat['id']; ?>&target=menu">メニューを追加</a></div>
+                    <div><a class="btn btn-green" href="update.php?cat_id=<?php echo $value_cat['id']; ?>">カテゴリーを編集</a></div>
                   </div>
                 </div>
               </div>
