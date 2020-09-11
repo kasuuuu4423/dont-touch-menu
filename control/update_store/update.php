@@ -44,15 +44,70 @@ if (isset($_SESSION["USERID"])) {
         </div>
       <div class="mb-4">
         <h3>開店時間</h3>
-        <input class="w-100 input-group-text" type="text" name="store_open" value="<?php if (!empty($store_open)) echo(htmlspecialchars($store_open, ENT_QUOTES, 'UTF-8'));?>">
+        <?php
+        if(!empty($store_open)){
+          $tmp_open = explode(":", $store_open);
+          $open_hour = $tmp_open[0];
+          $open_min = $tmp_open[1];
+        }
+        ?>
+        <div class="row w-100 m-auto">
+          <!-- <input class="w-100 input-group-text" type="text" name="store_close" required></input> -->
+          <select class="form-control col-6" name="store_open_hour" id="">
+            <option value="<?php echo $open_hour; ?>"><?php echo $open_hour; ?>時</option>
+            <?php for($i = 0; $i <= 23; $i++):?><option value="<?php echo $i; ?>"><?php echo $i; ?></option><?php endfor; ?>
+          </select>
+          <select class="form-control col-6" name="store_open_min" id="">
+            <option value="<?php echo $open_min; ?>"><?php echo $open_min; ?>分</option>
+            <?php for($i = 0; $i <= 59; $i++):?><option value="<?php echo $i; ?>"><?php echo $i; ?></option><?php endfor; ?>
+          </select>
+        </div>
       </div>
       <div class="mb-4">
         <h3>閉店時間</h3>
-        <input class="w-100 input-group-text" type="text" name="store_close" value="<?php if (!empty($store_close)) echo(htmlspecialchars($store_close, ENT_QUOTES, 'UTF-8'));?>">
+        <?php
+        if(!empty($store_close)){
+          $tmp_close = explode(":", $store_close);
+          $close_hour = $tmp_close[0];
+          $close_min = $tmp_close[1];
+        }
+        ?>
+        <div class="row w-100 m-auto">
+          <!-- <input class="w-100 input-group-text" type="text" name="store_close" required></input> -->
+          <select class="form-control col-6" name="store_close_hour" id="">
+            <option value="<?php echo $close_hour; ?>"><?php echo $close_hour; ?>時</option>
+            <?php for($i = 0; $i <= 23; $i++):?><option value="<?php echo $i; ?>"><?php echo $i; ?></option><?php endfor; ?>
+          </select>
+          <select class="form-control col-6" name="store_close_min" id="">
+            <option value="<?php echo $close_min; ?>"><?php echo $close_min; ?>分</option>
+            <?php for($i = 0; $i <= 59; $i++):?><option value="<?php echo $i; ?>"><?php echo $i; ?></option><?php endfor; ?>
+          </select>
+        </div>
       </div>
       <div class="mb-4">
         <h3>ラストオーダー</h3>
-        <input class="w-100 input-group-text" type="text" name="store_last_order" value="<?php if (!empty($store_last_order)) echo(htmlspecialchars($store_last_order, ENT_QUOTES, 'UTF-8'));?>">
+        <?php
+        if(!empty($store_open)){
+          $tmp_last_order = explode(":", $store_last_order);
+          $last_order_hour = $tmp_last_order[0];
+          $last_order_min = $tmp_last_order[1];
+        }
+        else{
+          $last_order_hour = NULL;
+          $last_order_min = NULL;
+        }
+        ?>
+        <div class="row w-100 m-auto">
+          <!-- <input class="w-100 input-group-text" type="text" name="store_close" required></input> -->
+          <select class="form-control col-6" name="store_last_order_hour" id="">
+            <option value="<?php echo $last_order_hour; ?>"><?php echo $last_order_hour; ?>時</option>
+            <?php for($i = 0; $i <= 23; $i++):?><option value="<?php echo $i; ?>"><?php echo $i; ?></option><?php endfor; ?>
+          </select>
+          <select class="form-control col-6" name="store_last_order_min" id="">
+            <option value="<?php echo $last_order_min; ?>"><?php echo $last_order_min; ?>分</option>
+            <?php for($i = 0; $i <= 59; $i++):?><option value="<?php echo $i; ?>"><?php echo $i; ?></option><?php endfor; ?>
+          </select>
+        </div>
       </div>
       <div class="mb-4">
         <h3>営業時間に関するその他説明</h3>
@@ -63,7 +118,21 @@ if (isset($_SESSION["USERID"])) {
     </form>
 <?php 
   elseif(isset($_POST['confirm'])):
-    $pdo->update_store($_POST['store_id'], $_POST['store_name'], $_POST['store_seats'], $_FILES['store_img'], $_POST['store_open'], $_POST['store_close'], $_POST['store_last_order'], $_POST['store_exception']);
+    $open_hour = $_POST['store_open_hour'];
+    $open_min = $_POST['store_open_min'];
+    $store_open = $open_hour. ":" .$open_min.":00";
+    $close_hour = $_POST['store_close_hour'];
+    $close_min = $_POST['store_close_min'];
+    $store_close = $close_hour. ":" .$close_min.":00";
+    if($last_hour != NULL && $last_min != NULL){
+      $last_hour = $_POST['store_last_hour'];
+      $last_min = $_POST['store_last_min'];
+      $store_last = $last_hour. ":" .$last_min.":00";
+    }
+    else{
+      $store_last = NULL;
+    }
+    $pdo->update_store($_POST['store_id'], $_POST['store_name'], $_POST['store_seats'], $_FILES['store_img'], $store_open, $store_close, $store_last_order, $_POST['store_exception']);
     header('Location: ./');
   endif;
 }
