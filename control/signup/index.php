@@ -49,7 +49,14 @@ if(isset($_POST['signup'])) {
     else{
       $store_last = NULL;
     }
-    $pdo->insert_store($_POST['store_name'], $userid, $password, $_POST['store_seats'], $_FILES['store_img'], $store_open, $store_close, $store_last, $_POST['store_exception']);
+    $lastid = $pdo->insert_store($_POST['store_name'], $userid, $password, $_POST['store_seats'], $_FILES['store_img'], $store_open, $store_close, $store_last, $_POST['store_exception']);
+    
+    $image_path = "https://api.qrserver.com/v1/create-qr-code/?data=https://artful.jp/staging-menu/public/?id=".$lastid;
+    $file_name = 'qr'. $lastid .'.jpg';
+    $image = file_get_contents($image_path);
+    $save_path = "../img/".$file_name;
+    file_put_contents($save_path, $image);
+
     echo '<div class="w-100 text-center">会員登録が完了しました</div><br>';
     echo '<div class="w-100 text-center"><a class="btn btn-green" href="../login/index.php">ログインページ</a></div>';
     exit();

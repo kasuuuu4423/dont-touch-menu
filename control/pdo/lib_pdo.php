@@ -258,6 +258,7 @@ class Lib_pdo{
             }
             $stmt->bindparam(':exception', $store_exception, PDO::PARAM_STR);
             $stmt->execute();
+            return $this->db->lastInsertId();
         }
         catch(Exception $e){
             echo $e;
