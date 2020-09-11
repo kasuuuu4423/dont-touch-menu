@@ -2,6 +2,7 @@
 
 require 'header.php';
 require 'pdo/lib_pdo.php';
+require 'config.php';
 
 if(isset($_SESSION['USERID'])){
   $pdo = new Lib_pdo();
@@ -115,6 +116,14 @@ if(isset($_SESSION['USERID'])){
           </div>
         </div>
           <?php endif; ?>
+      </div>
+    </section>
+    <section class="qr container">
+      <div class="row">
+        <div class="col-12 bar"></div>
+        <h2 class="col-12">お客様用QRコード</h2>
+        <figure class="qrcode col-12 text-center"><img src="<?php echo $img_folder_path.'qr'.$_SESSION['ID'].'.jpg' ?>" alt=""></figure>
+        <div class="col-12 text-center h4"><a href="<?php echo $img_folder_path.'qr'.$_SESSION['ID'].'.jpg' ?>" download="qr_code.jpg">[ダウンロード]</a></div>
       </div>
     </section>
   </main>
