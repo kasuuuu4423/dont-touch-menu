@@ -100,7 +100,7 @@ $guest_sum = 0;
           <ul class="col-12">
             <?php foreach($cats as $cat): ?>
               <li class="h3">
-                <h3><<?php echo $cat['name']; ?>></h3>
+                <h3>＜<?php echo $cat['name']; ?>＞</h3>
               </li>
               <li> 
                 <ul>
