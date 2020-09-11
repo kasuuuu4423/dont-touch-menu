@@ -87,13 +87,14 @@ $guest_sum = 0;
             <div class="exception"><?php if($exception != NULL) echo $exception; ?></div>
           </section>
           <section class="seat_status col-12">
-            <h2 class="col-12">現在の残席数</h2>
+            <h2 class="col-12">現在の店内状況</h2>
             <div class="status col-12"><span><?php echo $guest_sum; ?>/<?php echo $seats; ?></span><span> 席</span></div>
           </section>
         </div>
       </div>
     </header>
     <main>
+      <?php if($cats != NULL): ?>
       <section class="rule container">
         <div class="row">
           <h2 class="col-12">お店のルール</h2>
@@ -120,6 +121,7 @@ $guest_sum = 0;
             <?php endforeach; ?>
         </div>
       </section>
+      <?php endif; ?>
       <section class="reserve container">
         <div class="row">
           <p class="col-12">ご来店人数を選択してください</p>
