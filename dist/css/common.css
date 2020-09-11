@@ -21,3 +21,40 @@ main.leave form input {
   width: 100%;
   border-radius: 0.5rem;
 }
+
+.btn:hover {
+  color: #ffffff;
+}
+
+.btn-red {
+  margin: auto;
+  background: #ee4b6e;
+  color: #ffffff;
+  border: none;
+  font-size: 1.5rem;
+  padding: 10px 0;
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+.btn-blue {
+  margin: auto;
+  background: #4b71ee;
+  color: #ffffff;
+  border: none;
+  font-size: 1.5rem;
+  padding: 10px 0;
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+.btn-green {
+  margin: auto;
+  background: #13e482;
+  color: #ffffff;
+  border: none;
+  font-size: 1.5rem;
+  padding: 10px 0;
+  width: 100%;
+  border-radius: 0.5rem;
+}

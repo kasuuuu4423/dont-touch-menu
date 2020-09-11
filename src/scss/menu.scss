@@ -91,6 +91,7 @@ main{
 			}
 			.menu_description{
 				font-size: $font-sml;
+				white-space: pre-wrap;
 				p{
 					margin-bottom: $margin-half;
 				}
