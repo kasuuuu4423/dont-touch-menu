@@ -1,0 +1,33 @@
+@import "_variables";
+
+.ctrl_top{
+  .status{
+    .row{
+      .seats{
+        font-size: 2.6rem;
+        margin-bottom: 15px;
+        span{
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+  .history{
+    .no_history{
+      margin-top: 20px;
+      font-size: 1.25rem;
+    }
+  }
+}
+
+form{
+  .store_seats{
+    display: inline-block;
+  }
+}
+
+section.qr{
+  .qrcode{
+    margin-top: 20px;
+  }
+}
