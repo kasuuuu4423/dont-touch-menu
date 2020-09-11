@@ -26,22 +26,32 @@ elseif(isset($_GET["id"])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo $public_path; ?>/css/common.css">
     <link rel="stylesheet" href="<?php echo $public_path; ?>/css/home.css">
-    <title>Document</title>
+    <title>Don't Touch Menu</title>
 </head>
 <body>
-    <?php
-    if(isset($_SESSION['message'])):
-        echo $_SESSION['message'];
-        unset($_SESSION['message']);
-    else:
-    ?>
+    <main class="container pt-5">
+        <div class="row">
+            <div class="col-12 text-center">
+            <?php
+            if(isset($_SESSION['message'])):
+                echo $_SESSION['message'];
+                unset($_SESSION['message']);
+            ?>
+            
+            </div>
+        </div>
+    </main>
+    <?php else: ?>
     <header>
         <div class="container-fluid">
             <div class="row">
             <h1 class="col-12">
-                <figure class="logo"><img src="<?php echo $img_path; ?>" alt="<?php echo $name; ?>"></figure>
+                <figure class="logo"><img src="<?php echo $img_folder_path.ltrim($img_path, './img'); ?>" alt="<?php echo $name; ?>"></figure>
             </h1>
             </div>
         </div>
