@@ -41,9 +41,14 @@ if(isset($_POST['signup'])) {
     $close_hour = $_POST['store_close_hour'];
     $close_min = $_POST['store_close_min'];
     $store_close = $close_hour. ":" .$close_min.":00";
-    $last_hour = $_POST['store_last_hour'];
-    $last_min = $_POST['store_last_min'];
-    $store_last = $last_hour. ":" .$last_min.":00";
+    if($last_hour != NULL && $last_min != NULL){
+      $last_hour = $_POST['store_last_hour'];
+      $last_min = $_POST['store_last_min'];
+      $store_last = $last_hour. ":" .$last_min.":00";
+    }
+    else{
+      $store_last = NULL;
+    }
     $pdo->insert_store($_POST['store_name'], $userid, $password, $_POST['store_seats'], $_FILES['store_img'], $store_open, $store_close, $store_last, $_POST['store_exception']);
     echo '<div class="w-100 text-center">会員登録が完了しました</div><br>';
     echo '<div class="w-100 text-center"><a class="btn btn-green" href="../login/index.php">ログインページ</a></div>';

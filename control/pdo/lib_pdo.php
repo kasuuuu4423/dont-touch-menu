@@ -173,6 +173,9 @@ class Lib_pdo{
             if($menu_img['error'] != 4){
                 $menu_img_path = $this->upload_img($menu_img);
             }
+            else{
+                $menu_img_path = NULL;
+            }
             $null = NULL;
             $stmt = $this->db->prepare("INSERT INTO menu (id, name, price, description, img_path, enabled, store_id, menu_category_id, created_at, update_at) VALUES (:id, :name, :price, :description, :img_path, :enabled, :store_id, :menu_category_id, now(), now())");
             $stmt->bindparam(':id', $null, PDO::PARAM_INT);
@@ -234,8 +237,11 @@ class Lib_pdo{
             if($store_img['error'] != 4){
                 $store_img_path = $this->upload_img($store_img);
             }
+            else{
+                $store_img_path = NULL;
+            }
             $null = NULL;
-            $stmt = $this->db->prepare('INSERT INTO store (id, name, userid, password, seats, img_path,  open, close, last_order,  created_at, update_at) VALUES (:id, :name, :userid, :password, :seats, :img_path,  :open, :close, :last_order,  now(), now())');
+            $stmt = $this->db->prepare("INSERT INTO store (id, name, userid, password, seats, img_path,  open, close, last_order, exception, created_at, update_at) VALUES (:id, :name, :userid, :password, :seats, :img_path,  :open, :close, :last_order, :exception,  now(), now())");
             $stmt->bindparam(':id', $null, PDO::PARAM_INT);
             $stmt->bindparam(':name', $store_name, PDO::PARAM_STR);
             $stmt->bindparam(':userid', $user_id, PDO::PARAM_STR);
@@ -244,7 +250,13 @@ class Lib_pdo{
             $stmt->bindparam(':img_path', $store_img_path, PDO::PARAM_STR);
             $stmt->bindparam(':open', $store_opentime, PDO::PARAM_STR);
             $stmt->bindparam(':close', $store_closetime, PDO::PARAM_STR);
-            $stmt->bindparam(':last_order', $store_lastorder, PDO::PARAM_STR);
+            if($store_lastorder == NULL){
+                $stmt->bindparam(':last_order', $null, PDO::PARAM_NULL);
+            }
+            else{
+                $stmt->bindparam(':last_order', $store_lastorder, PDO::PARAM_STR);
+            }
+            $stmt->bindparam(':exception', $store_exception, PDO::PARAM_STR);
             $stmt->execute();
         }
         catch(Exception $e){
@@ -293,6 +305,9 @@ class Lib_pdo{
                 $tmp_img_path = $tmp_menu['img_path'];
                 unlink($tmp_img_path);
                 $menu_img_path = $this->upload_img($menu_img);
+            }
+            else{
+                $menu_img_path = NULL;
             }
             $stmt = $this->db->prepare('UPDATE menu SET name = :name, price = :price, description = :description, img_path = :img_path, enabled = :enabled WHERE id = :id');
             $stmt->bindparam(':id', $menu_id, PDO::PARAM_INT);
