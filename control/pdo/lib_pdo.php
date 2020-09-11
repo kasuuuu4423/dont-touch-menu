@@ -306,16 +306,21 @@ class Lib_pdo{
                 $tmp_img_path = $tmp_menu['img_path'];
                 unlink($tmp_img_path);
                 $menu_img_path = $this->upload_img($menu_img);
+                $sql = 'UPDATE menu SET name = :name, price = :price, description = :description, img_path = :img_path, enabled = :enabled WHERE id = :id';
+                $flg = true;
             }
             else{
-                $menu_img_path = NULL;
+                $sql = 'UPDATE menu SET name = :name, price = :price, description = :description, enabled = :enabled WHERE id = :id';
+                $flg = false;
             }
-            $stmt = $this->db->prepare('UPDATE menu SET name = :name, price = :price, description = :description, img_path = :img_path, enabled = :enabled WHERE id = :id');
+            $stmt = $this->db->prepare($sql);
             $stmt->bindparam(':id', $menu_id, PDO::PARAM_INT);
             $stmt->bindparam(':name', $menu_name, PDO::PARAM_STR);
             $stmt->bindparam(':price', $menu_price, PDO::PARAM_INT);
             $stmt->bindparam(':description', $menu_desc, PDO::PARAM_STR);
-            $stmt->bindparam(':img_path', $menu_img_path, PDO::PARAM_STR);
+            if($flg){
+                $stmt->bindparam(':img_path', $menu_img_path, PDO::PARAM_STR);
+            }
             $stmt->bindparam(':enabled', $menu_enabled, PDO::PARAM_INT);
             $stmt->execute();
         }
