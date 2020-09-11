@@ -49,7 +49,11 @@ if (isset($_SESSION["USERID"])):
             </div>
             <div class="col-10 offset-1 tbl_row value">
               <div class="row">
+                <?php if($row[1] == 'menu_desc'): ?>
+                <div class="col-12"><textarea class="w-100" style="height: 100px" type="text" name="<?php echo $row[1] ?>"></textarea></div>
+                <?php else: ?>
                 <div class="col-12"><input type="text" name="<?php echo $row[1] ?>"></div>
+                <?php endif; ?>
               </div>
             </div>
             <?php endforeach; ?>
