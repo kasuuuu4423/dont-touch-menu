@@ -1,0 +1,50 @@
+.ctrl_top .status .row .seats {
+  font-size: 2.6rem;
+  margin-bottom: 15px;
+}
+
+.ctrl_top .status .row .seats span {
+  margin-left: 10px;
+}
+
+.ctrl_top .history .row .tbl {
+  margin-top: 5px;
+}
+
+.ctrl_top .history .row .tbl .row .tbl_row .row {
+  padding: 10px 0;
+}
+
+.ctrl_top .history .row .tbl .row .tbl_row .row .tbl_num {
+  padding-left: 30px;
+}
+
+.ctrl_top .history .row .tbl .row .tbl_row .row .tbl_enter .tbl_enter_date {
+  margin-right: 3px;
+}
+
+.ctrl_top .history .row .tbl .row .tbl_row .row .tbl_leave {
+  padding-left: 30px;
+}
+
+.ctrl_top .history .row .tbl .row .tbl_row .row .tbl_leave .ctrl_leave_btn {
+  margin: auto;
+  background: #d33142;
+  color: #ffffff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 0.25rem;
+}
+
+.ctrl_top .history .row .tbl .row .tbl_row .row .tbl_leave .tbl_leave_date {
+  margin-right: 5px;
+}
+
+.ctrl_top .history .row .tbl .row .tbl_row:nth-child(1) {
+  font-weight: bold;
+}
+
+.ctrl_top .history .row .tbl .row .tbl_row:nth-child(2n+1) {
+  background-clip: content-box;
+  background-color: #eae8e5;
+}

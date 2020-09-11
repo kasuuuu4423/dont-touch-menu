@@ -48,21 +48,22 @@ foreach($menus as $menu){
     <main class="container">
         <?php
         foreach($cats as $cat):
-          echo "<section class='cat row'><h2 class='cat_name col-12'><span>". $cat["name"] ."</span></h2>";
-          foreach($sort_menus[$cat["id"]] as $cat_menu):
-            //$cat_menu = $sort_menus[$cat["id"]];
-            if($cat_menu["img_path"] == NULL){
-              $menu_size = "sml";
-              $menu_col = "col-12";
-            }
-            elseif($cat_menu["description"] == NULL){
-              $menu_size = "mid";
-              $menu_col = "col-6";
-            }
-            else{
-              $menu_size = "lg";
-              $menu_col = "col-12";
-            }
+          if(isset($sort_menus[$cat["id"]])):
+            echo "<section class='cat row'><h2 class='cat_name col-12'><span>". $cat["name"] ."</span></h2>";
+            foreach($sort_menus[$cat["id"]] as $cat_menu):
+              //$cat_menu = $sort_menus[$cat["id"]];
+              if($cat_menu["img_path"] == NULL){
+                $menu_size = "sml";
+                $menu_col = "col-12";
+              }
+              elseif($cat_menu["description"] == NULL){
+                $menu_size = "mid";
+                $menu_col = "col-6";
+              }
+              else{
+                $menu_size = "lg";
+                $menu_col = "col-12";
+              }
         ?>
         <section class="menu <?php echo $menu_size . " " . $menu_col; ?>">
           <?php if($menu_size == "lg" || $menu_size == "mid"): ?>
@@ -85,8 +86,9 @@ foreach($menus as $menu){
         </section>
         <div class="bar col-12"></div>
         <?php
-          endforeach;
-          echo "</section>";
+            endforeach;
+            echo "</section>";
+          endif;
         endforeach;
         ?>
     </main>

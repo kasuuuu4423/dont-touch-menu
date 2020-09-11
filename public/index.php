@@ -35,7 +35,6 @@ $sort_rules = array();
 
 $img_path = str_replace('../img/', $img_folder_path, $img_path);
 
-
 foreach($rules as $rule){
   if(!is_array($sort_rules[$rule['rule_category_id']])){
     $sort_rules[$rule['rule_category_id']] = array();

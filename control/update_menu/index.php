@@ -5,7 +5,7 @@ require '../pdo/lib_pdo.php';
 
 if (isset($_SESSION["USERID"])):
   if(isset($_SESSION['menu_msg'])){
-    echo '<div class="update_msg"><span>'.$_SESSION['menu_msg'].'</span></div>';
+    echo '<div class="mt-3 w-100 text-center update_msg"><span>'.$_SESSION['menu_msg'].'</span></div>';
     unset($_SESSION['menu_msg']);
   }
   ?>
