@@ -10,11 +10,20 @@ if(isset($_COOKIE['id'])):
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Don't touch menu</title>
+  
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="<?php echo $public_path; ?>css/common.css">
+  <link rel="stylesheet" href="<?php echo $public_path; ?>css/home.css">
 </head>
 <body>
-  <a href="<?php echo $public_path.'menu/?id='.$_GET['id']; ?>">メニューを表示する</a>
-  <a href="<?php echo $public_path.'leave/?id='.$_GET['id']; ?>">退店する</a>
+  <main class="container pt-4 pb-4">
+    <div class="row">
+      <div class="col-12 mb-4 text-center"><a class="btn btn-blue" href="<?php echo $public_path.'menu/?id='.$_GET['id']; ?>">メニューを表示する</a></div>
+      <div class="col-12 text-center"><a class="btn btn-red" href="<?php echo $public_path.'leave/?id='.$_GET['id']; ?>">退店する</a></div>
+    </div>
+  </main>
 </body>
 </html>
 
@@ -79,8 +88,8 @@ $guest_sum = 0;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?php echo $public_path; ?>/css/common.css">
-    <link rel="stylesheet" href="<?php echo $public_path; ?>/css/home.css">
+    <link rel="stylesheet" href="<?php echo $public_path; ?>css/common.css">
+    <link rel="stylesheet" href="<?php echo $public_path; ?>css/home.css">
     <title><?php echo $name.  " | Don't touch menu"; ?></title>
   </head>
   <body>

@@ -20,3 +20,19 @@ main.leave{
 		}
 	}
 }
+
+.btn:hover{
+	color: #ffffff;
+}
+
+.btn-red{
+	@include button(#ee4b6e);
+}
+
+.btn-blue{
+	@include button(#4b71ee);
+}
+
+.btn-green{
+	@include button(#13e482);
+}
