@@ -124,15 +124,15 @@ if (isset($_SESSION["USERID"])) {
     $close_hour = $_POST['store_close_hour'];
     $close_min = $_POST['store_close_min'];
     $store_close = $close_hour. ":" .$close_min.":00";
-    if($last_hour != NULL && $last_min != NULL){
-      $last_hour = $_POST['store_last_hour'];
-      $last_min = $_POST['store_last_min'];
+    if($_POST['store_last_order_hour'] != NULL && $_POST['store_last_order_min'] != NULL){
+      $last_hour = $_POST['store_last_order_hour'];
+      $last_min = $_POST['store_last_order_min'];
       $store_last = $last_hour. ":" .$last_min.":00";
     }
     else{
       $store_last = NULL;
     }
-    $pdo->update_store($_POST['store_id'], $_POST['store_name'], $_POST['store_seats'], $_FILES['store_img'], $store_open, $store_close, $store_last_order, $_POST['store_exception']);
+    $pdo->update_store($_POST['store_id'], $_POST['store_name'], $_POST['store_seats'], $_FILES['store_img'], $store_open, $store_close, $store_last, $_POST['store_exception']);
     header('Location: ./');
   endif;
 }

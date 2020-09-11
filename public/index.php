@@ -2,6 +2,25 @@
 require '../control/config.php';
 require '../control/pdo/lib_pdo.php';
 
+if(isset($_COOKIE['id'])):
+?>
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <a href="<?php echo $public_path.'menu/?id='.$_GET['id']; ?>">メニューを表示する</a>
+  <a href="<?php echo $public_path.'leave/?id='.$_GET['id']; ?>">退店する</a>
+</body>
+</html>
+
+<?php
+exit();
+endif;
 $pdo = new Lib_pdo();
 
 if(isset($_GET['reserve'])){

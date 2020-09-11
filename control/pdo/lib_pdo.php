@@ -258,6 +258,7 @@ class Lib_pdo{
             }
             $stmt->bindparam(':exception', $store_exception, PDO::PARAM_STR);
             $stmt->execute();
+            return $this->db->lastInsertId();
         }
         catch(Exception $e){
             echo $e;
@@ -364,5 +365,10 @@ class Lib_pdo{
         catch(Exception $e){
             echo $e;
         }
+    }
+    public function secRmvFromTime($time){
+        $ex_time = explode(':', $time);
+        $result_time = $ex_time[0].':'.$ex_time[1]; 
+        return $result_time;
     }
 }
