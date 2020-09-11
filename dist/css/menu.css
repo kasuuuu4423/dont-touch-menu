@@ -91,6 +91,7 @@ main section.cat section.menu .menu_price {
 
 main section.cat section.menu .menu_description {
   font-size: 0.9rem;
+  white-space: pre-wrap;
 }
 
 main section.cat section.menu .menu_description p {
