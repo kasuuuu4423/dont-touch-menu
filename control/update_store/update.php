@@ -139,3 +139,6 @@ if (isset($_SESSION["USERID"])) {
 ?>
 </div>
 </main>
+
+<?php
+require '../footer.php';
