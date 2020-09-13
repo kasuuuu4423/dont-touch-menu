@@ -1,6 +1,6 @@
 <?php
 class Lib_pdo{
-    private $db;
+    public $db;
     function __construct(){
         require 'pdo_info.php';
         try {
@@ -148,6 +148,17 @@ class Lib_pdo{
             $stmt->execute();
             session_start();
             $_SESSION['message'] =  "ご来店ありがとうございました。";
+        }
+        catch(Exception $e){
+            echo $e;
+        }
+    }
+    public function leave_guest_byDatetime($start, $end){
+        try{
+            $sql = "UPDATE guest SET leave_datetime = now() WHERE leave_datetime IS NULL AND `enter_datetime` BETWEEN ". $start ." AND ". $end."";
+            $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute();
         }
         catch(Exception $e){
             echo $e;
