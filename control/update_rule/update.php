@@ -53,7 +53,7 @@ if (isset($_SESSION["USERID"])):
             </div>
             <div class="col-10 offset-1 tbl_row value">
               <div class="row">
-                <div class="col-12"><input type="text" name="rule_content" value="<?php if (!empty($rule_content)) echo(htmlspecialchars($rule_content, ENT_QUOTES, 'UTF-8'));?>"></div>
+                <div class="col-12"><textarea class="w-100" name="rule_content" rows="5"><?php if (!empty($rule_content)) echo(htmlspecialchars($rule_content, ENT_QUOTES, 'UTF-8'));?></textarea></div>
               </div>
             </div>
           </div>
