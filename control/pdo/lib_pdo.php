@@ -188,7 +188,7 @@ class Lib_pdo{
                 $menu_img_path = NULL;
             }
             $null = NULL;
-            $stmt = $this->db->prepare("INSERT INTO menu (id, name, price, description, img_path, enabled, store_id, menu_category_id, created_at, update_at) VALUES (:id, :name, :price, :description, :img_path, :enabled, :store_id, :menu_category_id, now(), now())");
+            $stmt = $this->db->prepare("INSERT INTO menu (id, name, price, description, img_path, enabled, store_id, menu_category_id, created_at, updated_at) VALUES (:id, :name, :price, :description, :img_path, :enabled, :store_id, :menu_category_id, now(), now())");
             $stmt->bindparam(':id', $null, PDO::PARAM_INT);
             $stmt->bindparam(':name', $menu_name, PDO::PARAM_STR);
             $stmt->bindparam(':price', $menu_price, PDO::PARAM_INT);
@@ -206,7 +206,7 @@ class Lib_pdo{
     public function insert_rule($rule_content, $rule_cat_id, $store_id){
         try{
             $null = NULL;
-            $stmt = $this->db->prepare('INSERT INTO rule (id, content, store_id, rule_category_id, created_at, update_at) VALUES (:id, :content, :store_id, :rule_category_id, now(), now())');
+            $stmt = $this->db->prepare('INSERT INTO rule (id, content, store_id, rule_category_id, created_at, updated_at) VALUES (:id, :content, :store_id, :rule_category_id, now(), now())');
             $stmt->bindparam(':id', $null, PDO::PARAM_INT);
             $stmt->bindparam(':content', $rule_content, PDO::PARAM_STR);
             $stmt->bindparam(':store_id', $store_id, PDO::PARAM_INT);
@@ -220,7 +220,7 @@ class Lib_pdo{
     public function insert_menu_category($menu_cat_name, $store_id){
         try{
             $null = NULL;
-            $stmt = $this->db->prepare('INSERT INTO menu_category (id, name, store_id, created_at, update_at) VALUES (:id, :name, :store_id, now(), now())');
+            $stmt = $this->db->prepare('INSERT INTO menu_category (id, name, store_id, created_at, updated_at) VALUES (:id, :name, :store_id, now(), now())');
             $stmt->bindparam(':id', $null, PDO::PARAM_INT);
             $stmt->bindparam(':name', $menu_cat_name, PDO::PARAM_STR);
             $stmt->bindparam(':store_id', $store_id, PDO::PARAM_INT);
@@ -233,7 +233,7 @@ class Lib_pdo{
     public function insert_rule_category($menu_cat_name, $store_id){
         try{
             $null = NULL;
-            $stmt = $this->db->prepare('INSERT INTO rule_category (id, name, store_id, created_at, update_at) VALUES (:id, :name, :store_id, now(), now())');
+            $stmt = $this->db->prepare('INSERT INTO rule_category (id, name, store_id, created_at, updated_at) VALUES (:id, :name, :store_id, now(), now())');
             $stmt->bindparam(':id', $null, PDO::PARAM_INT);
             $stmt->bindparam(':name', $menu_cat_name, PDO::PARAM_STR);
             $stmt->bindparam(':store_id', $store_id, PDO::PARAM_INT);
@@ -252,7 +252,7 @@ class Lib_pdo{
                 $store_img_path = NULL;
             }
             $null = NULL;
-            $stmt = $this->db->prepare("INSERT INTO store (id, name, userid, password, seats, img_path,  open, close, last_order, exception, created_at, update_at) VALUES (:id, :name, :userid, :password, :seats, :img_path,  :open, :close, :last_order, :exception,  now(), now())");
+            $stmt = $this->db->prepare("INSERT INTO store (id, name, userid, password, seats, img_path,  open, close, last_order, exception, created_at, updated_at) VALUES (:id, :name, :userid, :password, :seats, :img_path,  :open, :close, :last_order, :exception,  now(), now())");
             $stmt->bindparam(':id', $null, PDO::PARAM_INT);
             $stmt->bindparam(':name', $store_name, PDO::PARAM_STR);
             $stmt->bindparam(':userid', $user_id, PDO::PARAM_STR);
@@ -277,7 +277,7 @@ class Lib_pdo{
     }
     public function update_store_seats($store_seats, $store_id){
         try{
-            $stmt = $this->db->prepare('UPDATE store SET seats = :seats, update_at = now() WHERE id = :id');
+            $stmt = $this->db->prepare('UPDATE store SET seats = :seats WHERE id = :id');
             $stmt->bindparam(':id', $store_id, PDO::PARAM_INT);
             $stmt->bindparam(':seats', $store_seats, PDO::PARAM_INT);
             $stmt->execute();
