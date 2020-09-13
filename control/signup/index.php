@@ -58,7 +58,7 @@ if(isset($_POST['signup'])) {
     file_put_contents($save_path, $image);
 
     echo '<div class="w-100 text-center">会員登録が完了しました</div><br>';
-    echo '<div class="w-100 text-center"><a class="btn btn-green" href="../login/index.php">ログインページ</a></div>';
+    echo '<div class="w-100 text-center"><a class="btn btn-green" href="../login/">ログインページ</a></div>';
     exit();
   }
   else{
@@ -146,7 +146,10 @@ if(isset($_POST['signup'])) {
         <h3 class="h4 text-left">その他営業時間に関する説明</h3>
         <input class="w-100 input-group-text" type="text" name="store_exception"></input>
       </div>
-      <button class="mt-4 btn btn-success" type="submit" name="signup">サインアップ</button>
+      <div class="row" style="justify-content: center;">
+        <a class="btn btn-red m-0" href="../login/">ログインページに戻る</a>
+        <button class="btn btn-green m-0 ml-2" type="submit" name="signup">サインアップ</button>
+      </div>
     </form>
   </div>
 </main>
