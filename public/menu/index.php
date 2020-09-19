@@ -13,6 +13,8 @@ else{
 $pdo = new Lib_pdo();
 $menus = $pdo->select("menu", $id);
 $cats = $pdo->select("menu_category", $id);
+$store_info = $pdo->select("store", $id)[0];
+$logo_path = ltrim($store_info['img_path'], "./");
 $sort_menus = array();
 foreach($cats as $cat){
   array_push($sort_menus, array());
@@ -39,8 +41,13 @@ foreach($menus as $menu){
   <body>
     <header class="container">
       <div class="row">
-        <figure class="logo col-5"><img src="<?php echo $control_path; ?>/img/logo.jpg" alt=""></figure>
-        <div class="col-7">
+        <?php if($logo_path): ?>
+          <figure class="logo col-6 align-self-center"><img src="<?php echo $control_path; ?>/img/logo.jpg" alt=""></figure>
+          <figure class="store_logo col-6 align-self-center"><img class="w-100" src="<?php echo $control_path.$logo_path; ?>" alt=""></figure>
+        <?php else: ?>
+          <figure class="logo col-12"><img src="<?php echo $control_path; ?>/img/logo.jpg" alt=""></figure>
+        <?php endif; ?>
+        <div class="col-12 mt-4">
           <h1>Menu.</h1>
         </div>
       </div>
@@ -49,6 +56,7 @@ foreach($menus as $menu){
         <?php
         foreach($cats as $cat):
           if(isset($sort_menus[$cat["id"]])):
+            $cnt_mid = 0;
             echo "<section class='cat row'><h2 class='cat_name col-12'><span>". $cat["name"] ."</span></h2>";
             foreach($sort_menus[$cat["id"]] as $cat_menu):
               //$cat_menu = $sort_menus[$cat["id"]];
@@ -59,6 +67,7 @@ foreach($menus as $menu){
               elseif($cat_menu["description"] == NULL){
                 $menu_size = "mid";
                 $menu_col = "col-6";
+                $cnt_mid++;
               }
               else{
                 $menu_size = "lg";
@@ -84,7 +93,19 @@ foreach($menus as $menu){
             </div>
           <?php endif; ?>
         </section>
-        <div class="bar col-12"></div>
+        <?php 
+        //midのbar関係処理
+              //foreachの次の要素
+              $next = $sort_menus[$cat["id"]][array_keys($sort_menus[$cat["id"]], $cat_menu)[0] + 1];
+              if($menu_size != "mid" || //midじゃない場合
+                ($menu_size == "mid" && $cnt_mid >= 2) || //midが2つ連続の場合
+                ($next["description"] || $next["img_path"] == NULL)): //次がlgまたはsmlの場合
+                $cnt_mid = 0;
+        ?>
+          <div class="bar col-12"></div>
+        <?php //elseif(): ?>
+
+        <?php endif; ?>
         <?php
             endforeach;
             echo "</section>";
