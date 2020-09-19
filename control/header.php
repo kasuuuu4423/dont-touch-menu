@@ -46,7 +46,7 @@ if(!isset($_SESSION['USERID'])) {
         <span class="nav_bar">|</span>
         <li><a href="<?php echo $logout_path; ?>">ログアウト</a></li>
         <br>
-        <li><a href="<?php echo $public_path_forGet; ?>?id=<?php echo $_SESSION['ID']; ?>">お客様側の画面へ</a></li>
+        <li><a href="<?php echo $public_path_forGet; ?>?id=<?php echo $_SESSION['ID']; ?>&store=1">お客様側の画面へ</a></li>
       </ul>
     </div>
     <?php endif; ?>
