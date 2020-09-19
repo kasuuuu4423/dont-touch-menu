@@ -20,6 +20,10 @@ header .nav_ctrl .nav_bar {
   margin: 0 2px;
 }
 
+main {
+  padding-bottom: 50px;
+}
+
 .bar {
   width: 100%;
   height: 2px;
@@ -73,6 +77,45 @@ h2 {
   border-radius: 0.25rem;
 }
 
+input[type*="text"],
+input[type*="id"],
+input[type*="password"],
+input[type*="number"] {
+  display: flex;
+  align-items: center;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  text-align: left;
+  white-space: nowrap;
+  background-color: #ffffff;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+  margin: auto;
+}
+
+select:focus {
+  box-shadow: none !important;
+  border-width: 2px !important;
+  border-color: black !important;
+}
+
+.update_msg {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.update_msg span {
+  color: white;
+  background-color: black;
+  padding: 1px 20px;
+}
+
+.tbls {
+  width: 100%;
+}
+
 .tbl {
   margin-top: 5px;
 }
@@ -80,10 +123,6 @@ h2 {
 .tbl .row .tbl_row .row {
   padding: 10px 0;
   align-items: center;
-}
-
-.tbl .row .tbl_row:nth-child(1) {
-  font-weight: bold;
 }
 
 .tbl .row .tbl_row:nth-child(2n+1) {
@@ -115,23 +154,31 @@ h2 {
   margin-top: 75px;
 }
 
-.update_index .tbl_item .menu_cat {
+.update_index .tbl_item .cat_name {
   text-align: center;
   font-weight: bold;
   font-size: 1.5rem;
   margin-bottom: 5px;
 }
 
-.update_index .tbl_item .tbl_update_index .tbl_row .menu {
+.update_index .tbl_item .tbl_update_index .tbl_row .item_name {
   text-align: center;
-  font-weight: normal;
+}
+
+.update_index .tbl_item .tbl_update_index .tbl_row .enable {
+  color: #3177d3;
+  text-align: center;
+}
+
+.update_index .tbl_item .tbl_update_index .tbl_row .disable {
+  text-align: center;
 }
 
 .update_index .tbl_item .tbl_update_index .tbl_row .edit {
   text-align: center;
 }
 
-.update_index .tbl_item .no_menu {
+.update_index .tbl_item .no_items {
   text-align: center;
   font-weight: bold;
 }
@@ -155,38 +202,94 @@ h2 {
   font-size: 1.5rem;
 }
 
-.update_update .form_update .btns {
+.update_store_index .form_update,
+.update_update .form_update,
+.update_insert .form_update {
+  margin-top: 30px;
+}
+
+.update_store_index .field .field_text,
+.update_update .field .field_text,
+.update_insert .field .field_text {
+  padding-left: 30px;
+}
+
+.update_store_index .value,
+.update_update .value,
+.update_insert .value {
+  margin-bottom: 20px;
+}
+
+.update_store_index .value .value_text,
+.update_update .value .value_text,
+.update_insert .value .value_text {
+  padding-left: 30px;
+}
+
+.update_store_index .value input,
+.update_update .value input,
+.update_insert .value input {
+  width: 100%;
+}
+
+.update_store_index .value img,
+.update_update .value img,
+.update_insert .value img {
+  margin-bottom: 10px;
+}
+
+.update_index .btns .delete_btn,
+.update_update .btns .delete_btn,
+.update_insert .btns .delete_btn {
+  margin-top: 20px;
+}
+
+.pw-icon {
+  color: #555;
+  float: right;
+  margin-right: 15px;
+  margin-top: -30px;
+  position: relative;
+  z-index: 2;
+}
+
+.login .pw-icon {
+  margin-top: -55px;
+}
+
+.btns {
   justify-content: center;
   margin-top: 20px;
 }
 
-.update_update .form_update .btns div:first-of-type {
+.btns div:first-of-type {
   margin-right: 20px;
 }
 
-.update_update .form_update .btns .delete_btn {
-  margin-top: 5px;
+.update_insert .tbl .row .tbl_row:nth-child(1) {
+  font-weight: normal;
 }
 
-.update_update .form_update .field .field_text {
-  padding-left: 30px;
+.required_field {
+  color: #d33142;
+  font-size: 0.8rem;
 }
 
-.update_update .form_update .value input {
-  width: 100%;
+.history .selected_date {
+  font-size: 1.25rem;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
-input[type*="text"] {
-  display: flex;
-  align-items: center;
-  padding: .375rem .75rem;
-  font-size: 1rem;
-  line-height: 1.5;
-  color: #495057;
-  text-align: left;
-  white-space: nowrap;
-  background-color: #ffffff;
-  border: 1px solid #ced4da;
-  border-radius: .25rem;
-  margin: auto;
+.history .no_history {
+  font-size: 1.5rem;
+}
+
+.history .guest_sum {
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+}
+
+.history .tbl_history .tbl_row:nth-child(1) {
+  font-weight: bold;
 }
