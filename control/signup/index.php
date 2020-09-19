@@ -19,7 +19,7 @@ if(isset($_POST['signup'])) {
   }
   else{
     //ユーザーIDが被っていた場合
-    echo '同じユーザーIDが存在します。';
+    $_SESSION['id_msg'] = '同じユーザーIDが存在します。';
   }
   //入力されたパスワードのバリデーションチェック
   if (preg_match('/\A(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}+\z/i', $_POST["password"])) {
@@ -31,7 +31,7 @@ if(isset($_POST['signup'])) {
   }
   else {
     //バリデーションチェックで問題があった場合
-    echo "パスワードは半角英数字をそれぞれ1文字以上含んだ8文字以上で設定してください";
+    $_SESSION['password_msg'] = "パスワードは半角英数字をそれぞれ1文字以上含んだ8文字以上で設定してください";
   }
   if($flag_userid && $flag_password){
     //フラグがユーザーIDとパスワード両方立っていた場合
@@ -41,7 +41,7 @@ if(isset($_POST['signup'])) {
     $close_hour = $_POST['store_close_hour'];
     $close_min = $_POST['store_close_min'];
     $store_close = $close_hour. ":" .$close_min.":00";
-    if($last_hour != NULL && $last_min != NULL){
+    if($_POST['store_last_hour'] != NULL && $_POST['store_last_min'] != NULL){
       $last_hour = $_POST['store_last_hour'];
       $last_min = $_POST['store_last_min'];
       $store_last = $last_hour. ":" .$last_min.":00";
@@ -61,97 +61,114 @@ if(isset($_POST['signup'])) {
     echo '<div class="w-100 text-center"><a class="btn btn-green" href="../login/">ログインページ</a></div>';
     exit();
   }
-  else{
-    //ID被りorパスワードのバリデーションエラーが起きた場合
-    echo '<a href="../signup/index.php">戻る</a>';
-  }
 }
 ?>
 
-<main class="container pb-5">
-  <div class="row">
-    <h2 class="col-12 mb-4">サインアップ</h2>
-    <form class="col-12 text-center" method="post" enctype="multipart/form-data">
-      <div class="mb-4">
-        <h3 class="h4 text-left">店名</h3>
-        <input class="w-100 input-group-text" type="text" name="store_name" required></input>
-      </div>
-      <div class="mb-4">
-        <h3 class="h4 text-left">ユーザーID<br>[ログイン時に必要です]</h3>
-        <input class="w-100 input-group-text" type="text" name="userid" required></input>
-      </div>
-      <div class="mb-4">
-        <h3 class="h4 text-left">パスワード<br>[ログイン時に必要です]<br><span class="h6">（半角英数字をそれぞれ1文字以上含んだ8文字以上で設定してください）</span></h3>
-        <input class="w-100 input-group-text" type="text" name="password" required></input>
-      </div>
-      <div class="mb-4">
-        <h3 class="h4 text-left">最大席数</h3>
-        <input class="w-100 input-group-text" type="text" name="store_seats" required></input>
-      </div>
-      <div class="mb-4">
-        <h3 class="h4 text-left">ロゴ</h3>
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+<main>
+  <section class="update_insert container">
+    <div class="row">
+      <h2 class="col-12 mb-4">サインアップ</h2>
+      <?php 
+      if(isset($_SESSION['id_msg'])){
+        echo '<div class="col-12 mt-0 mb-3 update_msg"><span>'.$_SESSION['id_msg'].'</span></div>';
+        unset($_SESSION['id_msg']);
+      }
+      if(isset($_SESSION['password_msg'])){
+        echo '<div class="col-12 mt-0 mb-3 update_msg"><span>'.$_SESSION['password_msg'].'</span></div>';
+        unset($_SESSION['password_msg']);
+      }
+      ?>
+      <form class="col-12 tbl" method="post" enctype="multipart/form-data">
+        <div class="row">
+          <?php
+          $signup_data = array(
+            array('店名<span class="required_field">*必須</span>', 'store_name'),
+            array('ユーザーID<span class="required_field">*必須</span><br>[ログイン時に必要です]', 'userid'),
+            array('パスワード<span class="required_field">*必須</span><br>[ログイン時に必要です]<br>（半角英数字をそれぞれ1文字以上含んだ8文字以上で設定してください）', 'password'),
+            array('最大席数<span class="required_field">*必須</span>', 'store_seats'),
+            array('開店時間<span class="required_field">*必須</span>', 'store_open'),
+            array('閉店時間<span class="required_field">*必須</span>', 'store_close'),
+            array('ラストオーダー', 'store_last'),
+            array('その他営業時間に関する説明', 'store_exception'),
+            array('ロゴ', 'store_img'),
+          );
+          foreach($signup_data as $row):
+          ?>
+          <div class="col-10 offset-1 tbl_row field">
+            <div class="row">
+              <div class="col-12 field_text"><?php echo $row[0] ?></div>
+            </div>
           </div>
-          <div class="custom-file">
-            <input type="file" name="store_img" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+          <div class="col-10 offset-1 tbl_row value">
+            <div class="row">
+              <?php
+              switch($row[1]):
+                case 'store_name':
+                case 'userid':
+                case 'password':
+                case 'store_seats':
+                ?>
+                  <div class="col-12">
+                    <input type="<?php if($row[1] == 'password') echo 'password'; elseif($row[1] =='store_seats') echo 'number'; ?>" name="<?php echo $row[1]; ?>" <?php if($row[1] =='store_seats') echo 'min="1"'; ?> required>
+                    <?php if($row[1] == 'password'): ?>
+                    <span class="pw-icon">
+                      <i toggle="password-field" class="fas fa-eye toggle-password"></i>
+                    </span>
+                    <?php endif; ?>
+                  </div>
+                  <?php
+                  break;
+                case 'store_exception':
+                ?>
+                  <div class="col-12">
+                    <textarea class="w-100 h-100" type="text" name="<?php echo $row[1]; ?>"></textarea>
+                  </div>
+                  <?php
+                  break;
+                case 'store_img':
+                ?>
+                  <div class="input-group col-12">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                    </div>
+                    <div class="custom-file">
+                      <input type="file" name="<?php echo $row[1] ?>" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                      <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                    </div>
+                  </div>
+                  <?php
+                  break;
+                case 'store_open':
+                case 'store_close':
+                case 'store_last':
+                ?>
+                  <div class="col-12">
+                    <div class="row w-100 m-auto">
+                      <!-- <input class="w-100 input-group-text" type="text" name="store_close" required></input> -->
+                      <select class="form-control col-6" name="<?php echo $row[1]; ?>_hour" <?php if($row[1] != 'store_last') echo 'required'; ?>>
+                        <option value="">- 時</option>
+                        <?php for($i = 0; $i <= 23; $i++):?><option value="<?php echo $i; ?>"><?php echo $i; ?> 時</option><?php endfor; ?>
+                      </select>
+                      <select class="form-control col-6" name="<?php echo $row[1]; ?>_min" <?php if($row[1] != 'store_last') echo 'required'; ?>>
+                        <option value="">- 分</option>
+                        <?php for($i = 0; $i <= 59; $i++):?><option value="<?php echo $i; ?>"><?php echo $i; ?> 分</option><?php endfor; ?>
+                      </select>
+                    </div>
+                  </div>
+                <?php break; endswitch; ?>
+            </div>
+          </div>
+          <?php endforeach; ?>
+          <div class="col-12">
+            <div class="row" style="justify-content: center;">
+              <a class="btn btn-red m-0" href="../login/">ログインページに戻る</a>
+              <button class="btn btn-green m-0 ml-2" type="submit" name="signup">サインアップ</button>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="mb-4">
-        <h3 class="h4 text-left">開店時間</h3>
-        <div class="row w-100 m-auto">
-          <!-- <input class="w-100 input-group-text" type="text" name="store_close" required></input> -->
-          <select class="form-control col-6" name="store_open_hour" id="">
-            <option value="">- 時</option>
-            <?php for($i = 0; $i <= 23; $i++):?><option value="<?php echo $i; ?>"><?php echo $i; ?></option><?php endfor; ?>
-          </select>
-          <select class="form-control col-6" name="store_open_min" id="">
-            <option value="">- 分</option>
-            <?php for($i = 0; $i <= 59; $i++):?><option value="<?php echo $i; ?>"><?php echo $i; ?></option><?php endfor; ?>
-          </select>
-        </div>
-      </div>
-      <div class="mb-4">
-        <h3 class="h4 text-left">閉店時間</h3>
-        <div class="row w-100 m-auto">
-          <!-- <input class="w-100 input-group-text" type="text" name="store_close" required></input> -->
-          <select class="form-control col-6" name="store_close_hour" id="">
-            <option value="">- 時</option>
-            <?php for($i = 0; $i <= 23; $i++):?><option value="<?php echo $i; ?>"><?php echo $i; ?></option><?php endfor; ?>
-          </select>
-          <select class="form-control col-6" name="store_close_min" id="">
-            <option value="">- 分</option>
-            <?php for($i = 0; $i <= 59; $i++):?><option value="<?php echo $i; ?>"><?php echo $i; ?></option><?php endfor; ?>
-          </select>
-        </div>
-      </div>
-      <div class="mb-4">
-        <h3 class="h4 text-left">ラストオーダー</h3>
-        <div class="row w-100 m-auto">
-          <!-- <input class="w-100 input-group-text" type="text" name="store_close" required></input> -->
-          <select class="form-control col-6" name="store_last_hour" id="">
-            <option value="">- 時</option>
-            <?php for($i = 0; $i <= 23; $i++):?><option value="<?php echo $i; ?>"><?php echo $i; ?></option><?php endfor; ?>
-          </select>
-          <select class="form-control col-6" name="store_last_min" id="">
-            <option value="">- 分</option>
-            <?php for($i = 0; $i <= 59; $i++):?><option value="<?php echo $i; ?>"><?php echo $i; ?></option><?php endfor; ?>
-          </select>
-        </div>
-      </div>
-      <div class="mb-4">
-        <h3 class="h4 text-left">その他営業時間に関する説明</h3>
-        <input class="w-100 input-group-text" type="text" name="store_exception"></input>
-      </div>
-      <div class="row" style="justify-content: center;">
-        <a class="btn btn-red m-0" href="../login/">ログインページに戻る</a>
-        <button class="btn btn-green m-0 ml-2" type="submit" name="signup">サインアップ</button>
-      </div>
-    </form>
-  </div>
+      </form>
+    </div>
+  </section>
 </main>
 
 <?php 
