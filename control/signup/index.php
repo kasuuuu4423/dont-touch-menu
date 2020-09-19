@@ -19,7 +19,7 @@ if(isset($_POST['signup'])) {
   }
   else{
     //ユーザーIDが被っていた場合
-    $_SESSION['id_msg'] = '同じユーザーIDが存在します。';
+    $_SESSION['id_msg'] = '同じユーザーIDが存在します';
   }
   //入力されたパスワードのバリデーションチェック
   if (preg_match('/\A(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}+\z/i', $_POST["password"])) {
@@ -58,7 +58,7 @@ if(isset($_POST['signup'])) {
     file_put_contents($save_path, $image);
 
     echo '<div class="w-100 text-center">会員登録が完了しました</div><br>';
-    echo '<div class="w-100 text-center"><a class="btn btn-green" href="../login/">ログインページ</a></div>';
+    echo '<div class="w-100 text-center"><a class="btn btn-green" href="../login/">ログインページへ</a></div>';
     exit();
   }
 }
@@ -104,12 +104,42 @@ if(isset($_POST['signup'])) {
               <?php
               switch($row[1]):
                 case 'store_name':
+                  $result = 'type="text"';
+                  if($_POST["$row[1]"]){
+                    $value_result = $_POST["$row[1]"];
+                  }
+                  else{
+                    $value_result = null;
+                  }
+                  goto output;
                 case 'userid':
+                  $result = 'type="id"';
+                  if($_POST["$row[1]"]){
+                    $value_result = $_POST["$row[1]"];
+                  }
+                  else{
+                    $value_result = null;
+                  }
+                  goto output;
                 case 'password':
+                  $result = 'type="password" autocomplete="new-password"';
+                  if($_POST["$row[1]"]){
+                    $value_result = null;
+                  }
+                  goto output;
                 case 'store_seats':
+                  $result = 'type="number" min="1"';
+                  if($_POST["$row[1]"]){
+                    $value_result = $_POST["$row[1]"];
+                  }
+                  else{
+                    $value_result = null;
+                  }
+                  goto output;
+                  output:
                 ?>
                   <div class="col-12">
-                    <input type="<?php if($row[1] == 'password') echo 'password'; elseif($row[1] =='store_seats') echo 'number'; ?>" name="<?php echo $row[1]; ?>" <?php if($row[1] =='store_seats') echo 'min="1"'; ?> required>
+                    <input name="<?php echo $row[1]; ?>" <?php echo $result; ?> value="<?php if($value_result){ echo $value_result; } ?>" required>
                     <?php if($row[1] == 'password'): ?>
                     <span class="pw-icon">
                       <i toggle="password-field" class="fas fa-eye toggle-password"></i>
@@ -119,9 +149,15 @@ if(isset($_POST['signup'])) {
                   <?php
                   break;
                 case 'store_exception':
+                  if($_POST["$row[1]"]){
+                    $value_result = $_POST["$row[1]"];
+                  }
+                  else{
+                    $value_result = null;
+                  }
                 ?>
                   <div class="col-12">
-                    <textarea class="w-100 h-100" type="text" name="<?php echo $row[1]; ?>"></textarea>
+                    <textarea class="w-100 h-100" type="text" name="<?php echo $row[1]; ?>"><?php if($value_result){ echo $value_result; } ?></textarea>
                   </div>
                   <?php
                   break;
@@ -129,11 +165,11 @@ if(isset($_POST['signup'])) {
                 ?>
                   <div class="input-group col-12">
                     <div class="input-group-prepend">
-                      <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                      <span class="input-group-text" id="inputGroupFileAddon01">画像をアップロード</span>
                     </div>
                     <div class="custom-file">
-                      <input type="file" name="<?php echo $row[1] ?>" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                      <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                      <input type="file" name="<?php echo $row[1]; ?>" class="custom-file-input" value="<?php if($_FILES["$row[1]"]){ echo $_FILES["$row[1]"]; } ?>" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                      <label class="custom-file-label" for="inputGroupFile01"><?php if($_FILES["$row[1]"]){ echo $_FILES["$row[1]"]['name']; }else{ echo 'ファイルを選択'; } ?></label>
                     </div>
                   </div>
                   <?php
@@ -141,16 +177,38 @@ if(isset($_POST['signup'])) {
                 case 'store_open':
                 case 'store_close':
                 case 'store_last':
+                  if($_POST["{$row[1]}_hour"] and $_POST["{$row[1]}_min"]){
+                    $result_hour = $_POST["{$row[1]}_hour"];
+                    $result_min = $_POST["{$row[1]}_min"];
+                  }
+                  else{
+                    $result_hour = null;
+                    $result_min = null;
+                  }
                 ?>
                   <div class="col-12">
                     <div class="row w-100 m-auto">
                       <!-- <input class="w-100 input-group-text" type="text" name="store_close" required></input> -->
                       <select class="form-control col-6" name="<?php echo $row[1]; ?>_hour" <?php if($row[1] != 'store_last') echo 'required'; ?>>
+                        <?php if($result_hour and $result_min): ?>
+                        <option value="<?php echo $result_hour; ?>"><?php echo $result_hour; ?> 時</option>
+                        <?php else: ?>
                         <option value="">- 時</option>
+                        <?php endif; ?>
+                        <?php if(($row[1] == 'store_last') and $result_hour and $result_min): ?>
+                        <option value="">- 時</option>
+                        <?php endif; ?>
                         <?php for($i = 0; $i <= 23; $i++):?><option value="<?php echo $i; ?>"><?php echo $i; ?> 時</option><?php endfor; ?>
                       </select>
                       <select class="form-control col-6" name="<?php echo $row[1]; ?>_min" <?php if($row[1] != 'store_last') echo 'required'; ?>>
+                        <?php if($result_hour and $result_min): ?>
+                        <option value="<?php echo $result_min; ?>"><?php echo $result_min; ?> 分</option>
+                        <?php else: ?>
                         <option value="">- 分</option>
+                        <?php endif; ?>
+                        <?php if(($row[1] == 'store_last') and $result_hour and $result_min): ?>
+                        <option value="">- 時</option>
+                        <?php endif; ?>
                         <?php for($i = 0; $i <= 59; $i++):?><option value="<?php echo $i; ?>"><?php echo $i; ?> 分</option><?php endfor; ?>
                       </select>
                     </div>

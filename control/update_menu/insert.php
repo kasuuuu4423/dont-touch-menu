@@ -68,11 +68,11 @@ if (isset($_SESSION["USERID"])):
               <div class="row">
                 <div class="col-12 input-group">
                   <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                    <span class="input-group-text" id="inputGroupFileAddon01">画像をアップロード</span>
                   </div>
                   <div class="custom-file">
                     <input type="file" name="menu_img" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                    <label class="custom-file-label" for="inputGroupFile01">ファイルを選択</label>
                   </div>
                 </div>
               </div>
