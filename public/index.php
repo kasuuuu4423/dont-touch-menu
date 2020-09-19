@@ -96,9 +96,14 @@ $guest_sum = 0;
     <header class="pt-5">
       <div class="container-fluid">
         <div class="row">
-          <h1 class="col-12">
-            <figure class="logo"><img src="<?php if($img_path){echo $img_path;}else{echo $img_folder_path."dtm.jpg";} ?>" alt="<?php echo $name; ?>"></figure>
-					</h1>
+          <?php if($img_path): ?>
+          <figure class="col-6"><img class="w-100" src="<?php echo $img_folder_path."dtm.jpg"; ?>" alt="Don't touch menu"></figure>
+          <h1 class="col-6 align-self-center">
+            <figure class="logo mb-0"><img src="<?php echo $img_path;?>" alt="<?php echo $name; ?>"></figure>
+          </h1>
+          <?php else: ?>
+            <figure class="col-12"><img class="w-100" src="<?php echo $img_folder_path."dtm.jpg"; ?>" alt="Don't touch menu"></figure>
+          <?php endif; ?>
           <section class="time col-12">
             <dl class="open_time">
               <dt>OPEN</dt>
@@ -108,11 +113,15 @@ $guest_sum = 0;
               <dt>CLOSE</dt>
               <dd><?php echo $close; ?></dd>
             </dl>
-            <dl class="last">
-              <dt>ラストオーダー</dt>
-              <dd><?php echo $last; ?></dd>
-            </dl>
-            <div class="exception"><?php if($exception != NULL) echo $exception; ?></div>
+            <?php if($last): ?>
+              <dl class="last">
+                <dt>ラストオーダー</dt>
+                <dd><?php echo $last; ?></dd>
+              </dl>
+            <?php endif; ?>
+            <?php if($exception) : ?>
+            <div class="exception"><?php echo $exception; ?></div>
+            <?php endif; ?>
           </section>
           <section class="seat_status col-12">
             <h2 class="col-12">現在の店内状況</h2>
