@@ -47,3 +47,6 @@ elseif(isset($_GET['rule_cat_id'])){
         </form>
     </div>
 </main>
+
+<?php
+require '../footer.php';

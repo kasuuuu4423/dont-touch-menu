@@ -30,3 +30,6 @@ unset($_SESSION["USERID"]);
     <div class="col-12 text-center mt-2"><a href="<?php echo $login_path; ?>">ログインはこちら</a><div>
   </div>
 <main>
+
+<?php
+require '../footer.php';
