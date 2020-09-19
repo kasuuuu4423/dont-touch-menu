@@ -83,7 +83,7 @@ if (isset($_SESSION["USERID"])):
                 <?php if (!empty($menu_img)) echo '<img class="col-12" src="'. $menu_img .'">';?>
                 <div class="col-12 input-group">
                   <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                    <span class="input-group-text" id="inputGroupFileAddon01">画像をアップロード</span>
                   </div>
                   <div class="custom-file">
                     <input type="file" name="menu_img" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
