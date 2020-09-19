@@ -293,3 +293,7 @@ select:focus {
 .history .tbl_history .tbl_row:nth-child(1) {
   font-weight: bold;
 }
+
+.custom-file .custom-file-label::after {
+  display: none !important;
+}
