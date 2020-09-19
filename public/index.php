@@ -2,7 +2,7 @@
 require '../control/config.php';
 require '../control/pdo/lib_pdo.php';
 
-if(isset($_COOKIE['id'])):
+if(isset($_COOKIE['id']) && !$_GET["store"]):
 ?>
 
 <!DOCTYPE html>
@@ -96,9 +96,14 @@ $guest_sum = 0;
     <header class="pt-5">
       <div class="container-fluid">
         <div class="row">
-          <h1 class="col-12">
-            <figure class="logo"><img src="<?php if($img_path){echo $img_path;}else{echo $img_folder_path."dtm.jpg";} ?>" alt="<?php echo $name; ?>"></figure>
-					</h1>
+          <?php if($img_path): ?>
+          <figure class="col-6"><img class="w-100" src="<?php echo $img_folder_path."dtm.jpg"; ?>" alt="Don't touch menu"></figure>
+          <h1 class="col-6 align-self-center">
+            <figure class="logo mb-0"><img src="<?php echo $img_path;?>" alt="<?php echo $name; ?>"></figure>
+          </h1>
+          <?php else: ?>
+            <figure class="col-12"><img class="w-100" src="<?php echo $img_folder_path."dtm.jpg"; ?>" alt="Don't touch menu"></figure>
+          <?php endif; ?>
           <section class="time col-12">
             <dl class="open_time">
               <dt>OPEN</dt>
@@ -108,11 +113,15 @@ $guest_sum = 0;
               <dt>CLOSE</dt>
               <dd><?php echo $close; ?></dd>
             </dl>
-            <dl class="last">
-              <dt>ラストオーダー</dt>
-              <dd><?php echo $last; ?></dd>
-            </dl>
-            <div class="exception"><?php if($exception != NULL) echo $exception; ?></div>
+            <?php if($last): ?>
+              <dl class="last">
+                <dt>ラストオーダー</dt>
+                <dd><?php echo $last; ?></dd>
+              </dl>
+            <?php endif; ?>
+            <?php if($exception) : ?>
+            <div class="exception" style="white-space: pre-wrap;"><?php echo $exception; ?></div>
+            <?php endif; ?>
           </section>
           <section class="seat_status col-12">
             <h2 class="col-12">現在の店内状況</h2>
@@ -149,39 +158,49 @@ $guest_sum = 0;
             <?php endforeach; ?>
         </div>
       </section>
+      <?php
+      endif;
+      if(!$_GET["store"]):
+      ?>
+        <section class="reserve container">
+          <div class="row">
+            <p class="col-12">ご来店人数を選択してください</p>
+            <form class="col-12" method="get">
+              <div class="row">
+                <input type="radio" name="num" value="1" id="r_1">
+                <label class="col-6" for="r_1"><span>1名様</span>
+                </label>
+                <input type="radio" name="num" value="2" id="r_2">
+                <label class="col-6" for="r_2"><span>2名様</span>
+                </label>
+                <input type="radio" name="num" value="3" id="r_3">
+                <label class="col-6" for="r_3"><span>3名様</span>
+                </label>
+                <input type="radio" name="num" value="4" id="r_4">
+                <label class="col-6" for="r_4"><span>4名様以上</span>
+                </label>
+                <!-- gulpで書き直してscssなどをやってくれ -->
+                <select class="form-control mb-5 col-12" name="num_select" id="s">
+                  <option value="">- 4名様以上の場合選択してください</option>
+                  <option value="4">4名様</option>
+                  <option value="5">5名様</option>
+                  <option value="6">6名様</option>
+                  <option value="7">7名様</option>
+                  <option value="8">8名様</option>
+                </select>
+                <input type="hidden" name="id" value="<?php echo $id; ?>">
+                <input class="submit" type="submit" name="reserve" value="利用規約に同意して進む">
+              </div>
+            </form>
+          </div>
+        </section>
+      <?php else: ?>
+        <section class="toMenu container pt-5 pb-5">
+          <div class="row">
+            <a class="btn btn-blue" href="<?php echo $public_path.'menu/?id='.$_GET['id']; ?>">メニューを表示する</a>
+          </div>
+        </section>
       <?php endif; ?>
-      <section class="reserve container">
-        <div class="row">
-          <p class="col-12">ご来店人数を選択してください</p>
-          <form class="col-12" method="get">
-            <div class="row">
-              <input type="radio" name="num" value="1" id="r_1">
-              <label class="col-6" for="r_1"><span>1名様</span>
-              </label>
-              <input type="radio" name="num" value="2" id="r_2">
-              <label class="col-6" for="r_2"><span>2名様</span>
-              </label>
-              <input type="radio" name="num" value="3" id="r_3">
-              <label class="col-6" for="r_3"><span>3名様</span>
-              </label>
-              <input type="radio" name="num" value="4" id="r_4">
-              <label class="col-6" for="r_4"><span>4名様以上</span>
-              </label>
-              <!-- gulpで書き直してscssなどをやってくれ -->
-              <select class="form-control mb-5 col-12" name="num_select" id="s">
-                <option value="">- 4名様以上の場合選択してください</option>
-                <option value="4">4名様</option>
-                <option value="5">5名様</option>
-                <option value="6">6名様</option>
-                <option value="7">7名様</option>
-                <option value="8">8名様</option>
-              </select>
-              <input type="hidden" name="id" value="<?php echo $id; ?>">
-              <input class="submit" type="submit" name="reserve" value="利用規約に同意して進む">
-            </div>
-          </form>
-        </div>
-      </section>
     </main>
   </body>
 </html>

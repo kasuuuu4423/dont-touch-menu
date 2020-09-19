@@ -108,4 +108,4 @@ if (isset($_SESSION["USERID"])):
   </main>
 <?php
 endif;
-?>
+require '../footer.php';
