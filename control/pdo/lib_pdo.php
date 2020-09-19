@@ -385,6 +385,11 @@ class Lib_pdo{
     public function secRmvFromTime($time){
         $ex_time = explode(':', $time);
         $result_time = $ex_time[0].':'.$ex_time[1]; 
-        return $result_time;
+        if($time){
+            return $result_time;
+        }
+        else{
+            return NULL;
+        }
     }
 }
