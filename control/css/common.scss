@@ -1,0 +1,260 @@
+@import "_variables";
+body {
+  background-color: $bg_color;
+}
+
+header {
+  margin-top: 30px;
+  .nav_ctrl {
+    flex-wrap: wrap;
+    list-style: none;
+    margin-bottom: 0;
+    li {
+      display: inline-block;
+    }
+    .nav_bar {
+      margin: 0 2px;
+    }
+  }
+}
+
+main {
+  padding-bottom: 50px;
+}
+
+.bar {
+  width: 100%;
+  height: 2px;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  background-clip: content-box;
+  background-color: $bar_color;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  text-align: center !important;
+}
+
+h2 {
+  font-size: 1.75rem;
+  margin-bottom: 5px;
+  text-align: center !important;
+}
+
+.btn:hover {
+  color: #ffffff;
+  text-decoration-line: underline;
+}
+
+.btn-red {
+  margin: auto;
+  background: $red_color;
+  color: #ffffff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 0.25rem;
+}
+
+.btn-green {
+  margin: auto;
+  background: $green_color;
+  color: #ffffff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 0.25rem;
+}
+
+.btn-blue {
+  margin: auto;
+  background: $blue_color;
+  color: #ffffff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 0.25rem;
+}
+
+input[type*="text"],
+input[type*="id"],
+input[type*="password"] {
+  display: flex;
+  align-items: center;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  text-align: left;
+  white-space: nowrap;
+  background-color: #ffffff;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+  margin: auto;
+}
+
+.update_msg {
+  margin-top: 20px;
+  text-align: center;
+  span {
+    color: white;
+    background-color: black;
+    padding: 1px 20px;
+  }
+}
+
+.tbls {
+  width: 100%;
+}
+
+.tbl {
+  margin-top: 5px;
+  .row {
+    .tbl_row {
+      .row {
+        padding: 10px 0;
+        align-items: center;
+      }
+    }
+    .tbl_row:nth-child(1) {
+      font-weight: bold;
+    }
+    .tbl_row:nth-child(2n+1) {
+      background-clip: content-box;
+      background-color: $history_tbl_color;
+    }
+  }
+}
+
+.tbl_history {
+  .tbl_num {
+    text-align: center;
+  }
+  .tbl_enter {
+    text-align: center;
+    .tbl_enter_date {
+      margin-right: 3px;
+    }
+  }
+  .tbl_leave_date {
+    margin-right: 5px;
+  }
+}
+
+.update_index {
+  .tbl_item:first-of-type {
+    margin-top: 30px;
+  }
+  .tbl_item:nth-of-type(n+2) {
+    margin-top: 75px;
+  }
+  .tbl_item {
+    .cat_name {
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.5rem;
+      margin-bottom: 5px;
+    }
+    .tbl_update_index {
+      .tbl_row {
+        .item_name {
+          text-align: center;
+          font-weight: normal;
+        }
+        .enable {
+          font-weight: normal;
+          color: $blue_color;
+          text-align: center;
+        }
+        .disable {
+          font-weight: normal;
+        }
+        .edit {
+          text-align: center;
+        }
+      }
+    }
+    .no_items {
+      text-align: center;
+      font-weight: bold;
+    }
+    .btns {
+      margin-top: 15px;
+    }
+  }
+  .new_cat {
+    margin-top: 50px;
+    margin-bottom: 75px;
+    a {
+      font-weight: bold;
+    }
+  }
+  .no_cat {
+    margin-top: 50px;
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+}
+
+.update_store_index,
+.update_update,
+.update_insert {
+  .form_update {
+    margin-top: 30px;
+  }
+  .field {
+    .field_text {
+      padding-left: 30px;
+    }
+  }
+  .value {
+    margin-bottom: 20px;
+    .value_text {
+      padding-left: 30px;
+    }
+    input {
+      width: 100%;
+    }
+    img {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.update_index,
+.update_update,
+.update_insert {
+  .btns {
+    .delete_btn {
+      margin-top: 20px;
+    }
+  }
+}
+
+.login {
+  .field-icon {
+    color: #555;
+    float: right;
+    margin-right: 15px;
+    margin-top: -55px;
+    position: relative;
+    z-index: 2;
+  }
+}
+
+.btns {
+  justify-content: center;
+  margin-top: 20px;
+  div:first-of-type {
+    margin-right: 20px;
+  }
+}
+
+.update_insert{
+  .tbl{
+    .row{
+      .tbl_row:nth-child(1){
+        font-weight: normal;
+      }
+    }
+  }
+}

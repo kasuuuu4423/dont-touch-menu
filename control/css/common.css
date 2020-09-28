@@ -7,7 +7,8 @@ header {
 }
 
 header .nav_ctrl {
-  flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   list-style: none;
   margin-bottom: 0;
 }
@@ -18,6 +19,10 @@ header .nav_ctrl li {
 
 header .nav_ctrl .nav_bar {
   margin: 0 2px;
+}
+
+main {
+  padding-bottom: 50px;
 }
 
 .bar {
@@ -43,7 +48,8 @@ h2 {
 
 .btn:hover {
   color: #ffffff;
-  text-decoration-line: underline;
+  -webkit-text-decoration-line: underline;
+          text-decoration-line: underline;
 }
 
 .btn-red {
@@ -73,13 +79,51 @@ h2 {
   border-radius: 0.25rem;
 }
 
+input[type*="text"],
+input[type*="id"],
+input[type*="password"] {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  text-align: left;
+  white-space: nowrap;
+  background-color: #ffffff;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+  margin: auto;
+}
+
+.update_msg {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.update_msg span {
+  color: white;
+  background-color: black;
+  padding: 1px 20px;
+}
+
+.tbls {
+  width: 100%;
+}
+
 .tbl {
   margin-top: 5px;
 }
 
 .tbl .row .tbl_row .row {
   padding: 10px 0;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .tbl .row .tbl_row:nth-child(1) {
@@ -115,15 +159,25 @@ h2 {
   margin-top: 75px;
 }
 
-.update_index .tbl_item .menu_cat {
+.update_index .tbl_item .cat_name {
   text-align: center;
   font-weight: bold;
   font-size: 1.5rem;
   margin-bottom: 5px;
 }
 
-.update_index .tbl_item .tbl_update_index .tbl_row .menu {
+.update_index .tbl_item .tbl_update_index .tbl_row .item_name {
   text-align: center;
+  font-weight: normal;
+}
+
+.update_index .tbl_item .tbl_update_index .tbl_row .enable {
+  font-weight: normal;
+  color: #3177d3;
+  text-align: center;
+}
+
+.update_index .tbl_item .tbl_update_index .tbl_row .disable {
   font-weight: normal;
 }
 
@@ -131,7 +185,7 @@ h2 {
   text-align: center;
 }
 
-.update_index .tbl_item .no_menu {
+.update_index .tbl_item .no_items {
   text-align: center;
   font-weight: bold;
 }
@@ -155,38 +209,69 @@ h2 {
   font-size: 1.5rem;
 }
 
-.update_update .form_update .btns {
-  justify-content: center;
-  margin-top: 20px;
+.update_store_index .form_update,
+.update_update .form_update,
+.update_insert .form_update {
+  margin-top: 30px;
 }
 
-.update_update .form_update .btns div:first-of-type {
-  margin-right: 20px;
-}
-
-.update_update .form_update .btns .delete_btn {
-  margin-top: 5px;
-}
-
-.update_update .form_update .field .field_text {
+.update_store_index .field .field_text,
+.update_update .field .field_text,
+.update_insert .field .field_text {
   padding-left: 30px;
 }
 
-.update_update .form_update .value input {
+.update_store_index .value,
+.update_update .value,
+.update_insert .value {
+  margin-bottom: 20px;
+}
+
+.update_store_index .value .value_text,
+.update_update .value .value_text,
+.update_insert .value .value_text {
+  padding-left: 30px;
+}
+
+.update_store_index .value input,
+.update_update .value input,
+.update_insert .value input {
   width: 100%;
 }
 
-input[type*="text"] {
-  display: flex;
-  align-items: center;
-  padding: .375rem .75rem;
-  font-size: 1rem;
-  line-height: 1.5;
-  color: #495057;
-  text-align: left;
-  white-space: nowrap;
-  background-color: #ffffff;
-  border: 1px solid #ced4da;
-  border-radius: .25rem;
-  margin: auto;
+.update_store_index .value img,
+.update_update .value img,
+.update_insert .value img {
+  margin-bottom: 10px;
 }
+
+.update_index .btns .delete_btn,
+.update_update .btns .delete_btn,
+.update_insert .btns .delete_btn {
+  margin-top: 20px;
+}
+
+.login .field-icon {
+  color: #555;
+  float: right;
+  margin-right: 15px;
+  margin-top: -55px;
+  position: relative;
+  z-index: 2;
+}
+
+.btns {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-top: 20px;
+}
+
+.btns div:first-of-type {
+  margin-right: 20px;
+}
+
+.update_insert .tbl .row .tbl_row:nth-child(1) {
+  font-weight: normal;
+}
+/*# sourceMappingURL=common.css.map */
