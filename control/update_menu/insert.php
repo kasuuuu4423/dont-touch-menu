@@ -33,8 +33,8 @@ if (isset($_SESSION["USERID"])):
         </form>
         <?php elseif($_GET['target'] == 'menu'):
           $menu_data = array(
-            array('メニュー名', 'menu_name'),
-            array('値段', 'menu_price'),
+            array('メニュー名<span style="font-size: 0.8rem;">*必須</span>', 'menu_name'),
+            array('値段<span style="font-size: 0.8rem;">*必須</span>', 'menu_price'),
             array('説明', 'menu_desc'),
           );
         ?>
@@ -52,7 +52,7 @@ if (isset($_SESSION["USERID"])):
                 <?php if($row[1] == 'menu_desc'): ?>
                 <div class="col-12"><textarea class="w-100" style="height: 100px" type="text" name="<?php echo $row[1] ?>"></textarea></div>
                 <?php else: ?>
-                <div class="col-12"><input type="text" name="<?php echo $row[1] ?>"></div>
+                <div class="col-12"><input type="text" name="<?php echo $row[1] ?>" required></div>
                 <?php endif; ?>
               </div>
             </div>
@@ -77,13 +77,13 @@ if (isset($_SESSION["USERID"])):
             </div>
             <div class="col-10 offset-1 tbl_row field">
               <div class="row">
-                <div class="col-12 field_text">販売状況</div>
+                <div class="col-12 field_text">販売状況<span style="font-size: 0.8rem;">*必須</span></div>
               </div>
             </div>
             <div class="col-10 offset-1 tbl_row value">
               <div class="row">
                 <div class="col-12 form-group">
-                  <select id="inputState" name="menu_enabled" class="form-control">
+                  <select id="inputState" name="menu_enabled" class="form-control" required>
                     <option value="1" selected>販売中</option>
                     <option value="0">販売停止</option>
                   </select>

@@ -17,12 +17,12 @@ if (isset($_SESSION["USERID"])):
           <div class="row">
             <div class="col-10 offset-1 tbl_row field">
               <div class="row">
-                <div class="col-12 field_text">カテゴリー名</div>
+                <div class="col-12 field_text">カテゴリー名<span class="required_field">*必須</span></div>
               </div>
             </div>
             <div class="col-10 offset-1 tbl_row value">
               <div class="row">
-                <div class="col-12"><input type="text" name="rule_cat_name"></div>
+                <div class="col-12"><input type="text" name="rule_cat_name" required></div>
               </div>
             </div>
           </div>
@@ -37,12 +37,12 @@ if (isset($_SESSION["USERID"])):
           <div class="row">
             <div class="col-10 offset-1 tbl_row field">
               <div class="row">
-                <div class="col-12 field_text">ルール名</div>
+                <div class="col-12 field_text">ルール名<span class="required_field">*必須</span></div>
               </div>
             </div>
             <div class="col-10 offset-1 tbl_row value">
               <div class="row">
-                <div class="col-12"><textarea class="w-100" name="rule_content" rows="5"></textarea></div>
+                <div class="col-12"><textarea class="w-100" name="rule_content" rows="5" required></textarea></div>
               </div>
             </div>
           </div>
