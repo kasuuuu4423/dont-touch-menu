@@ -5,6 +5,7 @@ class Lib_pdo{
         require 'pdo_info.php';
         try {
             $this->db = new PDO($dsn, $user, $password);
+            $this->db->setAttribute(PDO::ERRMODE_WARNING, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
             echo "接続失敗: " . $e->getMessage() . "\n";
             exit();
