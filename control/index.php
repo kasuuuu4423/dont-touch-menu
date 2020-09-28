@@ -48,7 +48,7 @@ if(isset($_SESSION['USERID'])){
         <div class="col-12 text-center seats"><?php echo $guest_sum; ?>/<?php echo $seats ?><span>席</span></div>
         <form class="col-12 text-center" action="index.php" method="post">
           <span>最大席数</span>
-          <input class="store_seats" type="text" name="store_seats" value="<?php if (!empty($seats)) echo(htmlspecialchars($seats, ENT_QUOTES, 'UTF-8'));?>">
+          <input class="store_seats" type="number" name="store_seats" value="<?php if (!empty($seats)) echo(htmlspecialchars($seats, ENT_QUOTES, 'UTF-8'));?>" required>
           <input class="update_seats btn btn-green" type="submit" name="update_seats" value="変更">
         </form>
       </div>

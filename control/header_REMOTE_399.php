@@ -6,14 +6,11 @@ $current_path = explode("?", (empty($_SERVER["HTTPS"]) ? "http://" : "https://")
 $current_path = $current_path[0];
 if($current_path == $control_path or $current_path == $control_path.'index.php'){
   $css_path = $control_css_path.'ctrl_top.css';
-}else if($current_path == $history_path or $current_path == $history_path.'index.php'){
-  $css_path = $control_css_path.'history.css';
 }
 
 if(!isset($_SESSION['USERID'])) {
   if(($current_path != $login_path) and ($current_path != $signup_path)){
-    echo 'リダイレクトしたい';
-    //header("Location:$login_path");
+    header("Location:$login_path");
   }
 }
 

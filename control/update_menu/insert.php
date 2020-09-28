@@ -17,12 +17,12 @@ if (isset($_SESSION["USERID"])):
           <div class="row">
             <div class="col-10 offset-1 tbl_row field">
               <div class="row">
-                <div class="col-12 field_text">カテゴリー名</div>
+                <div class="col-12 field_text">カテゴリー名<span class="required_field">*必須</span></div>
               </div>
             </div>
             <div class="col-10 offset-1 tbl_row value">
               <div class="row">
-                <div class="col-12"><input type="text" name="menu_cat_name"></div>
+                <div class="col-12"><input type="text" name="menu_cat_name" required></div>
               </div>
             </div>
           </div>
@@ -33,8 +33,8 @@ if (isset($_SESSION["USERID"])):
         </form>
         <?php elseif($_GET['target'] == 'menu'):
           $menu_data = array(
-            array('メニュー名<span style="font-size: 0.8rem;">*必須</span>', 'menu_name'),
-            array('値段<span style="font-size: 0.8rem;">*必須</span>', 'menu_price'),
+            array('メニュー名<span class="required_field">*必須</span>', 'menu_name'),
+            array('値段<span class="required_field">*必須</span>', 'menu_price'),
             array('説明', 'menu_desc'),
           );
         ?>
@@ -51,6 +51,8 @@ if (isset($_SESSION["USERID"])):
               <div class="row">
                 <?php if($row[1] == 'menu_desc'): ?>
                 <div class="col-12"><textarea class="w-100" style="height: 100px" type="text" name="<?php echo $row[1] ?>"></textarea></div>
+                <?php elseif($row[1] == 'menu_price'): ?>
+                <div class="col-12"><input type="number" min="1" name="<?php echo $row[1] ?>" required></div>
                 <?php else: ?>
                 <div class="col-12"><input type="text" name="<?php echo $row[1] ?>" required></div>
                 <?php endif; ?>
@@ -66,18 +68,18 @@ if (isset($_SESSION["USERID"])):
               <div class="row">
                 <div class="col-12 input-group">
                   <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                    <span class="input-group-text" id="inputGroupFileAddon01">画像をアップロード</span>
                   </div>
                   <div class="custom-file">
                     <input type="file" name="menu_img" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                    <label class="custom-file-label" for="inputGroupFile01">ファイルを選択</label>
                   </div>
                 </div>
               </div>
             </div>
             <div class="col-10 offset-1 tbl_row field">
               <div class="row">
-                <div class="col-12 field_text">販売状況<span style="font-size: 0.8rem;">*必須</span></div>
+                <div class="col-12 field_text">販売状況<span class="required_field">*必須</span></div>
               </div>
             </div>
             <div class="col-10 offset-1 tbl_row value">

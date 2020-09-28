@@ -3,10 +3,28 @@ window.onload = () => {
   if (input_file) {
     input_file.addEventListener('change', (event) => {
       let input_filename = input_file.files[0]['name'];
-      console.log(input_filename);
       let input_file_label = document.getElementsByClassName('custom-file-label')[0];
-      console.log(input_file_label.innerHTML);
       input_file_label.innerHTML = input_filename;
+
+      let file_data = input_file.files[0];
+      let reader = new FileReader();
+      reader.readAsDataURL(file_data);
+      reader.onload = () => {
+        let last_figure = document.getElementById('tmp_store_img');
+        if(last_figure){
+          last_figure.parentNode.removeChild(last_figure);
+        }
+        let input_group = document.getElementsByClassName('input-group');
+        let row = input_group[0].parentNode;
+        let figure = document.createElement('figure');
+        let img = document.createElement('img');
+        img.setAttribute('src', reader.result);
+        img.setAttribute('class', 'w-100');
+        figure.appendChild(img);
+        figure.setAttribute('class', 'col-12');
+        figure.setAttribute('id', 'tmp_store_img');
+        row.insertBefore(figure, row.firstChild);
+      }
     });
   }
 }

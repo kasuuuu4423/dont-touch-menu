@@ -5,7 +5,7 @@ require '../pdo/lib_pdo.php';
 
 if (isset($_SESSION["USERID"])):
   if(isset($_SESSION['menu_msg'])){
-    echo '<div class="mt-3 w-100 text-center update_msg"><span>'.$_SESSION['menu_msg'].'</span></div>';
+    echo '<div class="update_msg"><span>'.$_SESSION['menu_msg'].'</span></div>';
     unset($_SESSION['menu_msg']);
   }
   ?>
@@ -13,7 +13,7 @@ if (isset($_SESSION["USERID"])):
     <section class="update_index container">
       <div class="row">
         <div class="col-12 bar"></div>
-          <h2 class="col-12">メニュー変更</h2>
+          <h2 class="col-12">メニュー一覧</h2>
       <?php
       $pdo = new Lib_pdo();
       $id = $_SESSION['ID'];
@@ -26,6 +26,7 @@ if (isset($_SESSION["USERID"])):
       foreach($menu as $index => $row){
         $row_menu[$index]['id'] = $row['id'];
         $row_menu[$index]['name'] = $row['name'];
+        $row_menu[$index]['enabled'] = $row['enabled'];
         $row_menu[$index]['menu_category_id'] = $row['menu_category_id'];
       }
 
@@ -54,8 +55,13 @@ if (isset($_SESSION["USERID"])):
                           ?>
                           <div class="col-12 tbl_row">
                             <div class="row">
-                              <div class="col-6 item_name"><?php echo $value_menu['name']; ?></div>
-                              <div class="col-6 edit"><a class="btn btn-green" href="update.php?menu_id=<?php echo $value_menu['id']; ?>">編集</a></div>
+                              <div class="col-5 item_name"><?php echo $value_menu['name']; ?></div>
+                              <?php if($value_menu['enabled'] == 1): ?>
+                              <div class="col-3 enable">販売中</div>
+                              <?php else: ?>
+                              <div class="col-3 disable">販売停止中</div>
+                              <?php endif; ?>
+                              <div class="col-4 edit"><a class="btn btn-green" href="update.php?menu_id=<?php echo $value_menu['id']; ?>">編集</a></div>
                             </div>
                           </div>
                           <?php
@@ -102,4 +108,4 @@ if (isset($_SESSION["USERID"])):
   </main>
 <?php
 endif;
-?>
+require '../footer.php';

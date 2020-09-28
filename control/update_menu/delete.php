@@ -49,3 +49,6 @@ elseif(isset($_GET['menu_cat_id'])){
         </form>
     </div>
 </main>
+
+<?php
+require '../footer.php';
