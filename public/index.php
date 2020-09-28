@@ -96,9 +96,16 @@ $guest_sum = 0;
     <header class="pt-5">
       <div class="container-fluid">
         <div class="row">
-          <h1 class="col-12">
-            <figure class="logo"><img src="<?php if($img_path){echo $img_path;}else{echo $img_folder_path."dtm.jpg";} ?>" alt="<?php echo $name; ?>"></figure>
-					</h1>
+          <?php if($img_path):?>
+            <figure class="col-6"><img class="w-100" src="<?php echo $img_folder_path."dtm.jpg";?>" alt="Don't touch menu"></figure>
+            <h1 class="col-6">
+              <figure class="logo"><img src="<?php echo $img_path;?>" alt="<?php echo $name; ?>"></figure>
+            </h1>
+          <?php else: ?>
+            <h1 class="col-12">
+              <figure class="logo"><img src="<?php echo $img_folder_path."dtm.jpg"; ?>" alt="<?php echo $name; ?>"></figure>
+            </h1>
+          <?php endif; ?>
           <section class="time col-12">
             <dl class="open_time">
               <dt>OPEN</dt>
