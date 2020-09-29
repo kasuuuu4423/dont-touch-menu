@@ -1,7 +1,9 @@
 import {sort} from './sort.js';
 
 window.onload = () => {
-  sort();
+  if(document.getElementById('btn_sort')){
+    sort();
+  }
   let input_file = document.getElementById('inputGroupFile01');
   if (input_file) {
     input_file.addEventListener('change', (event) => {
@@ -30,18 +32,17 @@ window.onload = () => {
       }
     });
   }
+  $(".toggle-password").click(function() {
+    // iconの切り替え
+    $(this).toggleClass("fa-eye fa-eye-slash");
+  
+    // 入力フォームの取得
+    let input = $(this).parent().prev("input");
+    // type切替
+    if (input.attr("type") == "password") {
+      input.attr("type", "text");
+    } else {
+      input.attr("type", "password");
+    }
+  });
 }
-
-$(".toggle-password").click(function() {
-  // iconの切り替え
-  $(this).toggleClass("fa-eye fa-eye-slash");
-
-  // 入力フォームの取得
-  let input = $(this).parent().prev("input");
-  // type切替
-  if (input.attr("type") == "password") {
-    input.attr("type", "text");
-  } else {
-    input.attr("type", "password");
-  }
-});
