@@ -1,6 +1,6 @@
 <?php
-require '../../control/config.php';
-require '../../control/pdo/lib_pdo.php';
+require '../../config.php';
+require '../../lib/pdo/lib_pdo.php';
 
 if(isset($_GET['id'])){
   $id = $_GET['id'];
@@ -34,25 +34,25 @@ foreach($menus as $menu){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?php echo $public_path; ?>/css/common.css">
-    <link rel="stylesheet" href="<?php echo $public_path; ?>/css/menu.css">
+    <link rel="stylesheet" href="<?php echo $public_css_path; ?>/common.css">
+    <link rel="stylesheet" href="<?php echo $public_css_path; ?>/menu.css">
     <title>Menu | Don't Touch Menu</title>
   </head>
   <body>
     <header class="container">
       <div class="row">
         <?php if($logo_path): ?>
-          <figure class="logo col-6 align-self-center"><img src="<?php echo $control_path; ?>/img/logo.jpg" alt=""></figure>
-          <figure class="store_logo col-6 align-self-center"><img class="w-100" src="<?php echo $control_path.$logo_path; ?>" alt=""></figure>
+          <figure class="logo col-6 align-self-center"><img src="<?php echo $public_img_path; ?>/dtm.jpg" alt=""></figure>
+          <figure class="store_logo col-6 align-self-center"><img class="w-100" src="<?php echo $img_store_path.$logo_path; ?>" alt=""></figure>
         <?php else: ?>
-          <figure class="logo col-12"><img src="<?php echo $control_path; ?>/img/logo.jpg" alt=""></figure>
+          <figure class="logo col-12"><img src="<?php echo $public_img_path; ?>/dtm.jpg" alt=""></figure>
         <?php endif; ?>
         <div class="col-12 mt-4">
           <h1>Menu.</h1>
         </div>
       </div>
     </header>
-    <main class="container">
+    <main class="container pb-5">
         <?php
         foreach($cats as $cat):
           if(isset($sort_menus[$cat["id"]])):
@@ -77,7 +77,7 @@ foreach($menus as $menu){
         ?>
         <section class="menu <?php echo $menu_size . " " . $menu_col; ?>">
           <?php if($menu_size == "lg" || $menu_size == "mid"): ?>
-            <figure class="menu_img"><img src="<?php echo $img_folder_path.$cat_menu["img_path"] ?>" alt=""></figure>
+            <figure class="menu_img"><img src="<?php echo $img_menu_path.str_replace('../img/', '', $cat_menu["img_path"]) ?>" alt=""></figure>
           <?php endif; ?>
           <div class="menu_name">
             <h3><?php echo $cat_menu["name"]; ?></h3>
@@ -116,6 +116,6 @@ foreach($menus as $menu){
     </main>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-    <script src="<?php echo $public_path; ?>/js/script.js"></script>
+    <script src="<?php echo $public_js_path; ?>/script.js"></script>
   </body>
 </html>

@@ -1,6 +1,6 @@
 <?php
-require '../control/config.php';
-require '../control/pdo/lib_pdo.php';
+require '../config.php';
+require '../lib/pdo/lib_pdo.php';
 
 if(isset($_COOKIE['id']) && !$_GET["store"]):
 ?>
@@ -14,8 +14,8 @@ if(isset($_COOKIE['id']) && !$_GET["store"]):
   
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="<?php echo $public_path; ?>css/common.css">
-  <link rel="stylesheet" href="<?php echo $public_path; ?>css/home.css">
+  <link rel="stylesheet" href="<?php echo $public_css_path; ?>/common.css">
+  <link rel="stylesheet" href="<?php echo $public_css_path; ?>/home.css">
 </head>
 <body>
   <main class="container pt-4 pb-4">
@@ -88,8 +88,8 @@ $guest_sum = 0;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?php echo $public_path; ?>css/common.css">
-    <link rel="stylesheet" href="<?php echo $public_path; ?>css/home.css">
+    <link rel="stylesheet" href="<?php echo $public_css_path; ?>/common.css">
+    <link rel="stylesheet" href="<?php echo $public_css_path; ?>/home.css">
     <title><?php echo $name.  " | Don't touch menu"; ?></title>
   </head>
   <body>
@@ -97,13 +97,13 @@ $guest_sum = 0;
       <div class="container-fluid">
         <div class="row">
           <?php if($img_path):?>
-            <figure class="col-6"><img class="w-100" src="<?php echo $img_folder_path."dtm.jpg";?>" alt="Don't touch menu"></figure>
-            <h1 class="col-6">
-              <figure class="logo"><img src="<?php echo $img_path;?>" alt="<?php echo $name; ?>"></figure>
+            <figure class="col-6"><img class="w-100" src="<?php echo $public_img_path."/dtm.jpg";?>" alt="Don't touch menu"></figure>
+            <h1 class="col-6 d-flex">
+              <figure class="logo align-self-center"><img src="<?php echo $img_store_path.str_replace('../', '', $img_path); ?>" alt="<?php echo $name; ?>"></figure>
             </h1>
           <?php else: ?>
             <h1 class="col-12">
-              <figure class="logo"><img src="<?php echo $img_folder_path."dtm.jpg"; ?>" alt="<?php echo $name; ?>"></figure>
+              <figure class="logo"><img src="<?php echo $public_img_path."/dtm.jpg"; ?>" alt="<?php echo $name; ?>"></figure>
             </h1>
           <?php endif; ?>
           <section class="time col-12">

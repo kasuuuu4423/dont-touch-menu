@@ -1,4 +1,4 @@
-import Lib_menu from './lib_menu.js';
+import Lib_menu from '../../../lib/js/lib_menu.js';
 
 export const sort = () => {
     const lib = new Lib_menu();
