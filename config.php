@@ -1,6 +1,10 @@
 <?php
 $root_path                  = 'https://artful.jp/staging-menu';
 $public_path                = $root_path . '/public/';
+$public_assets_path         = $root_path . '/public/assets';
+$public_css_path            = $public_assets_path . '/css';
+$public_img_path            = $public_assets_path . '/img';
+$public_js_path             = $public_assets_path . '/js';
 $public_path_forGet         = $root_path . '/public';
 $ctrl_path                  = $root_path . '/control/';
 $ctrl_css_path              = $root_path . '/control/assets/css/';
@@ -14,4 +18,7 @@ $ctrl_update_rule_path      = $root_path . '/control/update_rule/';
 $ctrl_history_path          = $root_path . '/control/history/';
 $ctrl_header_path           = $root_path . '/control/elements/header.php';
 $ctrl_footer_path           = $root_path . '/control/elements/footer.php';
-$img_folder_path            = $root_path . '/resouces/img/store/';
+$img_folder_path            = $root_path . '/resources/img/';
+$img_menu_path              = $root_path . '/resources/img/menu/';
+$img_store_path             = $root_path . '/resources/img/store/';
+$img_qr_path                = $root_path . '/resources/img/qr/';
