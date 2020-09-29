@@ -167,12 +167,9 @@ class Lib_pdo{
     }
     private function upload_img($menu_img){
         try{
-        //requireできないからベタ打ち 画像絶対パス
-        $img_folder_path = "../img/";
-        //requireできないからベタ打ち 画像絶対パス
         $img_name = uniqid(mt_rand(), true);
         $img_name .= '.' . explode('.', $menu_img['name'])[1];
-        $menu_img_path = $img_folder_path.$img_name;
+        $menu_img_path = $img_name;
         move_uploaded_file($menu_img['tmp_name'], $menu_img_path);
         return $menu_img_path;
         }
