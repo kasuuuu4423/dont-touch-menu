@@ -1,4 +1,7 @@
+import {sort} from './sort.js';
+
 window.onload = () => {
+  sort();
   let input_file = document.getElementById('inputGroupFile01');
   if (input_file) {
     input_file.addEventListener('change', (event) => {

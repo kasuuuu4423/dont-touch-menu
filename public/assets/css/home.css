@@ -1,0 +1,148 @@
+header {
+  padding-bottom: 50px;
+}
+
+header .container-fluid .row h1 figure.logo {
+  text-align: center;
+}
+
+header .container-fluid .row h1 figure.logo img {
+  width: 100%;
+}
+
+header .container-fluid .row section.time {
+  margin-bottom: 50px;
+}
+
+header .container-fluid .row section.time dl {
+  display: flex;
+  justify-content: space-around;
+}
+
+header .container-fluid .row section.time dl dt {
+  width: 50%;
+}
+
+header .container-fluid .row section.time dl dd {
+  width: 30%;
+  text-align: right;
+}
+
+header .container-fluid .row section.time .exception {
+  text-align: center;
+  font-weight: 500;
+}
+
+header .container-fluid .row section.seat_status h2 {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+header .container-fluid .row section.seat_status .status {
+  text-align: center;
+}
+
+header .container-fluid .row section.seat_status .status span:first-child {
+  font-size: 3.5rem;
+}
+
+header .container-fluid .row section.seat_status .status span:nth-child(2) {
+  font-size: 1.5rem;
+}
+
+main section.rule {
+  background: #f3f3f3;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+main section.rule .row h2 {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+main section.rule .row ul li {
+  margin-bottom: 1.2rem;
+}
+
+main section.rule .row ul li:not(.h3) {
+  display: block;
+}
+
+main section.rule .row ul li:not(.h3) ul {
+  padding-left: 1rem;
+}
+
+main section.rule .row ul li:not(.h3) ul li {
+  display: block;
+  position: relative;
+}
+
+main section.rule .row ul li:not(.h3) ul li::before {
+  content: "";
+  display: block;
+  position: absolute;
+  transform: translate(-1rem, 0.45rem);
+  background-image: url(../img/tri.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 1rem;
+  height: 1rem;
+  mix-blend-mode: multiply;
+}
+
+main section.rule .row ul li.h3 {
+  display: block;
+}
+
+main section.rule .row ul li.h3 h3 {
+  font-size: 1.2rem;
+}
+
+main section.reserve {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+main section.reserve .row p {
+  margin-bottom: 2.4rem;
+}
+
+main section.reserve .row form input[type=radio] {
+  display: none;
+}
+
+main section.reserve .row form input[type=radio]:checked + label::before {
+  background: #4e4e4e;
+}
+
+main section.reserve .row form label {
+  font-size: 1.5rem;
+  margin-bottom: 2.4rem;
+  display: inline-block;
+}
+
+main section.reserve .row form label::before {
+  content: "";
+  transform: translateY(-0.15rem);
+  display: inline-block;
+  margin-right: 10px;
+  border: solid #adadad 6px;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 0.75rem;
+  transition: .1s;
+  vertical-align: middle;
+}
+
+main section.reserve .row form input.submit {
+  margin: auto;
+  background: #13e482;
+  color: #ffffff;
+  border: none;
+  font-size: 1.5rem;
+  padding: 10px 0;
+  width: 100%;
+  border-radius: 0.5rem;
+}

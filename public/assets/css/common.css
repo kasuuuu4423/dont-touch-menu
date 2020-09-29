@@ -1,0 +1,60 @@
+body {
+  background: #ffffff;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  overflow-x: hidden;
+}
+
+body .container, body .container-fluid {
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+main.leave form input {
+  margin: auto;
+  background: #ee4b6e;
+  color: #ffffff;
+  border: none;
+  font-size: 1.5rem;
+  padding: 10px 0;
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+.btn:hover {
+  color: #ffffff;
+}
+
+.btn-red {
+  margin: auto;
+  background: #ee4b6e;
+  color: #ffffff;
+  border: none;
+  font-size: 1.5rem;
+  padding: 10px 0;
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+.btn-blue {
+  margin: auto;
+  background: #4b71ee;
+  color: #ffffff;
+  border: none;
+  font-size: 1.5rem;
+  padding: 10px 0;
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+.btn-green {
+  margin: auto;
+  background: #13e482;
+  color: #ffffff;
+  border: none;
+  font-size: 1.5rem;
+  padding: 10px 0;
+  width: 100%;
+  border-radius: 0.5rem;
+}

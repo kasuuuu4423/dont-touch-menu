@@ -373,6 +373,17 @@ class Lib_pdo{
             echo $e;
         }
     }
+    public function update_order($table, $item_id, $order){
+        try{
+            $stmt = $this->db->prepare('UPDATE '. $table .' SET sort_order = :order WHERE id = :id');
+            $stmt->bindparam(':id', $item_id, PDO::PARAM_INT);
+            $stmt->bindparam(':order', $order, PDO::PARAM_STR);
+            $stmt->execute();
+        }
+        catch(Exception $e){
+            echo $e;
+        }
+    }
     public function delete($table, $id){
         try{
             $stmt = $this->db->prepare('DELETE FROM '. $table .' WHERE  id = :id');

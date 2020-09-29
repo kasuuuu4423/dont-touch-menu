@@ -1,0 +1,148 @@
+header {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+header .row figure.logo img {
+  width: 100%;
+}
+
+header .row div h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+main .bar::before {
+  content: "";
+  display: block;
+  border: dashed 1px;
+}
+
+main section.cat {
+  margin-right: -25px;
+  margin-left: -25px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+main section.cat:nth-child(odd) {
+  background: #f3f3f3;
+}
+
+main section.cat .col-6, main section.cat .col-12 {
+  padding-right: 30px;
+  padding-left: 30px;
+}
+
+main section.cat h2.cat_name span {
+  padding: 0px 13px;
+  border: solid 1px;
+  font-size: 1.2rem;
+  letter-spacing: 0.2rem;
+  font-weight: 300;
+}
+
+main section.cat section.menu {
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+main section.cat section.menu figure.menu_img img {
+  width: 100%;
+}
+
+main section.cat section.menu .menu_name {
+  display: flex;
+  margin-bottom: 15px;
+  justify-content: space-between;
+}
+
+main section.cat section.menu .menu_name h3 {
+  font-size: 1.2rem;
+  font-weight: 400;
+  width: 70%;
+  margin: 0;
+}
+
+main section.cat section.menu .menu_name .like {
+  width: 70px;
+  text-align: right;
+}
+
+main section.cat section.menu .menu_name .like svg {
+  width: 20px;
+  vertical-align: text-top;
+  transform: translateY(3px);
+  fill-opacity: 0;
+  stroke: #000;
+  stroke-width: 2px;
+}
+
+main section.cat section.menu .menu_name .like.active svg {
+  fill: #e92f39;
+  fill-opacity: 1;
+}
+
+main section.cat section.menu .menu_price {
+  margin-bottom: 35px;
+}
+
+main section.cat section.menu .menu_description {
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+}
+
+main section.cat section.menu .menu_description p {
+  margin-bottom: 25px;
+}
+
+main section.cat section.menu.mid .menu_name {
+  flex-wrap: wrap;
+  margin: 0;
+}
+
+main section.cat section.menu.mid .menu_name h3 {
+  width: 100%;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+}
+
+main section.cat section.menu.mid .menu_name .like {
+  width: 100%;
+  vertical-align: baseline;
+}
+
+main section.cat section.menu.mid .menu_price {
+  margin: 0;
+  margin-top: -32px;
+}
+
+main section.cat section.menu.sml .menu_name {
+  flex-wrap: wrap;
+  margin: 0;
+}
+
+main section.cat section.menu.sml .menu_name h3 {
+  width: 100%;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+}
+
+main section.cat section.menu.sml .menu_name .like {
+  text-align: left;
+  width: 100%;
+}
+
+main section.cat section.menu.sml .menu_price {
+  margin: 0;
+  margin-top: -32px;
+  text-align: right;
+}
+
+main section.cat .wrap_mid {
+  display: flex;
+  position: relative;
+  border-top: dashed 1px;
+}
