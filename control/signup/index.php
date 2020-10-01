@@ -1,6 +1,9 @@
-<?php 
-require '../header.php';
-require '../pdo/lib_pdo.php';
+<?php
+
+require '../../config.php';
+require '../elements/header.php';
+require '../../lib/pdo/lib_pdo.php';
+
 $pdo = new Lib_pdo();
 
 if(isset($_POST['signup'])) {
@@ -49,16 +52,18 @@ if(isset($_POST['signup'])) {
     else{
       $store_last = NULL;
     }
-    $lastid = $pdo->insert_store($_POST['store_name'], $userid, $password, $_POST['store_seats'], $_FILES['store_img'], $store_open, $store_close, $store_last, $_POST['store_exception']);
+    $lastid = $pdo->insert_store($_POST['store_name'], $userid, $password, $_POST['store_seats'], $_FILES['store_img'], $store_open, $store_close, $store_last, $_POST['store_exception'], $img_store_path);
     
     $image_path = "https://api.qrserver.com/v1/create-qr-code/?data=https://artful.jp/staging-menu/public/?id=".$lastid;
     $file_name = 'qr'. $lastid .'.jpg';
     $image = file_get_contents($image_path);
-    $save_path = "../img/".$file_name;
+    //pathベタ打ち、改善の余地あり
+    $save_path = $_SERVER['DOCUMENT_ROOT'] . '/staging-menu/resources/img/qr/' . $file_name;
+    //pathベタ打ち、改善の余地あり
     file_put_contents($save_path, $image);
 
     echo '<div class="w-100 text-center">会員登録が完了しました</div><br>';
-    echo '<div class="w-100 text-center"><a class="btn btn-green" href="../login/">ログインページへ</a></div>';
+    echo '<div class="w-100 text-center"><a class="btn btn-green" href="'.$ctrl_login_path.'">ログインページへ</a></div>';
     exit();
   }
 }
@@ -219,7 +224,7 @@ if(isset($_POST['signup'])) {
           <?php endforeach; ?>
           <div class="col-12">
             <div class="row" style="justify-content: center;">
-              <a class="btn btn-red m-0" href="../login/">ログインページに戻る</a>
+              <a class="btn btn-red m-0" href="<?php echo $ctrl_login_path; ?>">ログインページに戻る</a>
               <button class="btn btn-green m-0 ml-2" type="submit" name="signup">サインアップ</button>
             </div>
           </div>
@@ -230,4 +235,4 @@ if(isset($_POST['signup'])) {
 </main>
 
 <?php 
-require '../footer.php';
+require '../elements/footer.php';

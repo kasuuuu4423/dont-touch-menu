@@ -1,8 +1,8 @@
 <?php
 
-require 'header.php';
-require 'pdo/lib_pdo.php';
-require 'config.php';
+require '../config.php';
+require 'elements/header.php';
+require '../lib/pdo/lib_pdo.php';
 
 if(isset($_SESSION['USERID'])){
   $pdo = new Lib_pdo();
@@ -32,12 +32,12 @@ if(isset($_SESSION['USERID'])){
     $pdo = new Lib_pdo();
     $pdo->update_store_seats($_POST['store_seats'], $_SESSION['ID']);
     $_SESSION['seats_inCtrl_msg'] = '最大席数を更新しました';
-    header("Location:$control_path");
+    header("Location:$ctrl_path");
   }
   else if(isset($_GET['guest_id'])){
     $pdo->leave_guest($_GET['guest_id']);
     $_SESSION['leave_inCtrl_msg'] = 'お客様が退店しました';
-    header("Location:$control_path");
+    header("Location:$ctrl_path");
   }
   ?>
   <main class="ctrl_top">
@@ -100,7 +100,7 @@ if(isset($_SESSION['USERID'])){
                   <?php
                   if(empty($guest['leave_datetime'])){
                     echo '<input type="hidden" name="guest_id" value="'.$guest['id'].'">';
-                    echo '<a class="btn btn-red" href="'.$control_path.'?guest_id='.$guest['id'].'">ご退店</a>';
+                    echo '<a class="btn btn-red" href="'.$ctrl_path.'?guest_id='.$guest['id'].'">ご退店</a>';
                   }
                   else{
                     echo '<span class="tbl_leave_date">'.$leave_times[$index]['hour'].':'.$leave_times[$index]['min'].'</span>';
@@ -122,13 +122,13 @@ if(isset($_SESSION['USERID'])){
       <div class="row">
         <div class="col-12 bar"></div>
         <h2 class="col-12">お客様用QRコード</h2>
-        <figure class="qrcode col-12 text-center"><img src="<?php echo $img_folder_path.'qr'.$_SESSION['ID'].'.jpg' ?>" alt=""></figure>
-        <div class="col-12 text-center h4"><a href="<?php echo $img_folder_path.'qr'.$_SESSION['ID'].'.jpg' ?>" download="qr_code.jpg">[ダウンロード]</a></div>
+        <figure class="qrcode col-12 text-center"><img src="<?php echo $img_qr_path . 'qr' . $_SESSION['ID'] . '.jpg' ?>" alt=""></figure>
+        <div class="col-12 text-center h4"><a href="<?php echo $img_qr_path . 'qr' . $_SESSION['ID'] . '.jpg' ?>" download="qr_code.jpg">[ダウンロード]</a></div>
       </div>
     </section>
   </main>
   <?php
-  require 'footer.php';
+  require 'elements/footer.php';
   ?>
   <?php
 }

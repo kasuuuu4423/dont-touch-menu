@@ -23,6 +23,12 @@ class Lib_pdo{
             $stmt->bindparam(':store_id', $store_id ,PDO::PARAM_INT);
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if($result[0]['img_path']){
+                for($i = 0; $i < count($result); $i++){
+                    $result[$i]['img_path'] = str_replace('../img/', '', $result[$i]['img_path']);
+                    $result[$i]['img_path'] = str_replace('../', '', $result[$i]['img_path']);
+                }
+            }
             return $result;
         }
         catch(Exception $e){
@@ -59,6 +65,12 @@ class Lib_pdo{
             $stmt->bindparam(':id', $menu_id ,PDO::PARAM_INT);
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if($result[0]['img_path']){
+                for($i = 0; $i < count($result); $i++){
+                    $result[$i]['img_path'] = str_replace('../img/', '', $result[$i]['img_path']);
+                    $result[$i]['img_path'] = str_replace('../', '', $result[$i]['img_path']);
+                }
+            }
             return $result;
         }
         catch(Exception $e){
@@ -165,22 +177,24 @@ class Lib_pdo{
             echo $e;
         }
     }
-    private function upload_img($menu_img){
+    private function upload_img($img, $full_path, $dir){
         try{
-        $img_name = uniqid(mt_rand(), true);
-        $img_name .= '.' . explode('.', $menu_img['name'])[1];
-        $menu_img_path = $img_name;
-        move_uploaded_file($menu_img['tmp_name'], $menu_img_path);
-        return $menu_img_path;
+            $img_name = uniqid(mt_rand(), true);
+            $img_name .= '.' . explode('.', $img['name'])[1];
+            $img_path = $full_path . $img_name;
+            //pathベタ打ち、改善の余地あり
+            move_uploaded_file($img['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . '/staging-menu/resources/img/' . $dir . '/' . $img_name);
+            //pathベタ打ち、改善の余地あり
+            return $img_name;
         }
         catch(Exception $e){
             echo $e;
         }
     }
-    public function insert_menu($menu_name, $menu_price, $menu_desc, $menu_img, $menu_enabled, $store_id, $menu_cat_id){
+    public function insert_menu($menu_name, $menu_price, $menu_desc, $menu_img, $menu_enabled, $store_id, $menu_cat_id, $full_path){
         try{
             if($menu_img['error'] != 4){
-                $menu_img_path = $this->upload_img($menu_img);
+                $menu_img_path = $this->upload_img($menu_img, $full_path, 'menu');
             }
             else{
                 $menu_img_path = NULL;
@@ -241,10 +255,10 @@ class Lib_pdo{
             echo $e;
         }
     }
-    public function insert_store($store_name, $user_id, $user_pw, $store_seats, $store_img, $store_opentime, $store_closetime, $store_lastorder, $store_exception){
+    public function insert_store($store_name, $user_id, $user_pw, $store_seats, $store_img, $store_opentime, $store_closetime, $store_lastorder, $store_exception, $full_path){
         try{
             if($store_img['error'] != 4){
-                $store_img_path = $this->upload_img($store_img);
+                $store_img_path = $this->upload_img($store_img, $full_path, 'store');
             }
             else{
                 $store_img_path = NULL;
@@ -284,11 +298,11 @@ class Lib_pdo{
             echo $e;
         }
     }
-    public function update_store($store_id, $store_name, $store_seats, $store_img, $store_open, $store_close, $store_lastorder, $store_exception){
+    public function update_store($store_id, $store_name, $store_seats, $store_img, $store_open, $store_close, $store_lastorder, $store_exception, $full_path){
         try{
             if($store_img['error'] != 4){
                 $sql = 'UPDATE store SET name = :name, seats = :seats, img_path = :img_path, open = :open, close = :close, last_order = :last_order, exception = :exception WHERE id = :id';
-                $store_img_path = $this->upload_img($store_img);
+                $store_img_path = $this->upload_img($store_img, $full_path, 'store');
             }
             else{
                 $sql = 'UPDATE store SET name = :name, seats = :seats, open = :open, close = :close, last_order = :last_order, exception = :exception WHERE id = :id';
@@ -308,13 +322,13 @@ class Lib_pdo{
             echo $e;
         }
     }
-    public function update_menu($menu_id, $menu_name, $menu_price, $menu_desc, $menu_img, $menu_enabled){
+    public function update_menu($menu_id, $menu_name, $menu_price, $menu_desc, $menu_img, $menu_enabled, $full_path){
         try{
             if($menu_img['error'] != 4){
                 $tmp_menu = $this->select_menu_id($menu_id)[0];
                 $tmp_img_path = $tmp_menu['img_path'];
                 unlink($tmp_img_path);
-                $menu_img_path = $this->upload_img($menu_img);
+                $menu_img_path = $this->upload_img($menu_img, $full_path, 'menu');
                 $sql = 'UPDATE menu SET name = :name, price = :price, description = :description, img_path = :img_path, enabled = :enabled WHERE id = :id';
                 $flg = true;
             }
@@ -375,6 +389,18 @@ class Lib_pdo{
             $stmt = $this->db->prepare('UPDATE '. $table .' SET sort_order = :order WHERE id = :id');
             $stmt->bindparam(':id', $item_id, PDO::PARAM_INT);
             $stmt->bindparam(':order', $order, PDO::PARAM_STR);
+            $stmt->execute();
+        }
+        catch(Exception $e){
+            echo $e;
+        }
+    }
+    public function update_menu_enable($menu_id, $menu_enabled){
+        try{
+            $sql = 'UPDATE menu SET enabled = :enabled WHERE id = :id';
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindparam(':id', $menu_id, PDO::PARAM_INT);
+            $stmt->bindparam(':enabled', $menu_enabled, PDO::PARAM_INT);
             $stmt->execute();
         }
         catch(Exception $e){

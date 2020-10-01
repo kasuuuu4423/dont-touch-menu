@@ -1,7 +1,8 @@
 <?php
 
-require '../header.php';
-require '../pdo/lib_pdo.php';
+require '../../config.php';
+require '../elements/header.php';
+require '../../lib/pdo/lib_pdo.php';
 
 $pdo = new Lib_pdo();
 
@@ -149,7 +150,7 @@ if (isset($_SESSION["USERID"])):
           </div>
           <div class="col-10 offset-1 tbl_row value">
             <div class="row">
-              <?php if ($store_img_path != NULL) echo '<img class="col-12" src="'. $store_img_path .'">';?>
+              <?php if ($store_img_path != NULL) echo '<img class="col-12" src="'. $img_store_path . $store_img_path .'">';?>
               <div class="col-12 input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="inputGroupFileAddon01">画像をアップロード</span>
@@ -163,7 +164,7 @@ if (isset($_SESSION["USERID"])):
           </div>
         </div>
         <div class="row btns">
-          <div><a class="btn btn-blue" href="<?php echo $control_path.'update_store'; ?>">戻る</a></div>
+          <div><a class="btn btn-blue" href="<?php echo $ctrl_update_store_path; ?>">戻る</a></div>
           <div><input class="btn btn-green" type="submit" name="confirm" value="編集を確定"></div>
         </div>
         <input type="hidden" name="store_id" value="<?php if (!empty($store_id)) echo(htmlspecialchars($store_id, ENT_QUOTES, 'UTF-8'));?>">
@@ -184,7 +185,7 @@ if (isset($_SESSION["USERID"])):
       else{
         $store_last = NULL;
       }
-      $pdo->update_store($_POST['store_id'], $_POST['store_name'], $_POST['store_seats'], $_FILES['store_img'], $store_open, $store_close, $store_last, $_POST['store_exception']);
+      $pdo->update_store($_POST['store_id'], $_POST['store_name'], $_POST['store_seats'], $_FILES['store_img'], $store_open, $store_close, $store_last, $_POST['store_exception'], $img_store_path);
       header('Location: ./');
     endif;
   endif;
@@ -194,4 +195,4 @@ if (isset($_SESSION["USERID"])):
 </main>
 
 <?php
-require '../footer.php';
+require '../elements/footer.php';

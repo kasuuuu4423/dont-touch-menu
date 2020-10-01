@@ -1,5 +1,5 @@
 <?php
-require './pdo/lib_pdo.php';
+require '../../lib/pdo/lib_pdo.php';
 
 $pdo = new Lib_pdo();
 

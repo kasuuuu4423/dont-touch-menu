@@ -1,7 +1,8 @@
 <?php
 
-require '../header.php';
-require '../pdo/lib_pdo.php';
+require '../../config.php';
+require '../elements/header.php';
+require '../../lib/pdo/lib_pdo.php';
 
 ?>
 
@@ -24,7 +25,7 @@ if(isset($_POST["login"])){
     $_SESSION['ID'] = $store_info['id'];
     $_SESSION['USERID'] = $store_info['userid'];
     //管理画面へリダイレクト
-    header("Location: $control_path");
+    header("Location: $ctrl_path");
   }
   else {
     $_SESSION['login_msg'] = 'ユーザーID又はパスワードが間違っています';
@@ -51,12 +52,12 @@ if(isset($_POST["login"])){
         <i toggle="password-field" class="fas fa-eye toggle-password"></i>
       </span>
       <button class="btn btn-blue mb-4" type="submit" name="login">ログイン</button><br>
-      <a class="btn btn-green" href="<?php echo $signup_path ?>">サインアップはこちら</a>
+      <a class="btn btn-green" href="<?php echo $ctrl_signup_path ?>">サインアップはこちら</a>
     </form>
   </div>
 </main>
 
 <?php
 
-require '../footer.php';
+require '../elements/footer.php';
 

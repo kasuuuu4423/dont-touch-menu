@@ -1,7 +1,8 @@
 <?php
 
-require '../header.php';
-require '../pdo/lib_pdo.php';
+require '../../config.php';
+require '../elements/header.php';
+require '../../lib/pdo/lib_pdo.php';
 
 if (isset($_SESSION["USERID"])):
   if(isset($_SESSION['rule_msg'])){
@@ -13,7 +14,8 @@ if (isset($_SESSION["USERID"])):
     <section class="update_index container">
       <div class="row">
         <div class="col-12 bar"></div>
-          <h2 class="col-12">ルール変更</h2>
+          <h2 class="col-12">ルール一覧</h2>
+          <button class="btn btn-green" id="btn_sort">カテゴリーの順番を変更</button>
       <?php
       $pdo = new Lib_pdo();
       $id = $_SESSION['ID'];
@@ -37,9 +39,11 @@ if (isset($_SESSION["USERID"])):
         ?>
         <div class="tbls">
           <?php
+          $count = 0;
           foreach($row_rule_cat as $value_cat):
+            $count++;
             ?>
-            <div class="col-12 tbl_item">
+            <div  id="<?php echo $value_cat['id']; ?>" class="col-12 tbl_item" data-tbl="rule_category" data-id="<?php echo $count; ?>">
               <div class="row">
                 <div class="col-12 cat_name">カテゴリー：<?php echo $value_cat['name']; ?></div>
                 <?php
@@ -47,12 +51,12 @@ if (isset($_SESSION["USERID"])):
                 if(is_array($row_rule)):
                   ?>
                   <div class="col-12 tbl tbl_update_index">
-                    <div class="row">
+                    <div class="row items">
                       <?php
                       foreach($row_rule as $value_rule):
                         if($value_rule['rule_category_id'] == $value_cat['id']):
                           ?>
-                          <div class="col-12 tbl_row">
+                          <div id="<?php echo $value_rule['id']; ?>" class="col-12 tbl_row">
                             <div class="row">
                               <div class="col-6 item_name"><?php echo $value_rule['content']; ?></div>
                               <div class="col-6 edit"><a class="btn btn-green" href="update.php?rule_id=<?php echo $value_rule['id']; ?>">編集</a></div>
@@ -84,6 +88,7 @@ if (isset($_SESSION["USERID"])):
                 <div class="col-12">
                   <div class="row btns">
                     <div><a class="btn btn-blue" href="insert.php?cat_id=<?php echo $value_cat['id']; ?>&target=rule">ルールを追加</a></div>
+                    <button class="btn btn-green btn_sort_item">ルールの順番を変更</button>
                     <div><a class="btn btn-green" href="update.php?cat_id=<?php echo $value_cat['id']; ?>">カテゴリーを編集</a></div>
                   </div>
                 </div>
@@ -102,4 +107,4 @@ if (isset($_SESSION["USERID"])):
   </main>
 <?php
 endif;
-require '../footer.php';
+require '../elements/footer.php';
