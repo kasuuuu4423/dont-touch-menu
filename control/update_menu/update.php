@@ -1,7 +1,8 @@
 <?php
 
-require '../header.php';
-require '../pdo/lib_pdo.php';
+require '../../config.php';
+require '../elements/header.php';
+require '../../lib/pdo/lib_pdo.php';
 
 $pdo = new Lib_pdo();
 
@@ -32,9 +33,9 @@ if (isset($_SESSION["USERID"])):
             </div>
           </div>
           <div class="row btns">
-            <div><a class="btn btn-blue" href="<?php echo $update_menu_path; ?>">戻る</a></div>
+            <div><a class="btn btn-blue" href="<?php echo $ctrl_update_menu_path; ?>">戻る</a></div>
             <div><input class="btn btn-green" type="submit" name="confirm_cat" value="編集を確定"></div>
-            <div class="delete_btn col-12 text-center"><a class="btn btn-red" href="<?php echo $update_menu_path; ?>delete.php?menu_cat_id=<?php echo $menu_cat_id; ?>">このカテゴリーを削除する</a></div>
+            <div class="delete_btn col-12 text-center"><a class="btn btn-red" href="<?php echo $ctrl_update_menu_path; ?>delete.php?menu_cat_id=<?php echo $menu_cat_id; ?>">このカテゴリーを削除する</a></div>
           </div>
           <input type="hidden" name="menu_cat_id" value="<?php if (!empty($menu_cat_id)) echo(htmlspecialchars($menu_cat_id, ENT_QUOTES, 'UTF-8'));?>">
         </form>
@@ -48,13 +49,8 @@ if (isset($_SESSION["USERID"])):
         $menu_img = $menu['img_path'];
         $menu_enabled = $menu['enabled'];
         $menu_data = array(
-<<<<<<< HEAD
-          array('メニュー名<span style="font-size: 0.8rem;">*必須</span>', 'menu_name'),
-          array('値段<span style="font-size: 0.8rem;">*必須</span>', 'menu_price'),
-=======
           array('メニュー名<span class="required_field">*必須</span>', 'menu_name'),
           array('値段<span class="required_field">*必須</span>', 'menu_price'),
->>>>>>> ed4ce418817f87c426311328edf0c07261430d9f
           array('説明', 'menu_desc'),
         );
         ?>
@@ -85,7 +81,7 @@ if (isset($_SESSION["USERID"])):
             </div>
             <div class="col-10 offset-1 tbl_row value">
               <div class="row">
-                <?php if (!empty($menu_img)) echo '<img class="col-12" src="'. $menu_img .'">';?>
+                <?php if (!empty($menu_img)) echo '<img class="col-12" src="'. $img_menu_path . $menu_img .'">';?>
                 <div class="col-12 input-group">
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroupFileAddon01">画像をアップロード</span>
@@ -99,29 +95,27 @@ if (isset($_SESSION["USERID"])):
             </div>
             <div class="col-10 offset-1 tbl_row field">
               <div class="row">
-<<<<<<< HEAD
-                <div class="col-12 field_text">販売状況<span style="font-size: 0.8rem;">*必須</span></div>
-=======
                 <div class="col-12 field_text">販売状況<span class="required_field">*必須</span></div>
->>>>>>> ed4ce418817f87c426311328edf0c07261430d9f
               </div>
             </div>
             <div class="col-10 offset-1 tbl_row value">
               <div class="row">
-                <div class="col-12">
+                <div class="col-12 item_enabled btn-group btn-group-toggle" data-toggle="buttons">
                   <?php $flg_enabled = false; if (!empty($menu_enabled)) if($menu_enabled == 1) $flg_enabled = true; ?>
-                  <select id="inputState" name="menu_enabled" class="form-control" required>
-                    <option value="1" <?php if($flg_enabled) echo 'selected'; ?>>販売中</option>
-                    <option value="0" <?php if(!$flg_enabled) echo 'selected'; ?>>販売停止</option>
-                  </select>
+                  <label class="btn btn-primary active">
+                    <input type="radio" name="menu_enabled" value="1" autocomplete="off" <?php  if($flg_enabled){ echo 'checked'; }?>>販売中
+                  </label>
+                  <label class="btn btn-primary">
+                    <input type="radio" name="menu_enabled" value="0" autocomplete="off" <?php  if(!$flg_enabled){ echo 'checked'; }?>>販売停止中
+                  </label>
                 </div>
               </div>
             </div>
           </div>
           <div class="row btns">
-            <div><a class="btn btn-blue" href="<?php echo $update_menu_path; ?>">戻る</a></div>
+            <div><a class="btn btn-blue" href="<?php echo $ctrl_update_menu_path; ?>">戻る</a></div>
             <div><input class="btn btn-green" type="submit" name="confirm_menu" value="編集を確定"></div>
-            <div class="delete_btn col-12 text-center"><a class="btn btn-red" href="<?php echo $update_menu_path; ?>delete.php?menu_id=<?php echo $_GET['menu_id']; ?>">このメニューを削除する</a></div>
+            <div class="delete_btn col-12 text-center"><a class="btn btn-red" href="<?php echo $ctrl_update_menu_path; ?>delete.php?menu_id=<?php echo $_GET['menu_id']; ?>">このメニューを削除する</a></div>
           </div>
           <input type="hidden" name="menu_id" value="<?php if (!empty($menu_id)) echo(htmlspecialchars($menu_id, ENT_QUOTES, 'UTF-8'));?>">
         </form>
@@ -134,7 +128,7 @@ if (isset($_SESSION["USERID"])):
           header('Location: ./');
         }
         else if(isset($_POST['confirm_menu'])){
-          $pdo->update_menu($_POST['menu_id'], $_POST['menu_name'], $_POST['menu_price'], $_POST['menu_desc'], $_FILES['menu_img'], $_POST['menu_enabled']);
+          $pdo->update_menu($_POST['menu_id'], $_POST['menu_name'], $_POST['menu_price'], $_POST['menu_desc'], $_FILES['menu_img'], $_POST['menu_enabled'], $img_store_path);
           $_SESSION['menu_msg'] = 'メニューを変更しました';
           header('Location: ./');
         }
@@ -145,4 +139,4 @@ if (isset($_SESSION["USERID"])):
 <?php
 endif;
 
-require '../footer.php';
+require '../elements/footer.php';
