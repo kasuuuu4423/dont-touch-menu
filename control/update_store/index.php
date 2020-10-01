@@ -1,7 +1,8 @@
 <?php
 
-require '../header.php';
-require '../pdo/lib_pdo.php';
+require '../../config.php';
+require '../elements/header.php';
+require '../../lib/pdo/lib_pdo.php';
 
 $pdo = new Lib_pdo();
 
@@ -82,7 +83,7 @@ if (isset($_SESSION["USERID"])):
                   <div class="col-12 tbl_row value">
                     <div class="row">
                       <?php if (!empty($store_img_path)): ?>
-                        <img class="col-12" src="<?php echo $store_img_path; ?>">
+                        <img class="col-12" src="<?php echo $img_store_path . $store_img_path; ?>">
                       <?php else: ?>
                         <div class="col-12 value_text">画像は登録されていません</div>
                       <?php endif; ?>
@@ -102,4 +103,4 @@ if (isset($_SESSION["USERID"])):
 
 <?php
 endif;
-require '../footer.php';
+require '../elements/footer.php';

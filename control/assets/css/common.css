@@ -7,8 +7,7 @@ header {
 }
 
 header .nav_ctrl {
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-wrap: wrap;
   list-style: none;
   margin-bottom: 0;
 }
@@ -48,8 +47,7 @@ h2 {
 
 .btn:hover {
   color: #ffffff;
-  -webkit-text-decoration-line: underline;
-          text-decoration-line: underline;
+  text-decoration-line: underline;
 }
 
 .btn-red {
@@ -81,13 +79,10 @@ h2 {
 
 input[type*="text"],
 input[type*="id"],
-input[type*="password"] {
-  display: -webkit-box;
-  display: -ms-flexbox;
+input[type*="password"],
+input[type*="number"] {
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   padding: .375rem .75rem;
   font-size: 1rem;
   line-height: 1.5;
@@ -98,6 +93,14 @@ input[type*="password"] {
   border: 1px solid #ced4da;
   border-radius: .25rem;
   margin: auto;
+}
+
+select:focus {
+  outline-offset: 0px !important;
+  outline: -webkit-focus-ring-color auto 1px !important;
+  box-shadow: none !important;
+  border-width: 2px !important;
+  border-color: black !important;
 }
 
 .update_msg {
@@ -121,13 +124,7 @@ input[type*="password"] {
 
 .tbl .row .tbl_row .row {
   padding: 10px 0;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.tbl .row .tbl_row:nth-child(1) {
-  font-weight: bold;
+  align-items: center;
 }
 
 .tbl .row .tbl_row:nth-child(2n+1) {
@@ -168,17 +165,15 @@ input[type*="password"] {
 
 .update_index .tbl_item .tbl_update_index .tbl_row .item_name {
   text-align: center;
-  font-weight: normal;
 }
 
 .update_index .tbl_item .tbl_update_index .tbl_row .enable {
-  font-weight: normal;
   color: #3177d3;
   text-align: center;
 }
 
 .update_index .tbl_item .tbl_update_index .tbl_row .disable {
-  font-weight: normal;
+  text-align: center;
 }
 
 .update_index .tbl_item .tbl_update_index .tbl_row .edit {
@@ -251,19 +246,21 @@ input[type*="password"] {
   margin-top: 20px;
 }
 
-.login .field-icon {
+.pw-icon {
   color: #555;
   float: right;
   margin-right: 15px;
-  margin-top: -55px;
+  margin-top: -30px;
   position: relative;
   z-index: 2;
 }
 
+.login .pw-icon {
+  margin-top: -55px;
+}
+
 .btns {
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  justify-content: center;
   margin-top: 20px;
 }
 
@@ -274,4 +271,66 @@ input[type*="password"] {
 .update_insert .tbl .row .tbl_row:nth-child(1) {
   font-weight: normal;
 }
-/*# sourceMappingURL=common.css.map */
+
+.required_field {
+  color: #d33142;
+  font-size: 0.8rem;
+}
+
+.history .selected_date {
+  font-size: 1.25rem;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.history .no_history {
+  font-size: 1.5rem;
+}
+
+.history .guest_sum {
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+}
+
+.history .tbl_history .tbl_row:nth-child(1) {
+  font-weight: bold;
+}
+
+.update_menu_index .tbl_row .item_name, .update_menu_index .tbl_row .likes {
+  margin-bottom: 10px;
+}
+
+.update_menu_index .tbl_row .likes {
+  text-align: center;
+  color: #d33142;
+}
+
+.update_menu_index .tbl_row .btn-group-vertical > .btn, .update_menu_index .tbl_row .btn-group > .btn {
+  position: relative;
+  flex: none;
+}
+
+.update_update .item_enabled, .update_insert .item_enabled, .update_menu_index .item_enabled {
+  margin-bottom: 5px;
+  justify-content: center;
+}
+
+.update_update .item_enabled .btn-primary, .update_insert .item_enabled .btn-primary, .update_menu_index .item_enabled .btn-primary {
+  color: #606060;
+  background-color: rgba(255, 255, 255, 0);
+  border-color: #606060;
+}
+
+.update_update .item_enabled .btn-primary:not(:disabled):not(.disabled).active, .update_insert .item_enabled .btn-primary:not(:disabled):not(.disabled).active, .update_menu_index .item_enabled .btn-primary:not(:disabled):not(.disabled).active {
+  color: #fff;
+  background-color: #3177d3;
+  border-color: #3177d3;
+}
+
+.update_update .item_enabled .btn-primary:focus, .update_update .item_enabled .btn-primary.focus, .update_insert .item_enabled .btn-primary:focus, .update_insert .item_enabled .btn-primary.focus, .update_menu_index .item_enabled .btn-primary:focus, .update_menu_index .item_enabled .btn-primary.focus {
+  box-shadow: none;
+}
+
+.update_update .item_enabled label input #text, .update_insert .item_enabled label input #text, .update_menu_index .item_enabled label input #text {
+  font-size: 1rem;
+}

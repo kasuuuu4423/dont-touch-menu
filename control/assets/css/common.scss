@@ -77,7 +77,8 @@ h2 {
 
 input[type*="text"],
 input[type*="id"],
-input[type*="password"] {
+input[type*="password"],
+input[type*="number"] {
   display: flex;
   align-items: center;
   padding: .375rem .75rem;
@@ -90,6 +91,14 @@ input[type*="password"] {
   border: 1px solid #ced4da;
   border-radius: .25rem;
   margin: auto;
+}
+
+select:focus{
+  outline-offset: 0px !important;
+  outline: -webkit-focus-ring-color auto 1px !important;
+  box-shadow: none !important;
+  border-width: 2px !important;
+  border-color: black !important;
 }
 
 .update_msg {
@@ -114,9 +123,6 @@ input[type*="password"] {
         padding: 10px 0;
         align-items: center;
       }
-    }
-    .tbl_row:nth-child(1) {
-      font-weight: bold;
     }
     .tbl_row:nth-child(2n+1) {
       background-clip: content-box;
@@ -158,15 +164,13 @@ input[type*="password"] {
       .tbl_row {
         .item_name {
           text-align: center;
-          font-weight: normal;
         }
         .enable {
-          font-weight: normal;
           color: $blue_color;
           text-align: center;
         }
         .disable {
-          font-weight: normal;
+          text-align: center;
         }
         .edit {
           text-align: center;
@@ -230,14 +234,19 @@ input[type*="password"] {
   }
 }
 
-.login {
-  .field-icon {
-    color: #555;
-    float: right;
-    margin-right: 15px;
+
+.pw-icon {
+  color: #555;
+  float: right;
+  margin-right: 15px;
+  margin-top: -30px;
+  position: relative;
+  z-index: 2;
+}
+
+.login{
+  .pw-icon{
     margin-top: -55px;
-    position: relative;
-    z-index: 2;
   }
 }
 
@@ -249,11 +258,79 @@ input[type*="password"] {
   }
 }
 
-.update_insert{
-  .tbl{
-    .row{
-      .tbl_row:nth-child(1){
+.update_insert {
+  .tbl {
+    .row {
+      .tbl_row:nth-child(1) {
         font-weight: normal;
+      }
+    }
+  }
+}
+
+.required_field {
+  color: $red_color;
+  font-size: 0.8rem;
+}
+
+.history{
+  .selected_date{
+    font-size: 1.25rem;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  .no_history{
+    font-size: 1.5rem;
+  }
+  .guest_sum{
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+  }
+  .tbl_history{
+    .tbl_row:nth-child(1) {
+      font-weight: bold;
+    }
+  }
+}
+
+.update_menu_index{
+  .tbl_row{
+    .item_name, .likes{
+      margin-bottom: 10px;
+    }
+    .likes{
+      text-align: center;
+      color: $red_color;
+    }
+    .btn-group-vertical>.btn, .btn-group>.btn {
+      position: relative;
+      flex: none;
+    }
+  }
+}
+
+.update_update, .update_insert, .update_menu_index{
+  .item_enabled{
+    margin-bottom: 5px;
+    justify-content: center;
+    .btn-primary{
+      color: #606060;
+      background-color: rgba(#fff, 0);
+      border-color: #606060;
+    }
+    .btn-primary:not(:disabled):not(.disabled).active{
+      color: #fff;
+      background-color: $blue_color;
+      border-color: $blue_color;
+    }
+    .btn-primary:focus, .btn-primary.focus{
+      box-shadow: none;
+    }
+    label{
+      input{
+        #text{
+          font-size: 1rem;
+        }
       }
     }
   }
