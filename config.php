@@ -22,3 +22,6 @@ $img_folder_path            = $root_path . '/resources/img/';
 $img_menu_path              = $root_path . '/resources/img/menu/';
 $img_store_path             = $root_path . '/resources/img/store/';
 $img_qr_path                = $root_path . '/resources/img/qr/';
+
+//img
+$img_upload_path = $_SERVER['DOCUMENT_ROOT'] . '/staging-menu/resources/img/' . $dir . '/';
