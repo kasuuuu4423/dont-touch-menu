@@ -1,7 +1,8 @@
 <?php
 
-require '../pdo/lib_pdo.php';
-require '../header.php';
+require '../../config.php';
+require '../elements/header.php';
+require '../../lib/pdo/lib_pdo.php';
 
 $pdo = new Lib_pdo();
 
@@ -17,17 +18,17 @@ if (isset($_SESSION["USERID"])):
           <div class="row">
             <div class="col-10 offset-1 tbl_row field">
               <div class="row">
-                <div class="col-12 field_text">カテゴリー名<span class="required_field">*必須</span></div>
+                <div class="col-12 field_text">カテゴリー名</div>
               </div>
             </div>
             <div class="col-10 offset-1 tbl_row value">
               <div class="row">
-                <div class="col-12"><input type="text" name="rule_cat_name" required></div>
+                <div class="col-12"><input type="text" name="rule_cat_name"></div>
               </div>
             </div>
           </div>
           <div class="row btns">
-            <div><a class="btn btn-blue" href="<?php echo $update_rule_path; ?>">戻る</a></div>
+            <div><a class="btn btn-blue" href="<?php echo $ctrl_update_rule_path; ?>">戻る</a></div>
             <div><input class="btn btn-green" type="submit" name="insert_cat" value="ルールカテゴリーを追加"></div>
           </div>
         </form>
@@ -37,17 +38,17 @@ if (isset($_SESSION["USERID"])):
           <div class="row">
             <div class="col-10 offset-1 tbl_row field">
               <div class="row">
-                <div class="col-12 field_text">ルール名<span class="required_field">*必須</span></div>
+                <div class="col-12 field_text">ルール名</div>
               </div>
             </div>
             <div class="col-10 offset-1 tbl_row value">
               <div class="row">
-                <div class="col-12"><textarea class="w-100" name="rule_content" rows="5" required></textarea></div>
+                <div class="col-12"><textarea class="w-100" name="rule_content" rows="5"></textarea></div>
               </div>
             </div>
           </div>
           <div class="row btns">
-            <div><a class="btn btn-blue" href="<?php echo $update_rule_path; ?>">戻る</a></div>
+            <div><a class="btn btn-blue" href="<?php echo $ctrl_update_rule_path; ?>">戻る</a></div>
             <div><input class="btn btn-blue" type="submit" name="insert_rule" value="ルールを追加"></div>
           </div>
           <input type="hidden" name="rule_cat_id" value="<?php echo $_GET['cat_id']?>">
@@ -71,4 +72,4 @@ if (isset($_SESSION["USERID"])):
 <?php
 endif;
 
-require '../footer.php';
+require '../elements/footer.php';

@@ -1,7 +1,8 @@
 <?php
 
-require '../header.php';
-require '../pdo/lib_pdo.php';
+require '../../config.php';
+require '../elements/header.php';
+require '../../lib/pdo/lib_pdo.php';
 
 if (isset($_SESSION["USERID"])):
   if(isset($_SESSION['rule_msg'])){
@@ -13,23 +14,30 @@ if (isset($_SESSION["USERID"])):
     <section class="update_index container">
       <div class="row">
         <div class="col-12 bar"></div>
-          <h2 class="col-12">ルール変更</h2>
+          <h2 class="col-12">ルール一覧</h2>
+          <button class="btn btn-green" id="btn_sort">カテゴリーの順番を変更</button>
       <?php
       $pdo = new Lib_pdo();
       $id = $_SESSION['ID'];
-      $rule_cat = $pdo->select("rule_category", $id);
-      foreach($rule_cat as $index => $row){
-        $row_rule_cat[$index]['id'] = $row['id'];
-        $row_rule_cat[$index]['name'] = $row['name'];
+
+      $rules = $pdo->select("rule", $id);
+      $cats = $pdo->select_sorted("rule_category", $id);
+      $sort_rules = array();
+      foreach($rules as $rule){
+        if(!is_array($sort_rules[$rule['rule_category_id']])){
+          $sort_rules[$rule['rule_category_id']] = array();
+        }
+        $sort_rules[$rule['rule_category_id']][$rule['sort_order']] = $rule;
       }
-      $rule = $pdo->select("rule", $id);
-      foreach($rule as $index => $row){
-        $row_rule[$index]['id'] = $row['id'];
-        $row_rule[$index]['content'] = $row['content'];
-        $row_rule[$index]['rule_category_id'] = $row['rule_category_id'];
+      foreach($sort_rules as $key => $rules){
+        ksort($sort_rules[$key]);
       }
 
-      if(!isset($row_rule_cat)):
+      // echo '<pre>';
+      // var_dump($sort_rules);
+      // echo '</pre>';
+
+      if(!isset($cats)):
       ?>
         <div class="col-12 text-center no_cat">カテゴリーがありません</div>
       <?php
@@ -37,30 +45,45 @@ if (isset($_SESSION["USERID"])):
         ?>
         <div class="tbls">
           <?php
-          foreach($row_rule_cat as $value_cat):
+          $count_cat = 0;
+          foreach($cats as $value_cat):
+            $count_cat++;
+            if($value_cat['sort_order'] != "0"){
+              $data_id_cat = $value_cat['sort_order'];
+            }
+            else{
+              $data_id_cat = $count_cat;
+            }
             ?>
-            <div class="col-12 tbl_item">
+            <div  id="<?php echo $value_cat['id']; ?>" class="col-12 tbl_item" data-tbl="rule_category" data-id="<?php echo $data_id_cat; ?>">
               <div class="row">
                 <div class="col-12 cat_name">カテゴリー：<?php echo $value_cat['name']; ?></div>
                 <?php
                 $flag = false;
-                if(is_array($row_rule)):
+                if(is_array($sort_rules)):
                   ?>
                   <div class="col-12 tbl tbl_update_index">
-                    <div class="row">
+                    <div class="row items">
                       <?php
-                      foreach($row_rule as $value_rule):
-                        if($value_rule['rule_category_id'] == $value_cat['id']):
-                          ?>
-                          <div class="col-12 tbl_row">
-                            <div class="row">
-                              <div class="col-6 item_name"><?php echo $value_rule['content']; ?></div>
-                              <div class="col-6 edit"><a class="btn btn-green" href="update.php?rule_id=<?php echo $value_rule['id']; ?>">編集</a></div>
-                            </div>
+                      $count_item = 0;
+                      foreach($sort_rules[$value_cat['id']] as $value_rule):
+                        $count_item++;
+                        if($value_cat['sort_order']){
+                          $data_id_item = $value_rule['sort_order'];
+                        }
+                        else{
+                          $data_id_item = $count_item;
+                        }
+                        ?>
+                        <div id="<?php echo $value_rule['id']; ?>" class="col-12 tbl_row" data-tbl="rule" data-id="<?php echo $data_id_item; ?>">
+                          <div class="row">
+                            <div class="col-6 item_name"><?php echo $value_rule['content']; ?></div>
+                            <div class="col-6 edit"><a class="btn btn-green" href="update.php?rule_id=<?php echo $value_rule['id']; ?>">編集</a></div>
                           </div>
-                          <?php
-                          $flag = true;
-                        endif;
+                        </div>
+                        <?php
+                        $flag = true;
+                        $count_item = 0;
                       endforeach;
                       ?>
                     </div>
@@ -84,6 +107,7 @@ if (isset($_SESSION["USERID"])):
                 <div class="col-12">
                   <div class="row btns">
                     <div><a class="btn btn-blue" href="insert.php?cat_id=<?php echo $value_cat['id']; ?>&target=rule">ルールを追加</a></div>
+                    <button class="btn btn-green btn_sort_item">ルールの順番を変更</button>
                     <div><a class="btn btn-green" href="update.php?cat_id=<?php echo $value_cat['id']; ?>">カテゴリーを編集</a></div>
                   </div>
                 </div>
@@ -102,4 +126,4 @@ if (isset($_SESSION["USERID"])):
   </main>
 <?php
 endif;
-require '../footer.php';
+require '../elements/footer.php';

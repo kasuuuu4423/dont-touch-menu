@@ -1,7 +1,8 @@
 <?php
 
-require '../header.php';
-require '../pdo/lib_pdo.php';
+require '../../config.php';
+require '../elements/header.php';
+require '../../lib/pdo/lib_pdo.php';
 
 if (isset($_SESSION["USERID"])):
   if(isset($_SESSION['menu_msg'])){
@@ -14,7 +15,7 @@ if (isset($_SESSION["USERID"])):
       <div class="row">
         <div class="col-12 bar"></div>
           <h2 class="col-12">メニュー一覧</h2>
-          <button class="btn btn-green" id="btn_sort">順番を変更</button>
+          <button class="btn btn-green" id="btn_sort">カテゴリーの順番を変更</button>
       <?php
       $pdo = new Lib_pdo();
       $id = $_SESSION['ID'];
@@ -112,4 +113,4 @@ if (isset($_SESSION["USERID"])):
   <script src="../js/Sortable.js"></script>
 <?php
 endif;
-require '../footer.php';
+require '../elements/footer.php';
