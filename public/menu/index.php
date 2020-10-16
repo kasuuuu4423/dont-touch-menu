@@ -11,8 +11,8 @@ else{
 }
 
 $pdo = new Lib_pdo();
-$menus = $pdo->select("menu", $id);
-$cats = $pdo->select("menu_category", $id);
+$menus = $pdo->select_sorted("menu", $id);
+$cats = $pdo->select_sorted("menu_category", $id);
 $store_info = $pdo->select("store", $id)[0];
 $logo_path = ltrim($store_info['img_path'], "./");
 $sort_menus = array();
@@ -77,14 +77,15 @@ foreach($menus as $menu){
         ?>
         <section class="menu <?php echo $menu_size . " " . $menu_col; ?>">
           <?php if($menu_size == "lg" || $menu_size == "mid"): ?>
-            <figure class="menu_img"><img src="<?php echo $img_menu_path.str_replace('../img/', '', $cat_menu["img_path"]) ?>" alt=""></figure>
+            <figure class="menu_img"><img src="<?php echo $img_menu_path.str_replace('../img/', '', $cat_menu["img_path"]); ?>" alt=""></figure>
           <?php endif; ?>
           <div class="menu_name">
             <h3><?php echo $cat_menu["name"]; ?></h3>
             <div id="<?php echo $cat_menu["id"]; ?>" class="like">
-              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"viewBox="0 0 123 106" style="enable-background:new 0 0 123 106;" xml:space="preserve">
-                <path class="st0" d="M61.6,103.2C47.8,91.5,10.4,52.6,10.4,52.6c-11.9-11.9-9-31.2,3.3-42.3c11.9-10.7,39-11.8,47.9,8.6c8.1-20.4,39.1-19.3,50.8-8c10.8,10.4,9.6,33.2,1.2,41.7C89.4,76.8,80.6,85.2,61.6,103.2z"/>
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 123 106" xml:space="preserve">
+                <path d="M61.6,103.2C47.8,91.5,10.4,52.6,10.4,52.6c-11.9-11.9-9-31.2,3.3-42.3c11.9-10.7,39-11.8,47.9,8.6c8.1-20.4,39.1-19.3,50.8-8c10.8,10.4,9.6,33.2,1.2,41.7C89.4,76.8,80.6,85.2,61.6,103.2z"/>
               </svg>
+              <span class="likes_num"><?php echo $cat_menu["likes"]; ?></span>
             </div>
           </div>
           <div class="menu_price">¥<?php echo $cat_menu["price"]; ?></div>
@@ -116,6 +117,6 @@ foreach($menus as $menu){
     </main>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-    <script src="<?php echo $public_js_path; ?>/script.js"></script>
+    <script src="<?php echo $public_js_path; ?>/script.js" type="module"></script>
   </body>
 </html>
