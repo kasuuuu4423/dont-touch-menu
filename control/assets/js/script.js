@@ -1,8 +1,14 @@
-import {sort} from './sort.js';
+import {fixed_btn_sort_cat, sort_cat, sort_item} from './sort.js';
 
 window.onload = () => {
   if(document.getElementById('btn_sort')){
-    sort();
+    sort_cat();
+  }
+  if(document.getElementsByClassName('btn_sort_item')[0]){
+    sort_item();
+  }
+  if(document.getElementById('btn_sort_cat')){
+    fixed_btn_sort_cat();
   }
   let input_file = document.getElementById('inputGroupFile01');
   if (input_file) {
