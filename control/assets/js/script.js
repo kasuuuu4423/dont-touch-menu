@@ -1,7 +1,7 @@
 import {fixed_btn_sort_cat, sort_cat, sort_item} from './sort.js';
 
 window.onload = () => {
-  if(document.getElementById('btn_sort')){
+  if(document.getElementById('btn_sort_cat')){
     sort_cat();
   }
   if(document.getElementsByClassName('btn_sort_item')[0]){
@@ -9,6 +9,9 @@ window.onload = () => {
   }
   if(document.getElementById('btn_sort_cat')){
     fixed_btn_sort_cat();
+  }
+  if(document.getElementsByClassName('tgl_nav')){
+    tgl_nav();
   }
   let input_file = document.getElementById('inputGroupFile01');
   if (input_file) {
@@ -51,4 +54,21 @@ window.onload = () => {
       input.attr("type", "password");
     }
   });
+}
+
+const tgl_nav = () => {
+  let btns_tgl = document.getElementsByClassName('tgl_nav');
+  for(let i = 0; i < btns_tgl.length; i++){
+    btns_tgl[i].addEventListener('click', (e)=>{
+      let parent = e.target.parentNode;
+      let btns = parent.getElementsByClassName('btns')[0];
+      let btns_style = document.defaultView.getComputedStyle(btns,null).display;
+      if(btns_style == 'none'){
+        btns.style.display = 'block';
+      }
+      else{
+        btns.style.display = 'none';
+      }
+    });
+  }
 }

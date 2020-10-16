@@ -276,37 +276,47 @@ select:focus {
 }
 
 .btns {
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
   margin-top: 20px;
 }
 
-.btns div:first-of-type {
-  margin-right: 20px;
+.btns .go_back {
+  background-color: #cccccc;
+  color: #333333;
 }
 
-.btns.sortable div:first-of-type {
-  margin-right: 0;
-  margin-left: auto;
-  margin-bottom: 15px;
+.cat_nav {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-.btns.sortable div:first-of-type a {
-  border-radius: 0.25rem 0 0 0.25rem;
-  width: 100%;
+.cat_nav .btns {
+  margin-top: 20px;
+  display: none;
 }
 
-.btns.sortable .btn_sort_item {
-  margin-right: auto;
-  margin-left: 0;
-  margin-bottom: 15px;
-  border-radius: 0 0.25rem 0.25rem 0;
+.cat_nav .btns a {
+  display: block;
 }
 
-.btns.sortable div:last-of-type {
+.cat_nav .btns * {
+  margin-bottom: 5px;
+  color: #000;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.cat_nav .btns * a {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
   margin: auto;
-  margin-top: 0;
+}
+
+.cat_nav .btns .done {
+  background-color: #cccccc;
+  color: #333333;
 }
 
 .update_insert .tbl .row .tbl_row:nth-child(1) {

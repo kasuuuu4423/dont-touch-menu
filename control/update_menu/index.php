@@ -15,7 +15,10 @@ if (isset($_SESSION["USERID"])):
       <div class="row">
         <div class="col-12 bar"></div>
           <h2 class="col-12">メニュー一覧</h2>
-          <button id="btn_sort_cat" class="btn btn-green" id="btn_sort">カテゴリーの順番を変更</button>
+          <div class="btns_cat col-12 d-flex">
+            <div><a class="btn btn-blue" href="insert.php?target=cat">新しいカテゴリーを追加</a></div>
+            <button id="btn_sort_cat" class="btn btn-info" id="btn_sort">カテゴリーの順番を変更</button>
+          </div>
       <?php
       $pdo = new Lib_pdo();
       $id = $_SESSION['ID'];
@@ -54,14 +57,23 @@ if (isset($_SESSION["USERID"])):
               <div class="row">
                 <div class="col-12 cat_name">カテゴリー：<?php echo $value_cat['name']; ?></div>
                 <?php
-                $flag = false;
+                $flg_itemExist = false;
                 if(!empty($sort_menus)):
                   ?>
+                  <div class="col-12 cat_nav">
+                    <button class="tgl_nav btn btn-green">編集▽</button>
+                    <div class="row btns <?php if($sort_menus[$value_cat['id']]) echo 'sortable'; ?>">
+                      <div><a class="" href="insert.php?cat_id=<?php echo $value_cat['id']; ?>&target=menu">メニューを追加</a></div>
+                      <div><a class="btn_sort_item <?php if(!$sort_menus[$value_cat['id']]) echo 'd-none'; ?>">メニューの順番を変更</a></div>
+                      <div><a class="" href="update.php?cat_id=<?php echo $value_cat['id']; ?>">カテゴリーを編集</a></div>
+                    </div>
+                  </div>
                   <div class="col-12 tbl tbl_update_index update_menu_index">
                     <div class="row items">
                       <?php
                       $count_item = 0;
                       if($sort_menus[$value_cat['id']]):
+                        $flg_itemExist = true;
                         foreach($sort_menus[$value_cat['id']] as $value_menu):
                           $count_item++;
                           if($value_cat['sort_order']){
@@ -92,7 +104,6 @@ if (isset($_SESSION["USERID"])):
                             </div>
                           </div>
                           <?php
-                          $flag = true;
                           $count_item = 0;
                         endforeach;
                       endif;
@@ -101,7 +112,7 @@ if (isset($_SESSION["USERID"])):
                   </div>
                   <?php
                 endif;
-                if(!$flag):
+                if(!$flg_itemExist):
                   ?>
                   <div class="col-12 tbl tbl_update_index">
                     <div class="row">
@@ -115,13 +126,6 @@ if (isset($_SESSION["USERID"])):
                   <?php
                 endif;
                 ?>
-                <div class="col-12">
-                  <div class="row btns <?php if($flag) echo 'sortable'; ?>">
-                    <div><a class="btn btn-blue" href="insert.php?cat_id=<?php echo $value_cat['id']; ?>&target=menu">メニューを追加</a></div>
-                    <button class="btn btn-info btn_sort_item" style="<?php if(!$flag) echo 'display:none;' ?>">メニューの順番を変更</button>
-                    <div><a class="btn btn-green" href="update.php?cat_id=<?php echo $value_cat['id']; ?>">カテゴリーを編集</a></div>
-                  </div>
-                </div>
               </div>
             </div>
             <?php
@@ -131,7 +135,6 @@ if (isset($_SESSION["USERID"])):
         <?php
         endif;
         ?>
-      <div class="col-12 text-center new_cat"><a class="btn btn-blue" href="insert.php?target=cat">新しいカテゴリーを追加</a></div>
       </div>
     </section>
   </main>
