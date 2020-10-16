@@ -40,7 +40,6 @@ if (isset($_SESSION["USERID"])):
         ?>
         <div class="tbls">
           <?php
-<<<<<<< HEAD
           $count_cat = 0;
           foreach($cats as $value_cat):
             $count_cat++;
@@ -52,13 +51,6 @@ if (isset($_SESSION["USERID"])):
             }
             ?>
             <div  id="<?php echo $value_cat['id']; ?>" class="col-12 tbl_item" data-tbl="rule_category" data-id="<?php echo $data_id_cat; ?>">
-=======
-          $count = 0;
-          foreach($row_rule_cat as $value_cat):
-            $count++;
-            ?>
-            <div  id="<?php echo $value_cat['id']; ?>" class="col-12 tbl_item" data-tbl="rule_category" data-id="<?php echo $count; ?>">
->>>>>>> 95c08c2c3d322f003d97c9ae06ec0d07c5d1b97d
               <div class="row">
                 <div class="col-12 cat_name">カテゴリー：<?php echo $value_cat['name']; ?></div>
                 <?php
@@ -79,11 +71,7 @@ if (isset($_SESSION["USERID"])):
                             $data_id_item = $count_item;
                           }
                           ?>
-<<<<<<< HEAD
                           <div id="<?php echo $value_rule['id']; ?>" class="col-12 tbl_row" data-tbl="rule" data-id="<?php echo $data_id_item; ?>">
-=======
-                          <div id="<?php echo $value_rule['id']; ?>" class="col-12 tbl_row">
->>>>>>> 95c08c2c3d322f003d97c9ae06ec0d07c5d1b97d
                             <div class="row">
                               <div class="col-6 item_name"><?php echo $value_rule['content']; ?></div>
                               <div class="col-6 edit"><a class="btn btn-green" href="update.php?rule_id=<?php echo $value_rule['id']; ?>">編集</a></div>
@@ -116,11 +104,7 @@ if (isset($_SESSION["USERID"])):
                 <div class="col-12">
                   <div class="row btns <?php if($flag) echo 'sortable'; ?>">
                     <div><a class="btn btn-blue" href="insert.php?cat_id=<?php echo $value_cat['id']; ?>&target=rule">ルールを追加</a></div>
-<<<<<<< HEAD
                     <button class="btn btn-info btn_sort_item" style="<?php if(!$flag) echo 'display:none;' ?>">ルールの順番を変更</button>
-=======
-                    <button class="btn btn-green btn_sort_item">ルールの順番を変更</button>
->>>>>>> 95c08c2c3d322f003d97c9ae06ec0d07c5d1b97d
                     <div><a class="btn btn-green" href="update.php?cat_id=<?php echo $value_cat['id']; ?>">カテゴリーを編集</a></div>
                   </div>
                 </div>
