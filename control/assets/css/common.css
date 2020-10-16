@@ -46,6 +46,14 @@ h2 {
   text-align: center !important;
 }
 
+.btn {
+  margin: auto;
+  color: #ffffff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 0.25rem;
+}
+
 .btn:hover {
   color: #ffffff;
   -webkit-text-decoration-line: underline;
@@ -53,35 +61,21 @@ h2 {
 }
 
 .btn-red {
-  margin: auto;
   background: #d33142;
-  color: #ffffff;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 0.25rem;
 }
 
 .btn-green {
-  margin: auto;
   background: #3dbd44;
-  color: #ffffff;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 0.25rem;
 }
 
 .btn-blue {
-  margin: auto;
   background: #3177d3;
-  color: #ffffff;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 0.25rem;
 }
 
 input[type*="text"],
 input[type*="id"],
-input[type*="password"] {
+input[type*="password"],
+input[type*="number"] {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -98,6 +92,15 @@ input[type*="password"] {
   border: 1px solid #ced4da;
   border-radius: .25rem;
   margin: auto;
+}
+
+select:focus {
+  outline-offset: 0px !important;
+  outline: -webkit-focus-ring-color auto 1px !important;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+  border-width: 2px !important;
+  border-color: black !important;
 }
 
 .update_msg {
@@ -124,10 +127,6 @@ input[type*="password"] {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-}
-
-.tbl .row .tbl_row:nth-child(1) {
-  font-weight: bold;
 }
 
 .tbl .row .tbl_row:nth-child(2n+1) {
@@ -168,17 +167,15 @@ input[type*="password"] {
 
 .update_index .tbl_item .tbl_update_index .tbl_row .item_name {
   text-align: center;
-  font-weight: normal;
 }
 
 .update_index .tbl_item .tbl_update_index .tbl_row .enable {
-  font-weight: normal;
   color: #3177d3;
   text-align: center;
 }
 
 .update_index .tbl_item .tbl_update_index .tbl_row .disable {
-  font-weight: normal;
+  text-align: center;
 }
 
 .update_index .tbl_item .tbl_update_index .tbl_row .edit {
@@ -251,13 +248,31 @@ input[type*="password"] {
   margin-top: 20px;
 }
 
-.login .field-icon {
+.pw-icon {
   color: #555;
   float: right;
   margin-right: 15px;
-  margin-top: -55px;
+  margin-top: -30px;
   position: relative;
   z-index: 2;
+}
+
+.login .pw-icon {
+  margin-top: -55px;
+}
+
+#btn_sort_cat.fixed {
+  position: fixed;
+  top: 15px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  z-index: 5;
+  -webkit-box-shadow: 0 0 5px #495057;
+          box-shadow: 0 0 5px #495057;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
 }
 
 .btns {
@@ -271,7 +286,108 @@ input[type*="password"] {
   margin-right: 20px;
 }
 
+.btns.sortable div:first-of-type {
+  margin-right: 0;
+  margin-left: auto;
+  margin-bottom: 15px;
+}
+
+.btns.sortable div:first-of-type a {
+  border-radius: 0.25rem 0 0 0.25rem;
+  width: 100%;
+}
+
+.btns.sortable .btn_sort_item {
+  margin-right: auto;
+  margin-left: 0;
+  margin-bottom: 15px;
+  border-radius: 0 0.25rem 0.25rem 0;
+}
+
+.btns.sortable div:last-of-type {
+  margin: auto;
+  margin-top: 0;
+}
+
 .update_insert .tbl .row .tbl_row:nth-child(1) {
   font-weight: normal;
+}
+
+.required_field {
+  color: #d33142;
+  font-size: 0.8rem;
+}
+
+.history .selected_date {
+  font-size: 1.25rem;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.history .no_history {
+  font-size: 1.5rem;
+}
+
+.history .guest_sum {
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+}
+
+.history .tbl_history .tbl_row:nth-child(1) {
+  font-weight: bold;
+}
+
+.update_menu_index .tbl_row .item_name, .update_menu_index .tbl_row .likes {
+  margin-bottom: 10px;
+}
+
+.update_menu_index .tbl_row .likes {
+  text-align: center;
+  color: #d33142;
+}
+
+.update_menu_index .tbl_row .likes svg {
+  width: 20px;
+  -webkit-transform: translateY(-1px);
+          transform: translateY(-1px);
+  stroke: #000;
+  stroke-width: 2px;
+  fill: #e92f39;
+}
+
+.update_menu_index .tbl_row .btn-group-vertical > .btn, .update_menu_index .tbl_row .btn-group > .btn {
+  position: relative;
+  -webkit-box-flex: 0;
+      -ms-flex: none;
+          flex: none;
+  margin: inherit;
+}
+
+.update_update .item_enabled, .update_insert .item_enabled, .update_menu_index .item_enabled {
+  margin-bottom: 5px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.update_update .item_enabled .btn-primary, .update_insert .item_enabled .btn-primary, .update_menu_index .item_enabled .btn-primary {
+  color: #606060;
+  background-color: rgba(255, 255, 255, 0);
+  border: 1px solid #606060;
+}
+
+.update_update .item_enabled .btn-primary:not(:disabled):not(.disabled).active, .update_insert .item_enabled .btn-primary:not(:disabled):not(.disabled).active, .update_menu_index .item_enabled .btn-primary:not(:disabled):not(.disabled).active {
+  color: #fff;
+  background-color: #3177d3;
+  border-color: #3177d3;
+}
+
+.update_update .item_enabled .btn-primary:focus, .update_update .item_enabled .btn-primary.focus, .update_insert .item_enabled .btn-primary:focus, .update_insert .item_enabled .btn-primary.focus, .update_menu_index .item_enabled .btn-primary:focus, .update_menu_index .item_enabled .btn-primary.focus {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.update_update .item_enabled label input #text, .update_insert .item_enabled label input #text, .update_menu_index .item_enabled label input #text {
+  font-size: 1rem;
 }
 /*# sourceMappingURL=common.css.map */
