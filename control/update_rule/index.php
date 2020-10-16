@@ -32,11 +32,6 @@ if (isset($_SESSION["USERID"])):
       foreach($sort_rules as $key => $rules){
         ksort($sort_rules[$key]);
       }
-
-      // echo '<pre>';
-      // var_dump($sort_rules);
-      // echo '</pre>';
-
       if(!isset($cats)):
       ?>
         <div class="col-12 text-center no_cat">カテゴリーがありません</div>
@@ -60,31 +55,33 @@ if (isset($_SESSION["USERID"])):
                 <div class="col-12 cat_name">カテゴリー：<?php echo $value_cat['name']; ?></div>
                 <?php
                 $flag = false;
-                if(is_array($sort_rules)):
+                if(!empty($sort_rules)):
                   ?>
                   <div class="col-12 tbl tbl_update_index">
                     <div class="row items">
                       <?php
                       $count_item = 0;
-                      foreach($sort_rules[$value_cat['id']] as $value_rule):
-                        $count_item++;
-                        if($value_cat['sort_order']){
-                          $data_id_item = $value_rule['sort_order'];
-                        }
-                        else{
-                          $data_id_item = $count_item;
-                        }
-                        ?>
-                        <div id="<?php echo $value_rule['id']; ?>" class="col-12 tbl_row" data-tbl="rule" data-id="<?php echo $data_id_item; ?>">
-                          <div class="row">
-                            <div class="col-6 item_name"><?php echo $value_rule['content']; ?></div>
-                            <div class="col-6 edit"><a class="btn btn-green" href="update.php?rule_id=<?php echo $value_rule['id']; ?>">編集</a></div>
+                      if($sort_rules[$value_cat['id']]):
+                        foreach($sort_rules[$value_cat['id']] as $value_rule):
+                          $count_item++;
+                          if(isset($value_cat['sort_order'])){
+                            $data_id_item = $value_rule['sort_order'];
+                          }
+                          else{
+                            $data_id_item = $count_item;
+                          }
+                          ?>
+                          <div id="<?php echo $value_rule['id']; ?>" class="col-12 tbl_row" data-tbl="rule" data-id="<?php echo $data_id_item; ?>">
+                            <div class="row">
+                              <div class="col-6 item_name"><?php echo $value_rule['content']; ?></div>
+                              <div class="col-6 edit"><a class="btn btn-green" href="update.php?rule_id=<?php echo $value_rule['id']; ?>">編集</a></div>
+                            </div>
                           </div>
-                        </div>
-                        <?php
-                        $flag = true;
-                        $count_item = 0;
-                      endforeach;
+                          <?php
+                          $flag = true;
+                          $count_item = 0;
+                        endforeach;
+                      endif;
                       ?>
                     </div>
                   </div>
@@ -105,9 +102,9 @@ if (isset($_SESSION["USERID"])):
                 endif;
                 ?>
                 <div class="col-12">
-                  <div class="row btns">
+                  <div class="row btns <?php if($flag) echo 'sortable'; ?>">
                     <div><a class="btn btn-blue" href="insert.php?cat_id=<?php echo $value_cat['id']; ?>&target=rule">ルールを追加</a></div>
-                    <button class="btn btn-green btn_sort_item">ルールの順番を変更</button>
+                    <button class="btn btn-info btn_sort_item" style="<?php if(!$flag) echo 'display:none;' ?>">ルールの順番を変更</button>
                     <div><a class="btn btn-green" href="update.php?cat_id=<?php echo $value_cat['id']; ?>">カテゴリーを編集</a></div>
                   </div>
                 </div>
