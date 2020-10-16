@@ -15,7 +15,7 @@ if (isset($_SESSION["USERID"])):
       <div class="row">
         <div class="col-12 bar"></div>
           <h2 class="col-12">ルール一覧</h2>
-          <button class="btn btn-green" id="btn_sort">カテゴリーの順番を変更</button>
+          <button class="btn btn-info" id="btn_sort_cat">カテゴリーの順番を変更</button>
       <?php
       $pdo = new Lib_pdo();
       $id = $_SESSION['ID'];
@@ -57,6 +57,14 @@ if (isset($_SESSION["USERID"])):
                 $flag = false;
                 if(!empty($sort_rules)):
                   ?>
+                  <div class="col-12 cat_nav">
+                    <button class="tgl_nav btn btn-green">編集▽</button>
+                    <div class="row btns <?php if($sort_rules[$value_cat['id']]) echo 'sortable'; ?>">
+                      <div><a href="insert.php?cat_id=<?php echo $value_cat['id']; ?>&target=rule">ルールを追加</a></div>
+                      <div><a class="btn_sort_item <?php if(!$sort_rules[$value_cat['id']]) echo 'd-none' ?>">ルールの順番を変更</a></div>
+                      <div><a href="update.php?cat_id=<?php echo $value_cat['id']; ?>">カテゴリーを編集</a></div>
+                    </div>
+                  </div>
                   <div class="col-12 tbl tbl_update_index">
                     <div class="row items">
                       <?php
@@ -101,13 +109,6 @@ if (isset($_SESSION["USERID"])):
                   <?php
                 endif;
                 ?>
-                <div class="col-12">
-                  <div class="row btns <?php if($flag) echo 'sortable'; ?>">
-                    <div><a class="btn btn-blue" href="insert.php?cat_id=<?php echo $value_cat['id']; ?>&target=rule">ルールを追加</a></div>
-                    <button class="btn btn-info btn_sort_item" style="<?php if(!$flag) echo 'display:none;' ?>">ルールの順番を変更</button>
-                    <div><a class="btn btn-green" href="update.php?cat_id=<?php echo $value_cat['id']; ?>">カテゴリーを編集</a></div>
-                  </div>
-                </div>
               </div>
             </div>
             <?php
