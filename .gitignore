@@ -1,2 +1,4 @@
 control/.DS_Store
 *.map
+.vscode/
+_*.php
