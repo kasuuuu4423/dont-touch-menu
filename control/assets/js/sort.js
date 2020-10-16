@@ -1,37 +1,5 @@
 import Lib_menu from '../../../lib/js/lib_menu.js';
 
-export const fixed_btn_sort_cat = () => {
-    let btn_sort_cat = document.getElementById("btn_sort_cat");
-    let btn_rect = btn_sort_cat.getBoundingClientRect();
-    let y = window.pageYOffset + btn_rect.top;
-    window.addEventListener('scroll', ()=>{fixed_btn(btn_sort_cat, y)}, false);
-}
-
-let flg_offset = true;
-let empty;
-
-const fixed_btn = (btn, btn_y) => {
-    let btn_height = btn.clientHeight;
-    if(window.pageYOffset > btn_y){
-        if(flg_offset){
-            btn.classList.add('fixed');
-            empty = document.createElement('div');
-            empty.classList.add('tmp');
-            btn.insertAdjacentElement('afterend', empty);
-            empty.style.height = btn_height;
-            flg_offset = false;
-        }
-    }
-    else{
-        if(!flg_offset){
-            btn.classList.remove('fixed');
-            //let empty = document.getElementsByClassName('tmp')[0];
-            empty.parentElement.removeChild(empty);
-            flg_offset = true;
-        }
-    }
-}
-
 export const sort_item = () => {
     const lib = new Lib_menu();
     let flg_sort = false;
@@ -100,6 +68,7 @@ export const sort_cat = () => {
     let btn_displays = [];
     let tbl_rows_displays = [];
     let btns = document.getElementsByClassName('btn');
+    let wrap_btn_add = document.getElementById('wrap_btn_add');
     let tbl_rows = document.getElementsByClassName('tbl_row');
     let orders;
     
@@ -132,6 +101,7 @@ export const sort_cat = () => {
                     btn_displays.push("");
                 }
             }
+            wrap_btn_add.style.display = 'none';
             sortable.option('disabled', false);
             flg_btn = true;
         }
@@ -156,6 +126,7 @@ export const sort_cat = () => {
                 tbl_rows_displays.push(tbl_rows[tr_i].style.display);
                 tbl_rows[tr_i].style.display = tbl_rows_displays[tr_i];
             }
+            wrap_btn_add.style.display = 'block';
             for(let b_i = 0; b_i < btns.length; b_i++){
                 if(btns[b_i] != btn_sort){
                     btns[b_i].style.display = btn_displays[b_i];

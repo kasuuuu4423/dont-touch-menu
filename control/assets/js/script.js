@@ -1,4 +1,4 @@
-import {fixed_btn_sort_cat, sort_cat, sort_item} from './sort.js';
+import {sort_cat, sort_item} from './sort.js';
 
 window.onload = () => {
   if(document.getElementById('btn_sort_cat')){
@@ -71,4 +71,29 @@ const tgl_nav = () => {
       }
     });
   }
+}
+
+let flg_offset = true;
+let empty;
+const fixed_btn = (btn, btn_y) => {
+    if(window.pageYOffset > btn_y){
+        if(flg_offset){
+            btn.classList.add('fixed');
+            flg_offset = false;
+        }
+    }
+    else{
+        if(!flg_offset){
+            btn.classList.remove('fixed');
+            flg_offset = true;
+        }
+    }
+}
+
+const fixed_btn_sort_cat = () => {
+  let btns_cat = document.getElementById("btns_cat");
+  let btns_rect = btns_cat.getBoundingClientRect();
+  let y = window.pageYOffset + btns_rect.top;
+  console.log(y);
+  window.addEventListener('scroll', ()=>{fixed_btn(btns_cat, y)}, false);
 }

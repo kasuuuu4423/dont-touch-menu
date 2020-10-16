@@ -15,7 +15,10 @@ if (isset($_SESSION["USERID"])):
       <div class="row">
         <div class="col-12 bar"></div>
           <h2 class="col-12">ルール一覧</h2>
-          <button class="btn btn-info" id="btn_sort_cat">カテゴリーの順番を変更</button>
+          <div id="btns_cat" class="btns_cat col-12 d-flex">
+            <div id="wrap_btn_add"><a class="btn btn-blue" href="insert.php?target=cat">新しいカテゴリーを追加</a></div>
+            <button id="btn_sort_cat" class="btn btn-info" id="btn_sort_cat">カテゴリーの順番を変更</button>
+          </div>
       <?php
       $pdo = new Lib_pdo();
       $id = $_SESSION['ID'];
@@ -81,8 +84,8 @@ if (isset($_SESSION["USERID"])):
                           ?>
                           <div id="<?php echo $value_rule['id']; ?>" class="col-12 tbl_row" data-tbl="rule" data-id="<?php echo $data_id_item; ?>">
                             <div class="row">
-                              <div class="col-6 item_name"><?php echo $value_rule['content']; ?></div>
-                              <div class="col-6 edit"><a class="btn btn-green" href="update.php?rule_id=<?php echo $value_rule['id']; ?>">編集</a></div>
+                              <div class="col-8 item_name"><?php echo $value_rule['content']; ?></div>
+                              <div class="col-4 edit"><a class="btn btn-green" href="update.php?rule_id=<?php echo $value_rule['id']; ?>">編集</a></div>
                             </div>
                           </div>
                           <?php
@@ -118,7 +121,6 @@ if (isset($_SESSION["USERID"])):
         <?php
         endif;
         ?>
-      <div class="col-12 text-center new_cat"><a class="btn btn-blue" href="insert.php?target=cat">新しいカテゴリーを追加</a></div>
       </div>
     </section>
   </main>

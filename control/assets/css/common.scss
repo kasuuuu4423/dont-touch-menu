@@ -156,6 +156,7 @@ select:focus{
       .tbl_row {
         .item_name {
           text-align: center;
+          padding: 0 25px;
         }
         .enable {
           color: $blue_color;
@@ -242,14 +243,22 @@ select:focus{
   }
 }
 
-#btn_sort_cat.fixed{
-  position: fixed;
-  top: 15px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 5;
-  box-shadow: 0 0 5px #495057;
-  width: fit-content;
+#btns_cat{
+  justify-content: space-around;
+  .btn{
+    margin: 0;
+  }
+  &.fixed{
+    position: fixed;
+    top: 15px;
+    left: 50%;
+    width: 100%;
+    transform: translateX(-50%);
+    z-index: 5;
+    *{
+      box-shadow: 0 0 5px #495057;
+    }
+  }
 }
 
 .btns{
