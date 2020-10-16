@@ -29,7 +29,6 @@ class Lib_pdo{
                     $result[$i]['img_path'] = str_replace('../', '', $result[$i]['img_path']);
                 }
             }
-<<<<<<< HEAD
             return $result;
         }
         catch(Exception $e){
@@ -59,8 +58,6 @@ class Lib_pdo{
                     $result[$i]['img_path'] = str_replace('../', '', $result[$i]['img_path']);
                 }
             }
-=======
->>>>>>> 95c08c2c3d322f003d97c9ae06ec0d07c5d1b97d
             return $result;
         }
         catch(Exception $e){
@@ -223,7 +220,6 @@ class Lib_pdo{
             echo $e;
         }
     }
-<<<<<<< HEAD
     private function get_nextOrder_forItem($table, $store_id, $cat_id){
         $items = $this->select_by_storeid_and_cat($table, $store_id, $cat_id);
         if(!empty($items)){
@@ -250,8 +246,6 @@ class Lib_pdo{
             return 1;
         }
     }
-=======
->>>>>>> 95c08c2c3d322f003d97c9ae06ec0d07c5d1b97d
     public function insert_menu($menu_name, $menu_price, $menu_desc, $menu_img, $menu_enabled, $store_id, $menu_cat_id, $full_path){
         try{
             if($menu_img['error'] != 4){
@@ -377,7 +371,6 @@ class Lib_pdo{
             echo $e;
         }
     }
-<<<<<<< HEAD
     public function update_add_menu_like($menu_id, $flag){
         try{
             if($flag == 1){
@@ -394,8 +387,6 @@ class Lib_pdo{
             echo $e;
         }
     }
-=======
->>>>>>> 95c08c2c3d322f003d97c9ae06ec0d07c5d1b97d
     public function update_store($store_id, $store_name, $store_seats, $store_img, $store_open, $store_close, $store_lastorder, $store_exception, $full_path){
         try{
             if($store_img['error'] != 4){
