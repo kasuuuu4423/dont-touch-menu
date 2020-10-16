@@ -1,5 +1,9 @@
 <?php
-require '../pdo/lib_pdo.php';
+
+require '../../config.php';
+require '../elements/header.php';
+require '../../lib/pdo/lib_pdo.php';
+
 session_start();
 $pdo = new Lib_pdo();
 
@@ -21,7 +25,6 @@ elseif(isset($_POST['menu_category_delete'])){
 }
 
 $flg_menu = false;
-require '../header.php';
 if(isset($_GET['menu_id'])){
     $id = $_GET['menu_id'];
     $menu_info = $pdo->select_menu_id($id)[0];
@@ -51,4 +54,4 @@ elseif(isset($_GET['menu_cat_id'])){
 </main>
 
 <?php
-require '../footer.php';
+require '../elements/footer.php';

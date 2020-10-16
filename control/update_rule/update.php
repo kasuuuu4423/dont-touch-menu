@@ -1,7 +1,8 @@
 <?php
 
-require '../header.php';
-require '../pdo/lib_pdo.php';
+require '../../config.php';
+require '../elements/header.php';
+require '../../lib/pdo/lib_pdo.php';
 
 $pdo = new Lib_pdo();
 
@@ -22,19 +23,19 @@ if (isset($_SESSION["USERID"])):
           <div class="row">
             <div class="col-10 offset-1 tbl_row field">
               <div class="row">
-                <div class="col-12 field_text">カテゴリー名<span class="required_field">*必須</span></div>
+                <div class="col-12 field_text">カテゴリー名</div>
               </div>
             </div>
             <div class="col-10 offset-1 tbl_row value">
               <div class="row">
-                <div class="col-12"><input type="text" name="rule_cat_name" value="<?php if (!empty($rule_cat_name)) echo(htmlspecialchars($rule_cat_name, ENT_QUOTES, 'UTF-8'));?>" required></div>
+                <div class="col-12"><input type="text" name="rule_cat_name" value="<?php if (!empty($rule_cat_name)) echo(htmlspecialchars($rule_cat_name, ENT_QUOTES, 'UTF-8'));?>"></div>
               </div>
             </div>
           </div>
           <div class="row btns">
-            <div><a class="btn btn-blue" href="<?php echo $update_rule_path; ?>">戻る</a></div>
+            <div><a class="btn btn-blue" href="<?php echo $ctrl_update_rule_path; ?>">戻る</a></div>
             <div><input class="btn btn-green" type="submit" name="confirm_cat" value="編集を確定"></div>
-            <div class="delete_btn col-12 text-center"><a class="btn btn-red" href="<?php echo $update_rule_path; ?>delete.php?rule_cat_id=<?php echo $rule_cat_id; ?>">このカテゴリーを削除する</a></div>
+            <div class="delete_btn col-12 text-center"><a class="btn btn-red" href="<?php echo $ctrl_update_rule_path; ?>delete.php?rule_cat_id=<?php echo $rule_cat_id; ?>">このカテゴリーを削除する</a></div>
           </div>
           <input type="hidden" name="rule_cat_id" value="<?php if (!empty($rule_cat_id)) echo(htmlspecialchars($rule_cat_id, ENT_QUOTES, 'UTF-8'));?>">
         </form>
@@ -48,19 +49,19 @@ if (isset($_SESSION["USERID"])):
           <div class="row">
             <div class="col-10 offset-1 tbl_row field">
               <div class="row">
-                <div class="col-12 field_text">ルール名<span class="required_field">*必須</span></div>
+                <div class="col-12 field_text">ルール名</div>
               </div>
             </div>
             <div class="col-10 offset-1 tbl_row value">
               <div class="row">
-                <div class="col-12"><textarea class="w-100" name="rule_content" rows="5" required><?php if (!empty($rule_content)) echo(htmlspecialchars($rule_content, ENT_QUOTES, 'UTF-8'));?></textarea></div>
+                <div class="col-12"><textarea class="w-100" name="rule_content" rows="5"><?php if (!empty($rule_content)) echo(htmlspecialchars($rule_content, ENT_QUOTES, 'UTF-8'));?></textarea></div>
               </div>
             </div>
           </div>
           <div class="row btns">
-            <div><a class="btn btn-blue" href="<?php echo $update_rule_path; ?>">戻る</a></div>
+            <div><a class="btn btn-blue" href="<?php echo $ctrl_update_rule_path; ?>">戻る</a></div>
             <div><input class="btn btn-green" type="submit" name="confirm_rule" value="編集を確定"></div>
-            <div class="delete_btn col-12 text-center"><a class="btn btn-red" href="<?php echo $update_rule_path; ?>delete.php?rule_id=<?php echo $_GET['rule_id']; ?>">このルールを削除する</a></div>
+            <div class="delete_btn col-12 text-center"><a class="btn btn-red" href="<?php echo $ctrl_update_rule_path; ?>delete.php?rule_id=<?php echo $_GET['rule_id']; ?>">このルールを削除する</a></div>
           </div>
           <input type="hidden" name="rule_id" value="<?php if (!empty($rule_id)) echo(htmlspecialchars($rule_id, ENT_QUOTES, 'UTF-8'));?>">
         </form>
@@ -83,4 +84,4 @@ if (isset($_SESSION["USERID"])):
   </main>
 <?php
 endif;
-require '../footer.php';
+require '../elements/footer.php';

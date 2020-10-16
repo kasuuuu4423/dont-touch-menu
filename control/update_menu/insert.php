@@ -1,7 +1,8 @@
 <?php
 
-require '../pdo/lib_pdo.php';
-require '../header.php';
+require '../../config.php';
+require '../elements/header.php';
+require '../../lib/pdo/lib_pdo.php';
 
 $pdo = new Lib_pdo();
 
@@ -27,7 +28,7 @@ if (isset($_SESSION["USERID"])):
             </div>
           </div>
           <div class="row btns">
-            <div><a class="btn btn-blue" href="<?php echo $update_menu_path; ?>">戻る</a></div>
+            <div><a class="btn btn-blue" href="<?php echo $ctrl_update_menu_path; ?>">戻る</a></div>
             <div><input class="btn btn-green" type="submit" name="insert_cat" value="メニューカテゴリーを追加"></div>
           </div>
         </form>
@@ -84,17 +85,19 @@ if (isset($_SESSION["USERID"])):
             </div>
             <div class="col-10 offset-1 tbl_row value">
               <div class="row">
-                <div class="col-12 form-group">
-                  <select id="inputState" name="menu_enabled" class="form-control" required>
-                    <option value="1" selected>販売中</option>
-                    <option value="0">販売停止</option>
-                  </select>
+                <div class="col-12 item_enabled btn-group btn-group-toggle" data-toggle="buttons">
+                  <label class="btn btn-primary active">
+                    <input type="radio" name="menu_enabled" value="1" autocomplete="off" checked>販売中
+                  </label>
+                  <label class="btn btn-primary">
+                    <input type="radio" name="menu_enabled" value="0" autocomplete="off">販売停止中
+                  </label>
                 </div>
               </div>
             </div>
           </div>
           <div class="row btns">
-            <div><a class="btn btn-blue" href="<?php echo $update_menu_path; ?>">戻る</a></div>
+            <div><a class="btn btn-blue" href="<?php echo $ctrl_update_menu_path; ?>">戻る</a></div>
             <div><input class="btn btn-blue" type="submit" name="insert_menu" value="メニューを追加"></div>
           </div>
           <input type="hidden" name="menu_cat_id" value="<?php echo $_GET['cat_id']?>">
@@ -107,7 +110,7 @@ if (isset($_SESSION["USERID"])):
           header('Location: ./');
         }
         elseif(isset($_POST['insert_menu'])){
-          $pdo->insert_menu($_POST['menu_name'], $_POST['menu_price'], $_POST['menu_desc'], $_FILES['menu_img'], $_POST['menu_enabled'], $_SESSION['ID'], $_POST['menu_cat_id']);
+          $pdo->insert_menu($_POST['menu_name'], $_POST['menu_price'], $_POST['menu_desc'], $_FILES['menu_img'], $_POST['menu_enabled'], $_SESSION['ID'], $_POST['menu_cat_id'], $img_menu_path);
           $_SESSION['menu_msg'] = 'メニューを追加しました';
           header('Location: ./');
         }
@@ -118,4 +121,4 @@ if (isset($_SESSION["USERID"])):
 <?php
 endif;
 
-require '../footer.php';
+require '../elements/footer.php';

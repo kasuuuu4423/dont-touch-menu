@@ -1,6 +1,8 @@
 <?php
 
-require '../header.php';
+require '../../config.php';
+require '../elements/header.php';
+require '../../lib/pdo/lib_pdo.php';
 
 if (isset($_SESSION["USERID"])) {
   //ログイン済みの場合
@@ -27,9 +29,9 @@ unset($_SESSION["USERID"]);
   <div class="row">
     <h1 class="col-12 text-center">ログアウト</h1>
     <div class="col-12 text-center mt-3"><?php echo $output; ?></div>
-    <div class="col-12 text-center mt-2"><a href="<?php echo $login_path; ?>">ログインはこちら</a><div>
+    <div class="col-12 text-center mt-2"><a href="<?php echo $ctrl_login_path; ?>">ログインはこちら</a><div>
   </div>
 <main>
 
 <?php
-require '../footer.php';
+require '../elements/footer.php';
