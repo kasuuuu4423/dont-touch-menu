@@ -29,7 +29,7 @@ if(!isset($_SESSION['USERID'])) {
 </head>
 <body>
   <header class="container">
-    <?php if(isset($_SESSION['USERID']) and $current_path != $logout_path): ?>
+    <?php if(isset($_SESSION['USERID']) and $current_path != $ctrl_logout_path): ?>
     <div class="row">
       <h1 class="col-12">管理画面</h1>
       <ul class="col-12 text-center nav_ctrl">

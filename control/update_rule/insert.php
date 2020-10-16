@@ -72,8 +72,4 @@ if (isset($_SESSION["USERID"])):
 <?php
 endif;
 
-<<<<<<< HEAD
 require '../elements/footer.php';
-=======
-require '../elements/footer.php';
->>>>>>> 95c08c2c3d322f003d97c9ae06ec0d07c5d1b97d
