@@ -29,18 +29,8 @@ if (isset($_SESSION["USERID"])):
         }
         $sort_menus[$menu['menu_category_id']][$menu['sort_order']] = $menu;
       }
-<<<<<<< HEAD
       foreach($sort_menus as $key => $menus){
         ksort($sort_menus[$key]);
-=======
-      $menu = $pdo->select("menu", $id);
-      foreach($menu as $index => $row){
-        $row_menu[$index]['id'] = $row['id'];
-        $row_menu[$index]['name'] = $row['name'];
-        $row_menu[$index]['enabled'] = $row['enabled'];
-        $row_menu[$index]['likes'] = $row['likes'];
-        $row_menu[$index]['menu_category_id'] = $row['menu_category_id'];
->>>>>>> 95c08c2c3d322f003d97c9ae06ec0d07c5d1b97d
       }
       if(!isset($cats)):
       ?>
@@ -68,11 +58,7 @@ if (isset($_SESSION["USERID"])):
                 if(!empty($sort_menus)):
                   ?>
                   <div class="col-12 tbl tbl_update_index update_menu_index">
-<<<<<<< HEAD
                     <div class="row items">
-=======
-                    <div class="row">
->>>>>>> 95c08c2c3d322f003d97c9ae06ec0d07c5d1b97d
                       <?php
                       $count_item = 0;
                       if($sort_menus[$value_cat['id']]):
@@ -85,20 +71,15 @@ if (isset($_SESSION["USERID"])):
                             $data_id_item = $count_item;
                           }
                           ?>
-<<<<<<< HEAD
                           <div class="col-12 tbl_row" id="<?php echo $value_menu['id']; ?>" data-tbl="menu" data-id="<?php echo $data_id_item; ?>">
                             <div class="row">
                               <div class="col-8 item_name"><?php echo $value_menu['name']; ?></div>
-                              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 123 106" xml:space="preserve">
+                              <div class="col-4 likes">
+                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 123 106" xml:space="preserve">
                                   <path d="M61.6,103.2C47.8,91.5,10.4,52.6,10.4,52.6c-11.9-11.9-9-31.2,3.3-42.3c11.9-10.7,39-11.8,47.9,8.6c8.1-20.4,39.1-19.3,50.8-8c10.8,10.4,9.6,33.2,1.2,41.7C89.4,76.8,80.6,85.2,61.6,103.2z"/>
-                              </svg>
-                              <?php echo $value_menu['likes']; ?>
-=======
-                          <div class="col-12 tbl_row" id="<?php echo $value_menu['id']; ?>">
-                            <div class="row">
-                              <div class="col-8 item_name"><?php echo $value_menu['name']; ?></div>
-                              <div class="col-4 likes">♡<?php echo $value_menu['likes']; ?></div>
->>>>>>> 95c08c2c3d322f003d97c9ae06ec0d07c5d1b97d
+                                </svg>
+                                <?php echo $value_menu['likes']; ?>
+                              </div>
                               <div class="col-8 item_enabled btn-group btn-group-toggle" data-toggle="buttons">
                                 <label class="btn btn-primary active">
                                   <input type="radio" name="radio<?php echo $value_menu['id']; ?>" id="enable" autocomplete="off" <?php  if($value_menu['enabled'] == 1){ echo 'checked'; }?>>販売中
