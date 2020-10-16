@@ -220,6 +220,32 @@ class Lib_pdo{
             echo $e;
         }
     }
+    private function get_nextOrder_forItem($table, $store_id, $cat_id){
+        $items = $this->select_by_storeid_and_cat($table, $store_id, $cat_id);
+        if(!empty($items)){
+            foreach ($items as $key => $value) {
+                $sort[$key] = $value['sort_order'];
+            }
+            array_multisort($sort, SORT_ASC, $items);
+            return end($items)['sort_order'] + 1;
+        }
+        else{
+            return 1;
+        }
+    }
+    private function get_nextOrder_forCat($table, $store_id){
+        $items = $this->select($table, $store_id);
+        if(!empty($items)){
+            foreach ($items as $key => $value) {
+                $sort[$key] = $value['sort_order'];
+            }
+            array_multisort($sort, SORT_ASC, $items);
+            return end($items)['sort_order'] + 1;
+        }
+        else{
+            return 1;
+        }
+    }
     public function insert_menu($menu_name, $menu_price, $menu_desc, $menu_img, $menu_enabled, $store_id, $menu_cat_id, $full_path){
         try{
             if($menu_img['error'] != 4){
@@ -228,8 +254,9 @@ class Lib_pdo{
             else{
                 $menu_img_path = NULL;
             }
+            $sort_order = $this->get_nextOrder_forItem('menu', $store_id, $menu_cat_id);
             $null = NULL;
-            $stmt = $this->db->prepare("INSERT INTO menu (id, name, price, description, img_path, enabled, store_id, menu_category_id, created_at, updated_at) VALUES (:id, :name, :price, :description, :img_path, :enabled, :store_id, :menu_category_id, now(), now())");
+            $stmt = $this->db->prepare("INSERT INTO menu (id, name, price, description, img_path, enabled, store_id, menu_category_id, sort_order, created_at, updated_at) VALUES (:id, :name, :price, :description, :img_path, :enabled, :store_id, :menu_category_id, :sort_order, now(), now())");
             $stmt->bindparam(':id', $null, PDO::PARAM_INT);
             $stmt->bindparam(':name', $menu_name, PDO::PARAM_STR);
             $stmt->bindparam(':price', $menu_price, PDO::PARAM_INT);
@@ -238,6 +265,7 @@ class Lib_pdo{
             $stmt->bindparam(':enabled', $menu_enabled, PDO::PARAM_INT);
             $stmt->bindparam(':store_id', $store_id, PDO::PARAM_INT);
             $stmt->bindparam(':menu_category_id', $menu_cat_id, PDO::PARAM_INT);
+            $stmt->bindparam(':sort_order', $sort_order, PDO::PARAM_INT);
             $stmt->execute();
         }
         catch(Exception $e){
@@ -245,23 +273,16 @@ class Lib_pdo{
         }
     }
     private function sort_byOrder($data){
-        foreach ($data as $key => $value) {
-            $sort[$key] = $value['sort_order'];
+        if(!empty($data)){
+            foreach ($data as $key => $value) {
+                $sort[$key] = $value['sort_order'];
+            }
+            array_multisort($sort, SORT_ASC, $data);
+            return $data;
         }
-        array_multisort($sort, SORT_ASC, $data);
-        return $data;
-    }
-    private function get_next_order($table, $store_id, $cat_id){
-        $items = $this->select_by_storeid_and_cat($table, $store_id, $cat_id);
-        foreach ($items as $key => $value) {
-            $sort[$key] = $value['sort_order'];
-        }
-        array_multisort($sort, SORT_ASC, $items);
-        return end($items)['sort_order'] + 1;
     }
     public function insert_rule($rule_content, $rule_cat_id, $store_id){
-        $sort_order = $this->get_next_order('rule', $store_id, $rule_cat_id);
-        var_dump($sort_order);
+        $sort_order = $this->get_nextOrder_forItem('rule', $store_id, $rule_cat_id);
         try{
             $null = NULL;
             $stmt = $this->db->prepare('INSERT INTO rule (id, content, store_id, rule_category_id, sort_order, created_at, updated_at) VALUES (:id, :content, :store_id, :rule_category_id, :sort_order, now(), now())');
@@ -278,11 +299,14 @@ class Lib_pdo{
     }
     public function insert_menu_category($menu_cat_name, $store_id){
         try{
+            $sort_order = $this->get_nextOrder_forCat('menu_category', $store_id);
             $null = NULL;
-            $stmt = $this->db->prepare('INSERT INTO menu_category (id, name, store_id, created_at, updated_at) VALUES (:id, :name, :store_id, now(), now())');
+            $stmt = $this->db->prepare('INSERT INTO menu_category (id, name, store_id, sort_order, created_at, updated_at) VALUES (:id, :name, :store_id, :sort_order, now(), now())');
             $stmt->bindparam(':id', $null, PDO::PARAM_INT);
             $stmt->bindparam(':name', $menu_cat_name, PDO::PARAM_STR);
             $stmt->bindparam(':store_id', $store_id, PDO::PARAM_INT);
+            $stmt->bindparam(':store_id', $store_id, PDO::PARAM_INT);
+            $stmt->bindparam(':sort_order', $sort_order, PDO::PARAM_INT);
             $stmt->execute();
         }
         catch(Exception $e){
@@ -291,11 +315,13 @@ class Lib_pdo{
     }
     public function insert_rule_category($menu_cat_name, $store_id){
         try{
+            $sort_order = $this->get_nextOrder_forCat('rule_category', $store_id);
             $null = NULL;
-            $stmt = $this->db->prepare('INSERT INTO rule_category (id, name, store_id, created_at, updated_at) VALUES (:id, :name, :store_id, now(), now())');
+            $stmt = $this->db->prepare('INSERT INTO rule_category (id, name, store_id, sort_order, created_at, updated_at) VALUES (:id, :name, :store_id, :sort_order, now(), now())');
             $stmt->bindparam(':id', $null, PDO::PARAM_INT);
             $stmt->bindparam(':name', $menu_cat_name, PDO::PARAM_STR);
             $stmt->bindparam(':store_id', $store_id, PDO::PARAM_INT);
+            $stmt->bindparam(':sort_order', $sort_order, PDO::PARAM_INT);
             $stmt->execute();
         }
         catch(Exception $e){
