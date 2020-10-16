@@ -57,8 +57,8 @@ $close = $store_info["close"];
 $last = $store_info["last_order"];
 $exception = $store_info["exception"];
 
-$rules = $pdo->select("rule", $id);
-$cats = $pdo->select("rule_category", $id);
+$rules = $pdo->select_sorted("rule", $id);
+$cats = $pdo->select_sorted("rule_category", $id);
 $sort_rules = array();
 
 $img_path = str_replace('../img/', $img_folder_path, $img_path);
@@ -133,31 +133,37 @@ $guest_sum = 0;
       </div>
     </header>
     <main>
-      <?php if($cats != NULL): ?>
+      <?php if($cats): ?>
       <section class="rule container">
         <div class="row">
           <h2 class="col-12">お店のルール</h2>
           <ul class="col-12">
-            <?php foreach($cats as $cat): ?>
-              <li class="h3">
-                <h3>＜<?php echo $cat['name']; ?>＞</h3>
-              </li>
-              <li> 
-                <ul>
-                  <?php
-                  if(is_array($sort_rules[$cat["id"]])):
-                    foreach($sort_rules[$cat["id"]] as $rule):
-                  ?>
-                    <li><?php echo $rule; ?></li>
-                  <?php
-                    endforeach;
-                  else:
-                  ?>
-                  <li><?php echo $sort_rules[$cat["id"]]; ?></li>
-                  <?php endif; ?>
-                </ul>
-              </li>
-            <?php endforeach; ?>
+            <?php
+            foreach($cats as $cat):
+              if($sort_rules[$cat["id"]]):
+              ?>
+                <li class="h3">
+                  <h3>＜<?php echo $cat['name']; ?>＞</h3>
+                </li>
+                <li> 
+                  <ul>
+                    <?php
+                    if(is_array($sort_rules[$cat["id"]])):
+                      foreach($sort_rules[$cat["id"]] as $rule):
+                    ?>
+                      <li><?php echo $rule; ?></li>
+                    <?php
+                      endforeach;
+                    else:
+                    ?>
+                    <li><?php echo $sort_rules[$cat["id"]]; ?></li>
+                    <?php endif; ?>
+                  </ul>
+                </li>
+            <?php
+            endif;
+          endforeach;
+          ?>
         </div>
       </section>
       <?php
