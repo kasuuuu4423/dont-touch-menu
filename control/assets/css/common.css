@@ -60,6 +60,11 @@ h2 {
           text-decoration-line: underline;
 }
 
+.btn.done {
+  color: #333333;
+  background: #cccccc;
+}
+
 .btn-red {
   background: #d33142;
 }
@@ -166,6 +171,7 @@ select:focus {
 }
 
 .update_index .tbl_item .tbl_update_index .tbl_row .item_name {
+  word-break: break-word;
   text-align: center;
   padding: 0 25px;
 }
@@ -190,6 +196,11 @@ select:focus {
 
 .update_index .tbl_item .btns {
   margin-top: 15px;
+}
+
+.update_index .tbl_item .cat_btns {
+  text-align: right;
+  margin-top: 0px;
 }
 
 .update_index .new_cat {
@@ -299,7 +310,10 @@ select:focus {
 
 .cat_nav {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  text-align: right;
 }
 
 .cat_nav .btns {

@@ -1,16 +1,16 @@
 import {sort_cat, sort_item} from './sort.js';
 
 window.onload = () => {
-  if(document.getElementById('btn_sort_cat')){
+  if(document.getElementById('btn_sort_cat' != null)){
     sort_cat();
   }
-  if(document.getElementsByClassName('btn_sort_item')[0]){
+  if(document.getElementsByClassName('btn_sort_item')[0] != null){
     sort_item();
   }
-  if(document.getElementById('btn_sort_cat')){
+  if(document.getElementById('btn_sort_cat') != null){
     fixed_btn_sort_cat();
   }
-  if(document.getElementsByClassName('tgl_nav')){
+  if(document.getElementsByClassName('tgl_nav') != null){
     tgl_nav();
   }
   let input_file = document.getElementById('inputGroupFile01');
@@ -60,14 +60,16 @@ const tgl_nav = () => {
   let btns_tgl = document.getElementsByClassName('tgl_nav');
   for(let i = 0; i < btns_tgl.length; i++){
     btns_tgl[i].addEventListener('click', (e)=>{
-      let parent = e.target.parentNode;
-      let btns = parent.getElementsByClassName('btns')[0];
+      let row = e.target.parentNode.parentNode;
+      let btns = row.getElementsByClassName('btns')[0];
       let btns_style = document.defaultView.getComputedStyle(btns,null).display;
       if(btns_style == 'none'){
-        btns.style.display = 'block';
+        btns.classList.remove('d-none');
+        e.target.innerHTML = '編集△';
       }
       else{
-        btns.style.display = 'none';
+        btns.classList.add('d-none');
+        e.target.innerHTML = '編集▽';
       }
     });
   }
@@ -96,4 +98,34 @@ const fixed_btn_sort_cat = () => {
   let y = window.pageYOffset + btns_rect.top;
   console.log(y);
   window.addEventListener('scroll', ()=>{fixed_btn(btns_cat, y)}, false);
+}
+
+const fadeIn = (node, duration) => {
+  // display: noneでないときは何もしない
+  if (getComputedStyle(node).display !== 'none') return;
+  
+  // style属性にdisplay: noneが設定されていたとき
+  if (node.style.display === 'none') {
+    node.style.display = '';
+  } else {
+    node.style.display = 'block';
+  }
+  node.style.opacity = 0;
+
+  var start = performance.now();
+  
+  requestAnimationFrame(function tick(timestamp) {
+    // イージング計算式（linear）
+    var easing = (timestamp - start) / duration;
+
+    // opacityが1を超えないように
+    node.style.opacity = Math.min(easing, 1);
+
+    // opacityが1より小さいとき
+    if (easing < 1) {
+      requestAnimationFrame(tick);
+    } else {
+      node.style.opacity = '';
+    }
+  });
 }

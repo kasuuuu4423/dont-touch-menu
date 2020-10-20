@@ -1,5 +1,4 @@
 <?php
-
 require '../../config.php';
 require '../elements/header.php';
 require '../../lib/pdo/lib_pdo.php';
@@ -16,7 +15,7 @@ if (isset($_SESSION["USERID"])):
         <div class="col-12 bar"></div>
           <h2 class="col-12">メニュー一覧</h2>
           <div id="btns_cat" class="btns_cat col-12 d-flex">
-            <div id="wrap_btn_add"><a class="btn btn-blue" href="insert.php?target=cat">新しいカテゴリーを追加</a></div>
+            <div><a class="btn btn-blue" href="insert.php?target=cat">新しいカテゴリーを追加</a></div>
             <button id="btn_sort_cat" class="btn btn-info" id="btn_sort">カテゴリーの順番を変更</button>
           </div>
       <?php
@@ -55,19 +54,19 @@ if (isset($_SESSION["USERID"])):
             ?>
             <div id="<?php echo $value_cat['id']; ?>" class="col-12 tbl_item" data-tbl="menu_category" data-id="<?php echo $data_id_cat; ?>">
               <div class="row">
-                <div class="col-12 cat_name">カテゴリー：<?php echo $value_cat['name']; ?></div>
+                <div class="col-8 cat_name">カテゴリー：<?php echo $value_cat['name']; ?></div>
+                  <div class="col-3 cat_nav">
+                    <button class="tgl_nav btn btn-green">編集▽</button>
+                  </div>
+                  <div class="col-11 d-none btns cat_btns <?php if($sort_menus[$value_cat['id']]) echo 'sortable'; ?>">
+                    <div><a class="" href="insert.php?cat_id=<?php echo $value_cat['id']; ?>&target=menu">メニューを追加</a></div>
+                    <div><a class="btn_sort_item <?php if(!$sort_menus[$value_cat['id']]) echo 'd-none'; ?>">メニューの順番を変更</a></div>
+                    <div><a class="" href="update.php?cat_id=<?php echo $value_cat['id']; ?>">カテゴリーを編集</a></div>
+                  </div>
                 <?php
                 $flg_itemExist = false;
                 if(!empty($sort_menus)):
                   ?>
-                  <div class="col-12 cat_nav">
-                    <button class="tgl_nav btn btn-green">編集▽</button>
-                    <div class="row btns <?php if($sort_menus[$value_cat['id']]) echo 'sortable'; ?>">
-                      <div><a class="" href="insert.php?cat_id=<?php echo $value_cat['id']; ?>&target=menu">メニューを追加</a></div>
-                      <div><a class="btn_sort_item <?php if(!$sort_menus[$value_cat['id']]) echo 'd-none'; ?>">メニューの順番を変更</a></div>
-                      <div><a class="" href="update.php?cat_id=<?php echo $value_cat['id']; ?>">カテゴリーを編集</a></div>
-                    </div>
-                  </div>
                   <div class="col-12 tbl tbl_update_index update_menu_index">
                     <div class="row items">
                       <?php
@@ -92,7 +91,7 @@ if (isset($_SESSION["USERID"])):
                                 </svg>
                                 <?php echo $value_menu['likes']; ?>
                               </div>
-                              <div class="col-8 item_enabled btn-group btn-group-toggle" data-toggle="buttons">
+                              <div class="col-8 wrap_item_btn item_enabled btn-group btn-group-toggle" data-toggle="buttons">
                                 <label class="btn btn-primary active">
                                   <input type="radio" name="radio<?php echo $value_menu['id']; ?>" id="enable" autocomplete="off" <?php  if($value_menu['enabled'] == 1){ echo 'checked'; }?>>販売中
                                 </label>
@@ -100,7 +99,7 @@ if (isset($_SESSION["USERID"])):
                                   <input type="radio" name="radio<?php echo $value_menu['id']; ?>" id="disable" autocomplete="off" <?php  if($value_menu['enabled'] == 0){ echo 'checked'; }?>>販売停止中
                                 </label>
                               </div>
-                              <div class="col-4 edit"><a class="btn btn-green" href="update.php?menu_id=<?php echo $value_menu['id']; ?>">編集</a></div>
+                              <div class="col-4 wrap_item_btn edit"><a class="btn btn-green" href="update.php?menu_id=<?php echo $value_menu['id']; ?>">編集</a></div>
                             </div>
                           </div>
                           <?php

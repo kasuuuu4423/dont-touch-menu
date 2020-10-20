@@ -53,21 +53,21 @@ if (isset($_SESSION["USERID"])):
               $data_id_cat = $count_cat;
             }
             ?>
-            <div  id="<?php echo $value_cat['id']; ?>" class="col-12 tbl_item" data-tbl="rule_category" data-id="<?php echo $data_id_cat; ?>">
+            <div id="<?php echo $value_cat['id']; ?>" class="col-12 tbl_item" data-tbl="rule_category" data-id="<?php echo $data_id_cat; ?>">
               <div class="row">
-                <div class="col-12 cat_name">カテゴリー：<?php echo $value_cat['name']; ?></div>
+                <div class="col-8 cat_name">カテゴリー：<?php echo $value_cat['name']; ?></div>
+                  <div class="col-3 cat_nav">
+                    <button class="tgl_nav btn btn-green">編集▽</button>
+                  </div>
+                  <div class="col-11 d-none btns cat_btns <?php if($sort_rules[$value_cat['id']]) echo 'sortable'; ?>">
+                    <div><a href="insert.php?cat_id=<?php echo $value_cat['id']; ?>&target=rule">ルールを追加</a></div>
+                    <div><a class="btn_sort_item <?php if(!$sort_rules[$value_cat['id']]) echo 'd-none' ?>">ルールの順番を変更</a></div>
+                    <div><a href="update.php?cat_id=<?php echo $value_cat['id']; ?>">カテゴリーを編集</a></div>
+                  </div>
                 <?php
                 $flag = false;
                 if(!empty($sort_rules)):
                   ?>
-                  <div class="col-12 cat_nav">
-                    <button class="tgl_nav btn btn-green">編集▽</button>
-                    <div class="row btns <?php if($sort_rules[$value_cat['id']]) echo 'sortable'; ?>">
-                      <div><a href="insert.php?cat_id=<?php echo $value_cat['id']; ?>&target=rule">ルールを追加</a></div>
-                      <div><a class="btn_sort_item <?php if(!$sort_rules[$value_cat['id']]) echo 'd-none' ?>">ルールの順番を変更</a></div>
-                      <div><a href="update.php?cat_id=<?php echo $value_cat['id']; ?>">カテゴリーを編集</a></div>
-                    </div>
-                  </div>
                   <div class="col-12 tbl tbl_update_index">
                     <div class="row items">
                       <?php
@@ -85,7 +85,7 @@ if (isset($_SESSION["USERID"])):
                           <div id="<?php echo $value_rule['id']; ?>" class="col-12 tbl_row" data-tbl="rule" data-id="<?php echo $data_id_item; ?>">
                             <div class="row">
                               <div class="col-8 item_name"><?php echo $value_rule['content']; ?></div>
-                              <div class="col-4 edit"><a class="btn btn-green" href="update.php?rule_id=<?php echo $value_rule['id']; ?>">編集</a></div>
+                              <div class="col-4 wrap_item_btn edit"><a class="btn btn-green" href="update.php?rule_id=<?php echo $value_rule['id']; ?>">編集</a></div>
                             </div>
                           </div>
                           <?php

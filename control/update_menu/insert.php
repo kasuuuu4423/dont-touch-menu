@@ -6,6 +6,17 @@ require '../../lib/pdo/lib_pdo.php';
 
 $pdo = new Lib_pdo();
 
+if(isset($_POST['insert_cat'])){
+  $pdo->insert_menu_category($_POST['menu_cat_name'], $_SESSION['ID']);
+  $_SESSION['menu_msg'] = 'カテゴリーを追加しました';
+  header('Location: ./');
+}
+elseif(isset($_POST['insert_menu'])){
+  $pdo->insert_menu($_POST['menu_name'], $_POST['menu_price'], $_POST['menu_desc'], $_FILES['menu_img'], $_POST['menu_enabled'], $_SESSION['ID'], $_POST['menu_cat_id'], $img_menu_path);
+  $_SESSION['menu_msg'] = 'メニューを追加しました';
+  header('Location: ./');
+}
+
 if (isset($_SESSION["USERID"])):
   ?>
   <main>
@@ -102,19 +113,7 @@ if (isset($_SESSION["USERID"])):
           </div>
           <input type="hidden" name="menu_cat_id" value="<?php echo $_GET['cat_id']?>">
         </form>
-        <?php endif;
-
-        if(isset($_POST['insert_cat'])){
-          $pdo->insert_menu_category($_POST['menu_cat_name'], $_SESSION['ID']);
-          $_SESSION['menu_msg'] = 'カテゴリーを追加しました';
-          header('Location: ./');
-        }
-        elseif(isset($_POST['insert_menu'])){
-          $pdo->insert_menu($_POST['menu_name'], $_POST['menu_price'], $_POST['menu_desc'], $_FILES['menu_img'], $_POST['menu_enabled'], $_SESSION['ID'], $_POST['menu_cat_id'], $img_menu_path);
-          $_SESSION['menu_msg'] = 'メニューを追加しました';
-          header('Location: ./');
-        }
-        ?>
+        <?php endif; ?>
       </div>
     </section>
   </main>
@@ -122,3 +121,4 @@ if (isset($_SESSION["USERID"])):
 endif;
 
 require '../elements/footer.php';
+

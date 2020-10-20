@@ -8,55 +8,70 @@ export const sort_item = () => {
     let flgs_btn = [];
     let sortables = [];
     let orders = [];
+    let menu_btns = [];
     for(let i = 0; i < btn_sort_item.length; i++){
-        flgs_btn.push(false);
-        let items = btn_sort_item[i].closest('div.tbl_item').getElementsByClassName('items')[0];
-        sortables[i] = Sortable.create(items,{
-            animation: 110,
-            store: {
-                set: function (sortable) {
-                    orders[i] = sortable.toArray();
-                    console.log(orders);
-                    flg_sort = true;
-                    // localStorage.setItem(sortable.options.group.name, orders.join('|'));
-                }
+        let tbl_item = btn_sort_item[i].closest('div.tbl_item');
+        console.log(tbl_item.getElementsByClassName('no_items'));
+        if(tbl_item.getElementsByClassName('no_items')[0] == null){
+            flgs_btn.push(false);
+            let items = btn_sort_item[i].closest('div.tbl_item').getElementsByClassName('items')[0];
+            
+            if(btn_sort_item[i].closest('div.tbl_item').getElementsByClassName('wrap_item_btn')){
+                menu_btns[i] = btn_sort_item[i].closest('div.tbl_item').getElementsByClassName('wrap_item_btn');
             }
-        });
-        sortables[i].option('disabled', true);
-        btn_sort_item[i].addEventListener('click', (e) => {
-            if(!flgs_btn[i]){
-                e.target.innerText = '完了';
-                e.target.classList.add('btn');
-                e.target.classList.add('done');
-                sortables[i].option('disabled', false);
-                flgs_btn[i] = true;
-            }
-            else{
-                e.target.innerText = btn_text;
-                e.target.classList.remove('btn');
-                e.target.classList.remove('done');
-                sortables[i].option('disabled', true);
-                flgs_btn[i] = false;
-                let tbl_row = items.getElementsByClassName('tbl_row');
-                let tbl_item = items.closest('div.tbl_item');
-                if(flg_sort){
-                    for(let row_i = 0; row_i < tbl_row.length; row_i++){
-                        let data_id = tbl_row[row_i].getAttribute('data-id');
-                        let data_tbl = tbl_row[row_i].getAttribute('data-tbl');
-                        let item_id = tbl_row[row_i].id;
-                        let tbl_item_id = parseInt(tbl_item.getAttribute('data-id')) - 1;
-                        let _order = Object.keys(orders[tbl_item_id]).filter(function(k) { return orders[tbl_item_id][k] == data_id})[0];
-                        let order = parseInt(_order) + 1;
-                        let form = new FormData();
-                        form.append('tbl', data_tbl);
-                        form.append('item_id', item_id);
-                        form.append('order', order);
-                        lib.ajax('POST', 'https://artful.jp/staging-menu/bin/ajax/update_sort.php', form);
+            sortables[i] = Sortable.create(items,{
+                animation: 110,
+                store: {
+                    set: function (sortable) {
+                        orders[i] = sortable.toArray();
+                        console.log(orders);
+                        flg_sort = true;
+                        // localStorage.setItem(sortable.options.group.name, orders.join('|'));
                     }
-                    flg_sort = false;
                 }
-            }
-        });
+            });
+            sortables[i].option('disabled', true);
+            btn_sort_item[i].addEventListener('click', (e) => {
+                if(!flgs_btn[i]){
+                    e.target.innerText = '完了';
+                    e.target.classList.add('btn');
+                    e.target.classList.add('done');
+                    sortables[i].option('disabled', false);
+                    flgs_btn[i] = true;
+                    for(let j = 0; j < menu_btns[i].length; j++){
+                        menu_btns[i][j].style.display = 'none';
+                    };
+                }
+                else{
+                    e.target.innerText = btn_text;
+                    e.target.classList.remove('btn');
+                    e.target.classList.remove('done');
+                    sortables[i].option('disabled', true);
+                    flgs_btn[i] = false;
+                    let tbl_row = items.getElementsByClassName('tbl_row');
+                    let tbl_item = items.closest('div.tbl_item');
+                    if(flg_sort){
+                        for(let row_i = 0; row_i < tbl_row.length; row_i++){
+                            let data_id = tbl_row[row_i].getAttribute('data-id');
+                            let data_tbl = tbl_row[row_i].getAttribute('data-tbl');
+                            let item_id = tbl_row[row_i].id;
+                            let tbl_item_id = parseInt(tbl_item.getAttribute('data-id')) - 1;
+                            let _order = Object.keys(orders[tbl_item_id]).filter(function(k) { return orders[tbl_item_id][k] == data_id})[0];
+                            let order = parseInt(_order) + 1;
+                            let form = new FormData();
+                            form.append('tbl', data_tbl);
+                            form.append('item_id', item_id);
+                            form.append('order', order);
+                            lib.ajax('POST', 'https://artful.jp/staging-menu/bin/ajax/update_sort.php', form);
+                        }
+                        flg_sort = false;
+                    }
+                    for(let j = 0; j < menu_btns[i].length; j++){
+                        menu_btns[i][j].style.display = '';
+                    };
+                }
+            });
+        }
     }
 }
 
@@ -68,7 +83,7 @@ export const sort_cat = () => {
     let btn_displays = [];
     let tbl_rows_displays = [];
     let btns = document.getElementsByClassName('btn');
-    let wrap_btn_add = document.getElementById('wrap_btn_add');
+    let wrap_btn_add = document.getElementById('btns_cat');
     let tbl_rows = document.getElementsByClassName('tbl_row');
     let orders;
     
@@ -101,7 +116,7 @@ export const sort_cat = () => {
                     btn_displays.push("");
                 }
             }
-            wrap_btn_add.style.display = 'none';
+            wrap_btn_add.style.justifyContent = 'center';
             sortable.option('disabled', false);
             flg_btn = true;
         }
@@ -126,7 +141,7 @@ export const sort_cat = () => {
                 tbl_rows_displays.push(tbl_rows[tr_i].style.display);
                 tbl_rows[tr_i].style.display = tbl_rows_displays[tr_i];
             }
-            wrap_btn_add.style.display = 'block';
+            wrap_btn_add.style.justifyContent = 'space-around';
             for(let b_i = 0; b_i < btns.length; b_i++){
                 if(btns[b_i] != btn_sort){
                     btns[b_i].style.display = btn_displays[b_i];
